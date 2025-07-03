@@ -1,7 +1,7 @@
 
 const AboutSection = () => {
   return (
-    <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-green-50 to-orange-50">
+    <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-50 to-white">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
@@ -26,19 +26,19 @@ const AboutSection = () => {
             </div>
             <div className="mt-8 grid grid-cols-2 gap-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-600">Family</div>
+                <div className="text-2xl font-bold text-blue-600">Family</div>
                 <div className="text-gray-600">Owned & Operated</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-600">100%</div>
+                <div className="text-2xl font-bold text-blue-600">100%</div>
                 <div className="text-gray-600">Authentic Greek</div>
               </div>
             </div>
           </div>
           <div className="lg:order-first">
             <img 
-              src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&h=400&fit=crop" 
-              alt="Beautiful Greek landscape representing our heritage"
+              src="https://images.unsplash.com/photo-1493962853295-0fd70327578a?w=600&h=400&fit=crop" 
+              alt="Greek landscape with traditional architecture"
               className="rounded-lg shadow-lg w-full"
             />
           </div>

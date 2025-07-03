@@ -9,7 +9,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 to-orange-50">
+    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blue-50 to-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -22,13 +22,13 @@ const ContactSection = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div>
-            <Card className="h-full">
+            <Card className="h-full border-blue-100">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">Store Information</h3>
                 
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
-                    <MapPin className="h-6 w-6 text-green-600 mt-1" />
+                    <MapPin className="h-6 w-6 text-blue-600 mt-1" />
                     <div>
                       <h4 className="font-semibold text-gray-900">Address</h4>
                       <p className="text-gray-600">
@@ -40,7 +40,7 @@ const ContactSection = () => {
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <Store className="h-6 w-6 text-green-600 mt-1" />
+                    <Store className="h-6 w-6 text-blue-600 mt-1" />
                     <div>
                       <h4 className="font-semibold text-gray-900">Store Hours</h4>
                       <div className="text-gray-600 space-y-1">
@@ -53,13 +53,13 @@ const ContactSection = () => {
 
                   <div className="space-y-3">
                     <Button 
-                      className="w-full bg-green-600 hover:bg-green-700"
+                      className="w-full bg-blue-600 hover:bg-blue-700"
                       onClick={handleDirections}
                     >
                       <MapPin className="mr-2 h-5 w-5" />
                       Get Directions on Google Maps
                     </Button>
-                    <Button variant="outline" className="w-full border-green-600 text-green-600 hover:bg-green-50">
+                    <Button variant="outline" className="w-full border-blue-600 text-blue-600 hover:bg-blue-50">
                       Contact Stratos Market
                     </Button>
                   </div>
@@ -69,12 +69,12 @@ const ContactSection = () => {
           </div>
 
           <div>
-            <Card className="h-full">
+            <Card className="h-full border-blue-100">
               <CardContent className="p-0">
                 <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden">
                   <img 
-                    src="https://images.unsplash.com/photo-1466442929976-97f336a657be?w=600&h=400&fit=crop" 
-                    alt="Traditional Greek architecture"
+                    src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=600&h=400&fit=crop" 
+                    alt="Beautiful Greek countryside landscape"
                     className="w-full h-full object-cover"
                   />
                 </div>
