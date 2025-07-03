@@ -4,15 +4,19 @@ import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Store } from "lucide-react";
 
 const ContactSection = () => {
+  const handleDirections = () => {
+    window.open('https://www.google.com/maps/place/Stratos+Market/@39.3161481,26.1429499,17z/data=!3m1!4b1!4m6!3m5!1s0x14ba90b7da6564c9:0xa0bdf39da3a750df!8m2!3d39.3161481!4d26.1455248!16s%2Fg%2F11fxg0j296?entry=ttu&g_ep=EgoyMDI1MDYzMC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+  };
+
   return (
     <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 to-orange-50">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Visit Our Store
+            Visit Stratos Market
           </h2>
           <p className="text-xl text-gray-600">
-            Come experience our local market in person - we'd love to meet you!
+            Come experience authentic Greek products and warm hospitality - we'd love to welcome you!
           </p>
         </div>
 
@@ -28,9 +32,9 @@ const ContactSection = () => {
                     <div>
                       <h4 className="font-semibold text-gray-900">Address</h4>
                       <p className="text-gray-600">
-                        123 Main Street<br />
-                        Downtown Market District<br />
-                        Your City, State 12345
+                        Stratos Market<br />
+                        Greece<br />
+                        (Near coordinates: 39.3161481, 26.1455248)
                       </p>
                     </div>
                   </div>
@@ -48,12 +52,15 @@ const ContactSection = () => {
                   </div>
 
                   <div className="space-y-3">
-                    <Button className="w-full bg-green-600 hover:bg-green-700">
+                    <Button 
+                      className="w-full bg-green-600 hover:bg-green-700"
+                      onClick={handleDirections}
+                    >
                       <MapPin className="mr-2 h-5 w-5" />
-                      Get Directions
+                      Get Directions on Google Maps
                     </Button>
                     <Button variant="outline" className="w-full border-green-600 text-green-600 hover:bg-green-50">
-                      Call Us: (555) 123-4567
+                      Contact Stratos Market
                     </Button>
                   </div>
                 </div>
@@ -66,16 +73,16 @@ const ContactSection = () => {
               <CardContent className="p-0">
                 <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden">
                   <img 
-                    src="https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=600&h=400&fit=crop" 
-                    alt="Store location map"
+                    src="https://images.unsplash.com/photo-1466442929976-97f336a657be?w=600&h=400&fit=crop" 
+                    alt="Traditional Greek architecture"
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="p-6">
-                  <h4 className="font-semibold text-gray-900 mb-2">Easy to Find</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">Easy to Find in Greece</h4>
                   <p className="text-gray-600">
-                    Located in the heart of downtown, with plenty of parking available. 
-                    Look for our green awning and the fresh produce displays outside!
+                    Located in a beautiful area of Greece, Stratos Market is your destination for 
+                    authentic Greek products and souvenirs. Look for our welcoming storefront!
                   </p>
                 </div>
               </CardContent>
