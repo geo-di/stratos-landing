@@ -79,7 +79,7 @@ const ReviewsSection = () => {
 
             <div className="text-center mt-12">
               <p className="text-gray-600 mb-4">
-                Showing {reviews.length} five-star Google Reviews
+                Showing {Math.min(reviews.length, 8)} of {reviews.length} five-star Google Reviews
               </p>
               <div className="flex items-center justify-center space-x-2">
                 <div className="flex space-x-1">
