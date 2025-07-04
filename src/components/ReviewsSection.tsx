@@ -76,19 +76,21 @@ const ReviewsSection = () => {
                 </Card>
               ))}
             </div>
-
             <div className="text-center mt-12">
-              <p className="text-gray-600 mb-4">
-                Total reviews: {totalReviews ?? 'N/A'}
+              <p className="text-gray-700 text-base mb-2">
+                Based on <strong>{totalReviews ?? 'N/A'}</strong> verified Google reviews
               </p>
               <div className="flex items-center justify-center space-x-2">
-                <div className="flex space-x-1">
+                <div className="flex space-x-1" aria-label={`Average rating: ${rating ?? 'N/A'} out of 5`}>
                   {renderStars(Math.round(rating ?? 0))}
                 </div>
                 <span className="text-lg font-semibold text-gray-900">
-                  {rating ? `${rating.toFixed(1)}/5` : 'N/A'}
+                  {rating ? `${rating.toFixed(1)} out of 5 stars` : 'Rating not available'}
                 </span>
               </div>
+              <p className="text-gray-600 text-sm mt-2">
+                Read what real customers are saying about us on Google
+              </p>
             </div>
           </>
         )}
