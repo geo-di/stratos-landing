@@ -1,4 +1,3 @@
-
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
@@ -22,13 +21,13 @@ serve(async (req) => {
 
   try {
     const { placeId } = await req.json();
-    
+
     if (!placeId) {
       throw new Error('Place ID is required');
     }
 
     const apiKey = Deno.env.get('GOOGLE_PLACES_API_KEY');
-    
+
     if (!apiKey) {
       throw new Error('Google Places API key not configured');
     }
@@ -36,22 +35,33 @@ serve(async (req) => {
     console.log('Fetching reviews for place:', placeId);
 
     const response = await fetch(
-      `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews&key=${apiKey}`
+      `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=rating,user_ratings_total,reviews&key=${apiKey}`
     );
-    
+
     const data = await response.json();
-    
-    if (data.status === 'OK' && data.result?.reviews) {
-      // Filter to only 5-star reviews
-      const fiveStarReviews = data.result.reviews.filter(
-        (review: GoogleReview) => review.rating === 5
-      );
-      
+
+    if (data.status === 'OK' && data.result) {
+      const allReviews: GoogleReview[] = data.result.reviews || [];
+      const fiveStarReviews = allReviews.filter((r) => r.rating === 5);
+
+      const rating = data.result.rating;
+      const totalReviews = data.result.user_ratings_total;
+
       console.log(`Found ${fiveStarReviews.length} five-star reviews`);
-      
-      return new Response(JSON.stringify({ reviews: fiveStarReviews }), {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+
+      return new Response(
+        JSON.stringify({
+          reviews: fiveStarReviews,
+          rating,
+          totalReviews,
+        }),
+        {
+          headers: {
+            ...corsHeaders,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
     } else {
       throw new Error(data.error_message || 'Failed to fetch reviews');
     }
