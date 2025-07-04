@@ -1,6 +1,9 @@
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
-import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+};
 
 interface GoogleReview {
   author_name: string;
@@ -10,51 +13,66 @@ interface GoogleReview {
   relative_time_description: string;
 }
 
-interface UseGoogleReviewsReturn {
-  reviews: GoogleReview[];
-  rating: number | null;
-  totalReviews: number | null;
-  loading: boolean;
-  error: string | null;
-}
+serve(async (req) => {
+  // Handle CORS preflight requests
+  if (req.method === 'OPTIONS') {
+    return new Response(null, { headers: corsHeaders });
+  }
 
+  try {
+    const { placeId } = await req.json();
 
-export const useGoogleReviewsBackend = (placeId: string): UseGoogleReviewsReturn => {
-  const [reviews, setReviews] = useState<GoogleReview[]>([]);
-  const [rating, setRating] = useState<number | null>(null);
-  const [totalReviews, setTotalReviews] = useState<number | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+    if (!placeId) {
+      throw new Error('Place ID is required');
+    }
 
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        console.log('Calling google-reviews edge function...');
-        
-        const { data, error } = await supabase.functions.invoke('google-reviews', {
-          body: { placeId }
-        });
+    const apiKey = Deno.env.get('GOOGLE_PLACES_API_KEY');
 
-        if (error) throw error;
+    if (!apiKey) {
+      throw new Error('Google Places API key not configured');
+    }
 
-        if (data?.reviews) {
-          setReviews(data.reviews);
-          setRating(data.rating ?? null);
-          setTotalReviews(data.totalReviews ?? null);
-        } else {
-          throw new Error('No reviews data received');
+    console.log('Fetching reviews for place:', placeId);
+
+    const response = await fetch(
+      `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=rating,user_ratings_total,reviews&key=${apiKey}`
+    );
+
+    const data = await response.json();
+
+    if (data.status === 'OK' && data.result) {
+      const allReviews: GoogleReview[] = data.result.reviews || [];
+      const fiveStarReviews = allReviews.filter((r) => r.rating === 5);
+
+      const rating = data.result.rating;
+      const totalReviews = data.result.user_ratings_total;
+
+      console.log(`Found ${fiveStarReviews.length} five-star reviews`);
+
+      return new Response(
+        JSON.stringify({
+          reviews: fiveStarReviews,
+          rating,
+          totalReviews,
+        }),
+        {
+          headers: {
+            ...corsHeaders,
+            'Content-Type': 'application/json',
+          },
         }
-      } catch (err) {
-        console.error('Error fetching Google Reviews:', err);
-        setError(err instanceof Error ? err.message : 'Unknown error occurred');
-      } finally {
-        setLoading(false);
+      );
+    } else {
+      throw new Error(data.error_message || 'Failed to fetch reviews');
+    }
+  } catch (error) {
+    console.error('Error in google-reviews function:', error);
+    return new Response(
+      JSON.stringify({ error: error.message }),
+      {
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       }
-    };
-
-    fetchReviews();
-  }, [placeId]);
-
-  return { reviews, rating, totalReviews, loading, error };
-};
-
+    );
+  }
+});
