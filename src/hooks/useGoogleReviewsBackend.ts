@@ -12,12 +12,17 @@ interface GoogleReview {
 
 interface UseGoogleReviewsReturn {
   reviews: GoogleReview[];
+  rating: number | null;
+  totalReviews: number | null;
   loading: boolean;
   error: string | null;
 }
 
+
 export const useGoogleReviewsBackend = (placeId: string): UseGoogleReviewsReturn => {
   const [reviews, setReviews] = useState<GoogleReview[]>([]);
+  const [rating, setRating] = useState<number | null>(null);
+  const [totalReviews, setTotalReviews] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,12 +35,12 @@ export const useGoogleReviewsBackend = (placeId: string): UseGoogleReviewsReturn
           body: { placeId }
         });
 
-        if (error) {
-          throw error;
-        }
+        if (error) throw error;
 
         if (data?.reviews) {
           setReviews(data.reviews);
+          setRating(data.rating ?? null);
+          setTotalReviews(data.totalReviews ?? null);
         } else {
           throw new Error('No reviews data received');
         }
@@ -50,5 +55,6 @@ export const useGoogleReviewsBackend = (placeId: string): UseGoogleReviewsReturn
     fetchReviews();
   }, [placeId]);
 
-  return { reviews, loading, error };
+  return { reviews, rating, totalReviews, loading, error };
 };
+

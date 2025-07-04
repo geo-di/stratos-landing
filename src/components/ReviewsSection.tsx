@@ -4,7 +4,7 @@ import { Star, Loader2 } from "lucide-react";
 import { useGoogleReviewsBackend } from "@/hooks/useGoogleReviewsBackend";
 
 const ReviewsSection = () => {
-  const { reviews, loading, error } = useGoogleReviewsBackend('ChIJyWRl2reQuhQR31Cno53zvaA');
+  const { reviews, rating, totalReviews, loading, error } = useGoogleReviewsBackend('ChIJyWRl2reQuhQR31Cno53zvaA');
 
   const renderStars = (rating: number) => {
     return [...Array(5)].map((_, i) => (
@@ -50,7 +50,7 @@ const ReviewsSection = () => {
           </div>
         ) : reviews.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-600">No 5-star reviews found.</p>
+            <p className="text-gray-600">Error loading reviews.</p>
           </div>
         ) : (
           <>
@@ -79,13 +79,15 @@ const ReviewsSection = () => {
 
             <div className="text-center mt-12">
               <p className="text-gray-600 mb-4">
-                Showing {Math.min(reviews.length, 8)} of {reviews.length} five-star Google Reviews
+                Total reviews: {totalReviews ?? 'N/A'}
               </p>
               <div className="flex items-center justify-center space-x-2">
                 <div className="flex space-x-1">
-                  {renderStars(5)}
+                  {renderStars(Math.round(rating ?? 0))}
                 </div>
-                <span className="text-lg font-semibold text-gray-900">5.0/5</span>
+                <span className="text-lg font-semibold text-gray-900">
+                  {rating ? `${rating.toFixed(1)}/5` : 'N/A'}
+                </span>
               </div>
             </div>
           </>
