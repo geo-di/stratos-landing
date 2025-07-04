@@ -55,42 +55,26 @@ const ReviewsSection = () => {
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {reviews.slice(0, 8).map((review, index) => {
-                const [expanded, setExpanded] = useState(false);
-
-                return (
-                  <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
-                    <CardContent className="p-6">
-                      <div className="flex items-center mb-4">
-                        <div className="flex space-x-1 mr-2">
-                          {renderStars(review.rating)}
-                        </div>
-                        <span className="text-sm text-gray-500">
-                          {review.relative_time_description || formatDate(review.time)}
-                        </span>
+              {reviews.slice(0, 8).map((review, index) => (
+                <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
+                  <CardContent className="p-6">
+                    <div className="flex items-center mb-4">
+                      <div className="flex space-x-1 mr-2">
+                        {renderStars(review.rating)}
                       </div>
-
-                      <p className="text-gray-600 mb-2 text-sm">
-                        "{expanded ? review.text : `${review.text.slice(0, 200)}${review.text.length > 200 ? '...' : ''}`}"
-                      </p>
-
-                      {review.text.length > 200 && (
-                        <button
-                          onClick={() => setExpanded(!expanded)}
-                          className="text-blue-600 text-sm hover:underline focus:outline-none"
-                        >
-                          {expanded ? 'Show less' : 'Read more'}
-                        </button>
-                      )}
-
-                      <div className="font-medium text-gray-900 mt-2">
-                        {review.author_name}
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-
+                      <span className="text-sm text-gray-500">
+                        {review.relative_time_description || formatDate(review.time)}
+                      </span>
+                    </div>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      "{review.text}"
+                    </p>
+                    <div className="font-medium text-gray-900">
+                      {review.author_name}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
             <div className="text-center mt-12">
               <p className="text-gray-700 text-base mb-2">
