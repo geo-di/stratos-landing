@@ -1,24 +1,10 @@
 
-import { useState } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Star, Loader2 } from "lucide-react";
-import { useGoogleReviews } from "@/hooks/useGoogleReviews";
-import ApiKeyInput from "@/components/ApiKeyInput";
+import { useGoogleReviewsBackend } from "@/hooks/useGoogleReviewsBackend";
 
 const ReviewsSection = () => {
-  const [apiKey, setApiKey] = useState<string | null>(
-    localStorage.getItem('google_places_api_key')
-  );
-
-  const { reviews, loading, error } = useGoogleReviews(
-    'ChIJyWRl2reQuhQR31Cno53zvaA',
-    apiKey
-  );
-
-  const handleApiKeySubmit = (key: string) => {
-    localStorage.setItem('google_places_api_key', key);
-    setApiKey(key);
-  };
+  const { reviews, loading, error } = useGoogleReviewsBackend('ChIJyWRl2reQuhQR31Cno53zvaA');
 
   const renderStars = (rating: number) => {
     return [...Array(5)].map((_, i) => (
@@ -53,9 +39,7 @@ const ReviewsSection = () => {
           </p>
         </div>
 
-        {!apiKey ? (
-          <ApiKeyInput onApiKeySubmit={handleApiKeySubmit} />
-        ) : loading ? (
+        {loading ? (
           <div className="flex justify-center items-center py-12">
             <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
             <span className="ml-2 text-gray-600">Loading reviews...</span>
@@ -63,15 +47,6 @@ const ReviewsSection = () => {
         ) : error ? (
           <div className="text-center py-12">
             <p className="text-red-600 mb-4">Error loading reviews: {error}</p>
-            <button
-              onClick={() => {
-                localStorage.removeItem('google_places_api_key');
-                setApiKey(null);
-              }}
-              className="text-blue-600 hover:underline"
-            >
-              Try different API key
-            </button>
           </div>
         ) : reviews.length === 0 ? (
           <div className="text-center py-12">
