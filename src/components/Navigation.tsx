@@ -22,12 +22,12 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
+    <nav className="bg-white/95 backdrop-blur-sm shadow-lg sticky top-0 z-50 border-b border-blue-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2">
             <Store className="h-8 w-8 text-blue-600" />
-            <span className="text-xl font-bold text-gray-800">Stratos Market Lesvos</span>
+            <span className="text-xl font-bold text-gray-800">Stratos Market</span>
           </Link>
           
           <div className="hidden md:flex items-center space-x-8">
@@ -67,8 +67,8 @@ const Navigation = () => {
             >
               Gallery
             </Link>
-            <Button className="bg-blue-600 hover:bg-blue-700">
-              Visit Our Lesvos Store
+            <Button className="bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300">
+              Visit Our Store
             </Button>
           </div>
 
@@ -124,8 +124,8 @@ const Navigation = () => {
                 Gallery
               </Link>
               <div className="px-4 pt-2">
-                <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                  Visit Our Lesvos Store
+                <Button className="w-full bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300">
+                  Visit Our Store
                 </Button>
               </div>
             </div>

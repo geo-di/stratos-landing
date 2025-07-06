@@ -3,16 +3,16 @@ import { Store, MapPin, Star } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-blue-900 text-white py-12">
+    <footer className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <Store className="h-8 w-8 text-blue-300" />
-              <span className="text-xl font-bold">Stratos Market Lesvos</span>
+              <span className="text-xl font-bold">Stratos Market</span>
             </div>
             <p className="text-blue-100 mb-4">
-              Your authentic Greek island market destination in Mytilene, Lesvos for fresh Mediterranean products, 
+              Your authentic Greek market destination in Anaxos, Lesvos, Greece for fresh Mediterranean products, 
               traditional Aegean souvenirs, and genuine Greek hospitality.
             </p>
             <div className="flex items-center space-x-1">
@@ -21,7 +21,7 @@ const Footer = () => {
               <Star className="h-4 w-4 text-yellow-400 fill-current" />
               <Star className="h-4 w-4 text-yellow-400 fill-current" />
               <Star className="h-4 w-4 text-yellow-400 fill-current" />
-              <span className="text-sm text-blue-100 ml-2">Trusted by Lesvos locals and tourists</span>
+              <span className="text-sm text-blue-100 ml-2">Trusted by Anaxos locals and tourists</span>
             </div>
           </div>
 
@@ -44,18 +44,18 @@ const Footer = () => {
                 <MapPin className="h-5 w-5 text-blue-300 mt-0.5" />
                 <div>
                   <p>Stratos Market</p>
-                  <p>Mytilene, Lesvos Island</p>
-                  <p>North Aegean, Greece</p>
+                  <p>Anaxos, Lesvos, Greece</p>
+                  <p>North Aegean Region</p>
                 </div>
               </div>
-              <p>Visit us for authentic Greek island products</p>
-              <p>Email: info@stratosmarket-lesvos.gr</p>
+              <p>Visit us for authentic Greek products</p>
+              <p>Email: info@stratosmarket.gr</p>
             </div>
           </div>
         </div>
 
         <div className="border-t border-blue-700 mt-8 pt-8 text-center text-blue-100">
-          <p>&copy; 2024 Stratos Market Lesvos. All rights reserved. Bringing you authentic Greek island tradition from Mytilene.</p>
+          <p>&copy; 2024 Stratos Market. All rights reserved. Bringing you authentic Greek tradition from Anaxos.</p>
         </div>
       </div>
     </footer>

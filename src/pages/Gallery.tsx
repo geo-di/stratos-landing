@@ -1,5 +1,4 @@
 
-import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -7,80 +6,9 @@ import { ArrowLeft, Image } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { galleryImages } from "@/config/gallery";
 
 const Gallery = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
-
-  const galleryImages = [
-    {
-      id: 1,
-      src: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=800&h=600&fit=crop",
-      alt: "Fresh Mediterranean oranges and citrus fruits at Stratos Market Lesvos",
-      category: "produce",
-      title: "Fresh Lesvos Citrus"
-    },
-    {
-      id: 2,
-      src: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?w=800&h=600&fit=crop",
-      alt: "Beautiful Lesvos landscape with mountains and Mediterranean scenery",
-      category: "landscape",
-      title: "Lesvos Island Beauty"
-    },
-    {
-      id: 3,
-      src: "https://images.unsplash.com/photo-1472396961693-142e6e269027?w=800&h=600&fit=crop",
-      alt: "Traditional Greek countryside near Mytilene, Lesvos",
-      category: "landscape",
-      title: "Mytilene Countryside"
-    },
-    {
-      id: 4,
-      src: "https://images.unsplash.com/photo-1466721591366-2d5fba72006d?w=800&h=600&fit=crop",
-      alt: "Mediterranean wildlife and nature around Lesvos Island",
-      category: "landscape",
-      title: "Lesvos Nature"
-    },
-    {
-      id: 5,
-      src: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=800&h=600&fit=crop",
-      alt: "Fresh local produce and vegetables at Stratos Market",
-      category: "produce",
-      title: "Local Market Produce"
-    },
-    {
-      id: 6,
-      src: "https://images.unsplash.com/photo-1452960962994-acf4fd70b632?w=800&h=600&fit=crop",
-      alt: "Traditional Greek artisan crafts and souvenirs from Lesvos",
-      category: "crafts",
-      title: "Greek Island Crafts"
-    },
-    {
-      id: 7,
-      src: "https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?w=800&h=600&fit=crop",
-      alt: "Traditional Greek delicacies and Mediterranean specialties",
-      category: "food",
-      title: "Greek Specialties"
-    },
-    {
-      id: 8,
-      src: "https://images.unsplash.com/photo-1498936178812-4b2e558d2937?w=800&h=600&fit=crop",
-      alt: "Natural honey and preserves from Lesvos local producers",
-      category: "food",
-      title: "Lesvos Honey"
-    }
-  ];
-
-  const categories = [
-    { id: "all", label: "All Photos" },
-    { id: "produce", label: "Fresh Produce" },
-    { id: "food", label: "Greek Specialties" },
-    { id: "crafts", label: "Artisan Crafts" },
-    { id: "landscape", label: "Lesvos Scenery" }
-  ];
-
-  const filteredImages = selectedCategory === "all" 
-    ? galleryImages 
-    : galleryImages.filter(img => img.category === selectedCategory);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
@@ -101,32 +29,15 @@ const Gallery = () => {
               </h1>
             </div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Discover the beauty of Lesvos Island, our authentic Greek products, and the warm atmosphere 
-              of our traditional market in Mytilene through these captivating photos.
+              Discover the beauty of Anaxos, Lesvos, our authentic Greek products, and the warm atmosphere 
+              of our traditional market through these captivating photos from our Google Drive collection.
             </p>
           </div>
         </div>
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {categories.map((category) => (
-            <Button
-              key={category.id}
-              variant={selectedCategory === category.id ? "default" : "outline"}
-              onClick={() => setSelectedCategory(category.id)}
-              className={selectedCategory === category.id 
-                ? "bg-blue-600 hover:bg-blue-700" 
-                : "border-blue-200 text-blue-600 hover:bg-blue-50"
-              }
-            >
-              {category.label}
-            </Button>
-          ))}
-        </div>
-
         {/* Gallery Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredImages.map((image) => (
+          {galleryImages.map((image) => (
             <Dialog key={image.id}>
               <DialogTrigger asChild>
                 <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group">
@@ -169,11 +80,7 @@ const Gallery = () => {
           ))}
         </div>
 
-        {filteredImages.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No images found in this category.</p>
-          </div>
-        )}
+
 
         <div className="text-center mt-16">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
@@ -183,8 +90,8 @@ const Gallery = () => {
             Experience the authentic atmosphere of Stratos Market and discover all our Greek island treasures firsthand.
           </p>
           <Link to="/#contact">
-            <Button className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-3">
-              Get Directions to Our Lesvos Store
+            <Button className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-300">
+              Get Directions to Our Anaxos Store
             </Button>
           </Link>
         </div>

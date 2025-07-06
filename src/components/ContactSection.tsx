@@ -9,14 +9,14 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blue-50 to-white">
+    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 via-white to-blue-50">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Visit Stratos Market in Lesvos
+            Visit Stratos Market in Anaxos
           </h2>
           <p className="text-xl text-gray-600">
-            Come experience authentic Greek island products and warm Mediterranean hospitality in Mytilene, Lesvos - we'd love to welcome you!
+            Come experience authentic Greek products and warm Mediterranean hospitality in Anaxos, Lesvos, Greece - we'd love to welcome you!
           </p>
         </div>
 
@@ -24,7 +24,7 @@ const ContactSection = () => {
           <div>
             <Card className="h-full border-blue-100">
               <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Store Information - Mytilene, Lesvos</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Store Information - Anaxos, Lesvos, Greece</h3>
                 
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
@@ -33,8 +33,8 @@ const ContactSection = () => {
                       <h4 className="font-semibold text-gray-900">Address</h4>
                       <p className="text-gray-600">
                         Stratos Market<br />
-                        Mytilene, Lesvos Island<br />
-                        North Aegean, Greece<br />
+                        Anaxos, Lesvos, Greece<br />
+                        North Aegean Region<br />
                         (Coordinates: 39.3161481, 26.1455248)
                       </p>
                     </div>
@@ -54,14 +54,14 @@ const ContactSection = () => {
 
                   <div className="space-y-3">
                     <Button 
-                      className="w-full bg-blue-600 hover:bg-blue-700"
+                      className="w-full bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300"
                       onClick={handleDirections}
                     >
                       <MapPin className="mr-2 h-5 w-5" />
-                      Get Directions to Lesvos Store
+                      Get Directions to Anaxos Store
                     </Button>
-                    <Button variant="outline" className="w-full border-blue-600 text-blue-600 hover:bg-blue-50">
-                      Contact Stratos Market Lesvos
+                    <Button variant="outline" className="w-full border-blue-600 text-blue-600 hover:bg-blue-50 shadow-lg hover:shadow-xl transition-all duration-300">
+                      Contact Stratos Market
                     </Button>
                   </div>
                 </div>
@@ -75,15 +75,15 @@ const ContactSection = () => {
                 <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden">
                   <img 
                     src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=600&h=400&fit=crop" 
-                    alt="Beautiful Lesvos Island countryside landscape with Mediterranean scenery"
-                    className="w-full h-full object-cover"
+                    alt="Beautiful Anaxos countryside landscape with Mediterranean scenery"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="p-6">
-                  <h4 className="font-semibold text-gray-900 mb-2">Easy to Find in Mytilene, Lesvos</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">Easy to Find in Anaxos, Lesvos</h4>
                   <p className="text-gray-600">
-                    Located in the beautiful area of Mytilene on Lesvos Island, Greece, Stratos Market is your 
-                    destination for authentic Greek island products and Mediterranean souvenirs. Look for our welcoming storefront!
+                    Located in the beautiful area of Anaxos, Lesvos, Greece, Stratos Market is your 
+                    destination for authentic Greek products and Mediterranean souvenirs. Look for our welcoming storefront!
                   </p>
                 </div>
               </CardContent>
