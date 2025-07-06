@@ -50,7 +50,7 @@ serve(async (req) => {
       .filter((file: any) => file.mimeType.startsWith('image/'))
       .map((file: any, index: number) => ({
         id: index + 1,
-        src: `https://drive.google.com/uc?export=view&id=${file.id}`,
+        src: `https://drive.google.com/thumbnail?id=${file.id}&sz=w1000`,
         alt: `${file.name} from Stratos Market Anaxos, Lesvos`,
         title: file.name.replace(/\.[^/.]+$/, ""), // Remove file extension
         driveId: file.id
