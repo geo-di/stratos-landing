@@ -2,13 +2,18 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Image } from "lucide-react";
+import { ArrowLeft, Image, Loader2, AlertCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { galleryImages } from "@/config/gallery";
+import { DRIVE_FOLDER_ID, fallbackImages } from "@/config/gallery";
+import { useDriveImages } from "@/hooks/useDriveImages";
 
 const Gallery = () => {
+  const { data: driveImages, isLoading, error } = useDriveImages(DRIVE_FOLDER_ID);
+  
+  // Use drive images if available, otherwise fall back to static images
+  const images = driveImages && driveImages.length > 0 ? driveImages : fallbackImages;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
@@ -30,14 +35,35 @@ const Gallery = () => {
             </div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Discover the beauty of Anaxos, Lesvos, our authentic Greek products, and the warm atmosphere 
-              of our traditional market through these captivating photos from our Google Drive collection.
+              of our traditional market through these captivating photos.
             </p>
+            
+            {/* Status indicators */}
+            {isLoading && (
+              <div className="flex items-center justify-center mt-4 text-blue-600">
+                <Loader2 className="h-5 w-5 animate-spin mr-2" />
+                <span>Loading fresh images from our gallery...</span>
+              </div>
+            )}
+            
+            {error && (
+              <div className="flex items-center justify-center mt-4 text-amber-600">
+                <AlertCircle className="h-5 w-5 mr-2" />
+                <span>Showing sample images - our live gallery will be available soon</span>
+              </div>
+            )}
+            
+            {driveImages && driveImages.length > 0 && (
+              <div className="mt-4 text-green-600">
+                <span>✨ Showing {driveImages.length} fresh images from our collection</span>
+              </div>
+            )}
           </div>
         </div>
 
         {/* Gallery Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {galleryImages.map((image) => (
+          {images.map((image) => (
             <Dialog key={image.id}>
               <DialogTrigger asChild>
                 <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group">
@@ -79,8 +105,6 @@ const Gallery = () => {
             </Dialog>
           ))}
         </div>
-
-
 
         <div className="text-center mt-16">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
