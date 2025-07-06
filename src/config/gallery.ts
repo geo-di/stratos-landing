@@ -1,4 +1,3 @@
-
 // Google Drive Gallery Configuration
 // To update images: 
 // 1. Upload photos to Google Drive
@@ -6,8 +5,8 @@
 // 3. Update the DRIVE_FOLDER_ID below with your Google Drive folder ID
 // 4. The images will be automatically fetched and displayed in the gallery
 
-// Replace this with your actual Google Drive folder ID
-export const DRIVE_FOLDER_ID = "1your-folder-id-here"; // Update this with your folder ID
+// Your Google Drive folder ID extracted from the shared link
+export const DRIVE_FOLDER_ID = "1lmHh4m9o-rYbnZWNnosyftlNz0l3yLgM";
 
 // Fallback images (used when Drive API is not available or as examples)
 export const fallbackImages = [
