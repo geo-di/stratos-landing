@@ -6,14 +6,19 @@ import { ArrowLeft, Image, Loader2, AlertCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { DRIVE_FOLDER_ID, fallbackImages } from "@/config/gallery";
+import { DRIVE_FOLDER_ID, placeholderMessage } from "@/config/gallery";
 import { useDriveImages } from "@/hooks/useDriveImages";
 
 const Gallery = () => {
   const { data: driveImages, isLoading, error } = useDriveImages(DRIVE_FOLDER_ID);
   
-  // Use drive images if available, otherwise fall back to static images
-  const images = driveImages && driveImages.length > 0 ? driveImages : fallbackImages;
+  // Show placeholder if no images are loaded
+  const images = driveImages && driveImages.length > 0 ? driveImages : [placeholderMessage];
+
+  // Helper function to format titles by replacing underscores with spaces
+  const formatTitle = (title: string) => {
+    return title.replace(/_/g, ' ');
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
@@ -49,7 +54,7 @@ const Gallery = () => {
             {error && (
               <div className="flex items-center justify-center mt-4 text-amber-600">
                 <AlertCircle className="h-5 w-5 mr-2" />
-                <span>Showing sample images - our live gallery will be available soon</span>
+                <span>Photos will be added soon - stay tuned!</span>
               </div>
             )}
             
@@ -74,11 +79,15 @@ const Gallery = () => {
                         alt={image.alt}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         loading="lazy"
+                        onError={(e) => {
+                          console.error('Image failed to load:', image.src);
+                          // You can add a fallback image here if needed
+                        }}
                       />
                     </div>
                     <div className="p-4">
                       <h3 className="font-semibold text-gray-900 text-sm">
-                        {image.title}
+                        {formatTitle(image.title)}
                       </h3>
                     </div>
                   </CardContent>
@@ -94,7 +103,7 @@ const Gallery = () => {
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
                     <h3 className="text-white text-xl font-semibold mb-2">
-                      {image.title}
+                      {formatTitle(image.title)}
                     </h3>
                     <p className="text-gray-200 text-sm">
                       {image.alt}
