@@ -9,11 +9,11 @@ const Footer = () => {
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <Store className="h-8 w-8 text-blue-300" />
-              <span className="text-xl font-bold">Stratos Market</span>
+              <span className="text-xl font-bold">Stratos Market Lesvos</span>
             </div>
             <p className="text-blue-100 mb-4">
-              Your authentic Greek market destination for fresh local products, 
-              traditional souvenirs, and genuine Greek hospitality.
+              Your authentic Greek island market destination in Mytilene, Lesvos for fresh Mediterranean products, 
+              traditional Aegean souvenirs, and genuine Greek hospitality.
             </p>
             <div className="flex items-center space-x-1">
               <Star className="h-4 w-4 text-yellow-400 fill-current" />
@@ -21,7 +21,7 @@ const Footer = () => {
               <Star className="h-4 w-4 text-yellow-400 fill-current" />
               <Star className="h-4 w-4 text-yellow-400 fill-current" />
               <Star className="h-4 w-4 text-yellow-400 fill-current" />
-              <span className="text-sm text-blue-100 ml-2">Trusted by locals</span>
+              <span className="text-sm text-blue-100 ml-2">Trusted by Lesvos locals and tourists</span>
             </div>
           </div>
 
@@ -29,10 +29,11 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2 text-blue-100">
               <li><a href="#home" className="hover:text-blue-300 transition-colors">Home</a></li>
-              <li><a href="#products" className="hover:text-blue-300 transition-colors">Products</a></li>
+              <li><a href="#products" className="hover:text-blue-300 transition-colors">Greek Products</a></li>
               <li><a href="#about" className="hover:text-blue-300 transition-colors">About Us</a></li>
-              <li><a href="#reviews" className="hover:text-blue-300 transition-colors">Reviews</a></li>
-              <li><a href="#contact" className="hover:text-blue-300 transition-colors">Contact</a></li>
+              <li><a href="#reviews" className="hover:text-blue-300 transition-colors">Customer Reviews</a></li>
+              <li><a href="#contact" className="hover:text-blue-300 transition-colors">Contact & Location</a></li>
+              <li><a href="/gallery" className="hover:text-blue-300 transition-colors">Photo Gallery</a></li>
             </ul>
           </div>
 
@@ -43,17 +44,18 @@ const Footer = () => {
                 <MapPin className="h-5 w-5 text-blue-300 mt-0.5" />
                 <div>
                   <p>Stratos Market</p>
-                  <p>Greece</p>
+                  <p>Mytilene, Lesvos Island</p>
+                  <p>North Aegean, Greece</p>
                 </div>
               </div>
-              <p>Visit us for authentic Greek products</p>
-              <p>Email: info@stratosmarket.gr</p>
+              <p>Visit us for authentic Greek island products</p>
+              <p>Email: info@stratosmarket-lesvos.gr</p>
             </div>
           </div>
         </div>
 
         <div className="border-t border-blue-700 mt-8 pt-8 text-center text-blue-100">
-          <p>&copy; 2024 Stratos Market. All rights reserved. Bringing you authentic Greek tradition.</p>
+          <p>&copy; 2024 Stratos Market Lesvos. All rights reserved. Bringing you authentic Greek island tradition from Mytilene.</p>
         </div>
       </div>
     </footer>

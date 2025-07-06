@@ -5,31 +5,31 @@ const ProductShowcase = () => {
   const products = [
     {
       id: 1,
-      name: "Fresh Local Produce",
-      description: "Farm-fresh fruits and vegetables from local growers",
+      name: "Fresh Lesvos Produce",
+      description: "Farm-fresh Mediterranean fruits and vegetables from local Lesvos growers and Mytilene farmers",
       image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=300&fit=crop",
-      category: "Fresh Produce"
+      category: "Local Mediterranean Produce"
     },
     {
       id: 2,
-      name: "Greek Artisan Crafts",
-      description: "Handmade souvenirs and traditional Greek artwork",
+      name: "Greek Island Artisan Crafts",
+      description: "Handmade Lesvos souvenirs, traditional Aegean artwork, and authentic Greek island memorabilia",
       image: "https://images.unsplash.com/photo-1452960962994-acf4fd70b632?w=400&h=300&fit=crop",
-      category: "Souvenirs"
+      category: "Lesvos Souvenirs"
     },
     {
       id: 3,
-      name: "Traditional Specialties",
-      description: "Authentic Greek delicacies and regional products",
+      name: "Traditional Greek Specialties",
+      description: "Authentic Lesvos delicacies including local ouzo, olive oil, and regional Greek island products",
       image: "https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?w=400&h=300&fit=crop",
-      category: "Greek Specialties"
+      category: "Greek Island Specialties"
     },
     {
       id: 4,
-      name: "Local Honey & Preserves",
-      description: "Natural honey and homemade preserves from local producers",
+      name: "Lesvos Honey & Preserves",
+      description: "Natural Mediterranean honey and homemade preserves from local Lesvos producers and beekeepers",
       image: "https://images.unsplash.com/photo-1498936178812-4b2e558d2937?w=400&h=300&fit=crop",
-      category: "Natural Products"
+      category: "Natural Lesvos Products"
     }
   ];
 
@@ -38,11 +38,11 @@ const ProductShowcase = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Our Products
+            Our Authentic Greek Products
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Discover our carefully curated selection of fresh produce, unique souvenirs, 
-            and local specialties that celebrate our community's rich Greek heritage.
+            Discover our carefully curated selection of fresh Mediterranean produce, unique Lesvos souvenirs, 
+            and local specialties that celebrate our beautiful Greek island community's rich Aegean heritage.
           </p>
         </div>
 
@@ -52,7 +52,7 @@ const ProductShowcase = () => {
               <div className="aspect-square overflow-hidden">
                 <img 
                   src={product.image} 
-                  alt={product.name}
+                  alt={`${product.name} - Available at Stratos Market Lesvos`}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
               </div>
@@ -71,10 +71,10 @@ const ProductShowcase = () => {
 
         <div className="text-center mt-12">
           <p className="text-lg text-gray-600 mb-6">
-            Want to see our full selection? Visit us in store!
+            Want to see our full selection of Greek island products? Visit us in our Lesvos store!
           </p>
           <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors">
-            Get Directions
+            Get Directions to Mytilene
           </button>
         </div>
       </div>

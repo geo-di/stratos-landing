@@ -2,14 +2,21 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Store } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (isHomePage) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      window.location.href = `/#${sectionId}`;
     }
     setIsMenuOpen(false);
   };
@@ -18,10 +25,10 @@ const Navigation = () => {
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2">
             <Store className="h-8 w-8 text-blue-600" />
-            <span className="text-xl font-bold text-gray-800">Stratos Market</span>
-          </div>
+            <span className="text-xl font-bold text-gray-800">Stratos Market Lesvos</span>
+          </Link>
           
           <div className="hidden md:flex items-center space-x-8">
             <button 
@@ -54,8 +61,14 @@ const Navigation = () => {
             >
               Contact
             </button>
+            <Link 
+              to="/gallery"
+              className="text-gray-700 hover:text-blue-600 transition-colors"
+            >
+              Gallery
+            </Link>
             <Button className="bg-blue-600 hover:bg-blue-700">
-              Visit Our Store
+              Visit Our Lesvos Store
             </Button>
           </div>
 
@@ -104,9 +117,15 @@ const Navigation = () => {
               >
                 Contact
               </button>
+              <Link 
+                to="/gallery"
+                className="text-left px-4 py-2 text-gray-700 hover:text-blue-600 transition-colors"
+              >
+                Gallery
+              </Link>
               <div className="px-4 pt-2">
                 <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                  Visit Our Store
+                  Visit Our Lesvos Store
                 </Button>
               </div>
             </div>
