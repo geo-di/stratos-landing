@@ -32,7 +32,12 @@ serve(async (req) => {
 
     // Fetch files from Google Drive folder
     const response = await fetch(
-      `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType,webViewLink)`
+      `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType,webViewLink)`,
+      {
+        headers: {
+          'Expires': new Date(Date.now() + 5 * 60 * 1000).toUTCString() // Cache for 5 minutes
+        }
+      }
     )
 
     if (!response.ok) {
