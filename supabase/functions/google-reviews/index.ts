@@ -1,3 +1,4 @@
+
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
@@ -11,6 +12,15 @@ interface GoogleReview {
   text: string;
   time: number;
   relative_time_description: string;
+}
+
+interface OpeningHours {
+  open_now: boolean;
+  periods: Array<{
+    close: { day: number; time: string };
+    open: { day: number; time: string };
+  }>;
+  weekday_text: string[];
 }
 
 serve(async (req) => {
@@ -32,10 +42,10 @@ serve(async (req) => {
       throw new Error('Google Places API key not configured');
     }
 
-    console.log('Fetching reviews for place:', placeId);
+    console.log('Fetching reviews and hours for place:', placeId);
 
     const response = await fetch(
-      `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=rating,user_ratings_total,reviews&key=${apiKey}`
+      `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=rating,user_ratings_total,reviews,opening_hours&key=${apiKey}`
     );
 
     const data = await response.json();
@@ -46,14 +56,17 @@ serve(async (req) => {
 
       const rating = data.result.rating;
       const totalReviews = data.result.user_ratings_total;
+      const openingHours: OpeningHours | null = data.result.opening_hours || null;
 
       console.log(`Found ${fiveStarReviews.length} five-star reviews`);
+      console.log('Opening hours:', openingHours);
 
       return new Response(
         JSON.stringify({
           reviews: fiveStarReviews,
           rating,
           totalReviews,
+          openingHours,
         }),
         {
           headers: {

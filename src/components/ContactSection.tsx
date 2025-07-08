@@ -2,10 +2,38 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Store } from "lucide-react";
+import { useGoogleReviewsBackend } from "@/hooks/useGoogleReviewsBackend";
 
 const ContactSection = () => {
+  const placeId = "ChIJyWRl2reQuhQR31Cno53zvaA";
+  const { openingHours, loading, error } = useGoogleReviewsBackend(placeId);
+
   const handleDirections = () => {
     window.open('https://www.google.com/maps/place/Stratos+Market/@39.3161481,26.1429499,17z/data=!3m1!4b1!4m6!3m5!1s0x14ba90b7da6564c9:0xa0bdf39da3a750df!8m2!3d39.3161481!4d26.1455248!16s%2Fg%2F11fxg0j296?entry=ttu&g_ep=EgoyMDI1MDYzMC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+  };
+
+  const renderOpeningHours = () => {
+    if (loading) {
+      return <p>Loading hours...</p>;
+    }
+
+    if (error || !openingHours?.weekday_text) {
+      return (
+        <div>
+          <p>Monday - Friday: 8:00 AM - 9:00 PM</p>
+          <p>Saturday: 8:00 AM - 10:00 PM</p>
+          <p>Sunday: 9:00 AM - 8:00 PM</p>
+        </div>
+      );
+    }
+
+    return (
+      <div>
+        {openingHours.weekday_text.map((dayHours, index) => (
+          <p key={index}>{dayHours}</p>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -44,9 +72,7 @@ const ContactSection = () => {
                     <div>
                       <h4 className="font-semibold text-gray-900">Store Hours</h4>
                       <div className="text-gray-600 space-y-1">
-                        <p>Monday - Friday: 8:00 AM - 9:00 PM</p>
-                        <p>Saturday: 8:00 AM - 10:00 PM</p>
-                        <p>Sunday: 9:00 AM - 8:00 PM</p>
+                        {renderOpeningHours()}
                       </div>
                     </div>
                   </div>

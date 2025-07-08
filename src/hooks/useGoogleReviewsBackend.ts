@@ -10,19 +10,29 @@ interface GoogleReview {
   relative_time_description: string;
 }
 
+interface OpeningHours {
+  open_now: boolean;
+  periods: Array<{
+    close: { day: number; time: string };
+    open: { day: number; time: string };
+  }>;
+  weekday_text: string[];
+}
+
 interface UseGoogleReviewsReturn {
   reviews: GoogleReview[];
   rating: number | null;
   totalReviews: number | null;
+  openingHours: OpeningHours | null;
   loading: boolean;
   error: string | null;
 }
-
 
 export const useGoogleReviewsBackend = (placeId: string): UseGoogleReviewsReturn => {
   const [reviews, setReviews] = useState<GoogleReview[]>([]);
   const [rating, setRating] = useState<number | null>(null);
   const [totalReviews, setTotalReviews] = useState<number | null>(null);
+  const [openingHours, setOpeningHours] = useState<OpeningHours | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -41,6 +51,7 @@ export const useGoogleReviewsBackend = (placeId: string): UseGoogleReviewsReturn
           setReviews(data.reviews);
           setRating(data.rating ?? null);
           setTotalReviews(data.totalReviews ?? null);
+          setOpeningHours(data.openingHours ?? null);
         } else {
           throw new Error('No reviews data received');
         }
@@ -55,6 +66,5 @@ export const useGoogleReviewsBackend = (placeId: string): UseGoogleReviewsReturn
     fetchReviews();
   }, [placeId]);
 
-  return { reviews, rating, totalReviews, loading, error };
+  return { reviews, rating, totalReviews, openingHours, loading, error };
 };
-
