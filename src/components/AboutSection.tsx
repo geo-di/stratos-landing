@@ -10,29 +10,33 @@ const AboutSection = () => {
             </h2>
             <div className="space-y-4 text-gray-600">
               <p className="text-lg">
-                Stratos Market has been proudly serving the Anaxos community and visitors to Lesvos, Greece 
-                with authentic Greek products, fresh Mediterranean produce, and unique Aegean souvenirs that 
-                capture the essence of our beautiful Greek heritage.
+                For over three decades, Stratos Market has been the heart of Anaxos, serving both 
+                locals and visitors with authentic Greek products and genuine hospitality. What started 
+                as a young entrepreneur's dream in the 1990s has grown into a beloved family business 
+                that embodies the true spirit of Greek tradition.
               </p>
               <p>
-                Our family-owned market in Anaxos, Lesvos has become a beloved destination for both locals 
-                and tourists exploring the Greek islands. We offer everything from traditional Greek delicacies 
-                like ouzo and local olive oil to handcrafted souvenirs made by local Aegean artisans.
+                Founded by Stratos in his twenties, our family-run supermarket in Anaxos, Lesvos 
+                has become an essential destination for anyone seeking genuine Greek flavors and 
+                handcrafted local souvenirs. We take pride in offering everything from daily 
+                essentials to specialty items that capture the authentic taste of the Aegean islands.
               </p>
               <p>
-                From fresh Mediterranean produce grown in Anaxos' fertile soil to authentic handmade 
-                crafts that tell the story of our rich Greek heritage, every item in Stratos Market 
-                has been carefully selected with love and respect for Greek traditions and culture.
+                Our shelves are filled with carefully selected local treasures: golden Lesvos honey, 
+                creamy traditional feta cheese, the famous Lesvos PDO Ladotyri cheese, fresh Greek 
+                yogurt, and premium olive oil pressed from Stratos's own olive groves. We also offer 
+                an extensive selection of Greek wines, authentic ouzo, traditional tsipouro, and 
+                classic retsina - perfect for taking home a taste of Greece.
               </p>
             </div>
             <div className="mt-8 grid grid-cols-2 gap-6">
               <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-white rounded-lg shadow-sm">
-                <div className="text-2xl font-bold text-blue-600">Family</div>
-                <div className="text-gray-600">Owned & Operated in Anaxos</div>
+                <div className="text-2xl font-bold text-blue-600">30+</div>
+                <div className="text-gray-600">Years Serving Anaxos</div>
               </div>
               <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-white rounded-lg shadow-sm">
-                <div className="text-2xl font-bold text-blue-600">100%</div>
-                <div className="text-gray-600">Authentic Greek</div>
+                <div className="text-2xl font-bold text-blue-600">Family</div>
+                <div className="text-gray-600">Owned & Operated</div>
               </div>
             </div>
           </div>
