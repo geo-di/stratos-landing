@@ -1,10 +1,10 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Star, Loader2 } from "lucide-react";
-import { useGoogleReviewsBackend } from "@/hooks/useGoogleReviewsBackend";
+import { useSharedGoogleData } from "@/hooks/useSharedGoogleData";
 
 const ReviewsSection = () => {
-  const { reviews, rating, totalReviews, loading, error } = useGoogleReviewsBackend('ChIJyWRl2reQuhQR31Cno53zvaA');
+  const { reviews, rating, totalReviews, loading, error } = useSharedGoogleData('ChIJyWRl2reQuhQR31Cno53zvaA');
 
   const renderStars = (rating: number) => {
     return [...Array(5)].map((_, i) => (
