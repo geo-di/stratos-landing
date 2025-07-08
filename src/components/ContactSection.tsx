@@ -34,8 +34,7 @@ const ContactSection = () => {
                       <p className="text-gray-600">
                         Stratos Market<br />
                         Anaxos, Lesvos, Greece<br />
-                        North Aegean Region<br />
-                        (Coordinates: 39.3161481, 26.1455248)
+                        North Aegean Region
                       </p>
                     </div>
                   </div>
@@ -45,9 +44,9 @@ const ContactSection = () => {
                     <div>
                       <h4 className="font-semibold text-gray-900">Store Hours</h4>
                       <div className="text-gray-600 space-y-1">
-                        <p>Monday - Friday: 8:00 AM - 7:00 PM</p>
-                        <p>Saturday: 8:00 AM - 8:00 PM</p>
-                        <p>Sunday: 9:00 AM - 6:00 PM</p>
+                        <p>Monday - Friday: 8:00 AM - 9:00 PM</p>
+                        <p>Saturday: 8:00 AM - 10:00 PM</p>
+                        <p>Sunday: 9:00 AM - 8:00 PM</p>
                       </div>
                     </div>
                   </div>
@@ -73,10 +72,15 @@ const ContactSection = () => {
             <Card className="h-full border-blue-100">
               <CardContent className="p-0">
                 <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=600&h=400&fit=crop" 
-                    alt="Beautiful Anaxos countryside landscape with Mediterranean scenery"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3098.8621234567!2d26.1429499!3d39.3161481!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14ba90b7da6564c9%3A0xa0bdf39da3a750df!2sStratos%20Market!5e0!3m2!1sen!2s!4v1641234567890!5m2!1sen!2s"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="rounded-lg"
                   />
                 </div>
                 <div className="p-6">
