@@ -114,10 +114,15 @@ const ContactSection = () => {
                   />
                 </div>
                 <div className="p-6">
-                  <h4 className="font-semibold text-gray-900 mb-2">Easy to Find in Anaxos, Lesvos</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">Perfectly Located Near Anaxos Beach</h4>
+                  <p className="text-gray-600 mb-4">
+                    Located just 50 meters from the stunning shores of Anaxos Beach in Lesvos, Greece, Stratos Market is your ideal stop for high-quality local products, and charming Greek souvenirs. Whether you're heading to the beach or returning from a relaxing swim, our store is perfectly positioned for a convenient shopping experience.
+                  </p>
+                  <p className="text-gray-600 mb-4">
+                    We offer free parking for all our customers, making it easy to shop without stress. Combine your beach day with your daily shopping in one easy trip!
+                  </p>
                   <p className="text-gray-600">
-                    Located in the beautiful area of Anaxos, Lesvos, Greece, Stratos Market is your 
-                    destination for authentic Greek products and Mediterranean souvenirs. Look for our welcoming storefront!
+                    Look for our friendly and welcoming storefront—Stratos Market is more than just a supermarket; it's a taste of Greek hospitality.
                   </p>
                 </div>
               </CardContent>

@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { MapPin, Store, Home, Star } from "lucide-react";
+import { MapPin, Store, Home, Car } from "lucide-react";
 
 const Hero = () => {
   return (
@@ -34,8 +34,8 @@ const Hero = () => {
               <div className="bg-gradient-to-br from-blue-100 to-blue-200 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300">
                 <Store className="h-10 w-10 text-blue-600" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Fresh Mediterranean Produce</h3>
-              <p className="text-gray-600">Local fruits, vegetables, and authentic Greek specialties from Anaxos farmers</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Local Lesvos Products</h3>
+              <p className="text-gray-600">Authentic Lesvos specialties, fresh local produce, and traditional Greek delicacies from our island</p>
             </div>
             <div className="text-center group">
               <div className="bg-gradient-to-br from-white to-blue-50 border-2 border-blue-200 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300">
@@ -46,10 +46,10 @@ const Hero = () => {
             </div>
             <div className="text-center group">
               <div className="bg-gradient-to-br from-blue-100 to-blue-200 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300">
-                <Star className="h-10 w-10 text-blue-600" />
+                <Car className="h-10 w-10 text-blue-600" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Anaxos Local Tradition</h3>
-              <p className="text-gray-600">Supporting local farmers and artisans, preserving authentic Greek culture</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Free Parking Available</h3>
+              <p className="text-gray-600">Offering free parking for our customers, making your shopping experience convenient and stress-free</p>
             </div>
           </div>
         </div>
