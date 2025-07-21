@@ -5,33 +5,37 @@ const ProductShowcase = () => {
   const products = [
     {
       id: 1,
-      name: "Fresh Mediterranean Produce",
-      description: "Farm-fresh Mediterranean fruits and vegetables from local Anaxos growers and Greek farmers",
+      name: "Premium Greek Olives",
+      description: "Fresh Kalamata and green olives from local Lesvos groves, perfect for Mediterranean cuisine",
       image: "/images/olives.webp",
-      category: "Local Mediterranean Produce"
+      category: "Fresh Olives & Olive Products"
     },
     {
       id: 2,
-      name: "Greek Island Artisan Crafts",
-      description: "Handmade Anaxos souvenirs, traditional Aegean artwork, and authentic Greek memorabilia",
+      name: "Mediterranean Herbs & Spices",
+      description: "Aromatic Greek herbs including oregano, thyme, and mountain tea from the hills of Lesvos",
       image: "/images/herbs.webp",
-      category: "Greek Souvenirs"
+      category: "Greek Herbs & Spices"
     },
     {
       id: 3,
-      name: "Traditional Greek Specialties",
-      description: "Authentic Greek delicacies including local ouzo, olive oil, and regional Greek products",
+      name: "Traditional Greek Ouzo",
+      description: "Authentic ouzo and traditional Greek spirits, including local Lesvos distillery selections",
       image: "/images/ouzo.webp",
-      category: "Greek Specialties"
+      category: "Greek Spirits & Ouzo"
     },
     {
       id: 4,
-      name: "Greek Honey & Preserves",
-      description: "Natural Mediterranean honey and homemade preserves from local Greek producers and beekeepers",
+      name: "Pure Greek Honey",
+      description: "Golden honey from local Lesvos beekeepers, including pine honey and wildflower varieties",
       image: "/images/honey.webp",
-      category: "Natural Greek Products"
+      category: "Natural Honey & Sweets"
     }
   ];
+
+  const handleProductClick = () => {
+    window.open('https://www.google.com/maps/place/Stratos+Market/@39.3161481,26.1429499,17z/data=!3m1!4b1!4m6!3m5!1s0x14ba90b7da6564c9:0xa0bdf39da3a750df!8m2!3d39.3161481!4d26.1455248!16s%2Fg%2F11fxg0j296?entry=ttu&g_ep=EgoyMDI1MDYzMC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+  };
 
   return (
     <section id="products" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
@@ -48,7 +52,11 @@ const ProductShowcase = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {products.map((product) => (
-            <Card key={product.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 border-blue-100 group">
+            <Card 
+              key={product.id} 
+              className="overflow-hidden hover:shadow-xl transition-all duration-300 border-blue-100 group cursor-pointer"
+              onClick={handleProductClick}
+            >
               <div className="aspect-square overflow-hidden">
                 <img 
                   src={product.image} 
@@ -73,8 +81,11 @@ const ProductShowcase = () => {
           <p className="text-lg text-gray-600 mb-6">
             Want to see our full selection of Greek products? Visit us in our Anaxos store!
           </p>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors shadow-lg hover:shadow-xl">
-            Get Directions to Mytilene
+          <button 
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors shadow-lg hover:shadow-xl"
+            onClick={handleProductClick}
+          >
+            Get Directions to Stratos Market
           </button>
         </div>
       </div>
