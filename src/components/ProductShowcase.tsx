@@ -26,14 +26,14 @@ const ProductShowcase = () => {
     },
     {
       id: 4,
-      name: "Pure Greek Honey",
-      description: "Golden honey from local Lesvos beekeepers, including pine honey and wildflower varieties",
-      image: "/images/honey.webp",
-      category: "Natural Honey & Sweets"
+      name: "Traditional Lesvos Yogurt",
+      description: "Creamy, rich yogurt made from fresh sheep milk by local Lesvos dairy farmers using traditional methods",
+      image: "/images/yoghurt.webp",
+      category: "Fresh Dairy & Traditional Products"
     }
   ];
 
-  const handleProductClick = () => {
+  const handleDirectionsClick = () => {
     window.open('https://www.google.com/maps/place/Stratos+Market/@39.3161481,26.1429499,17z/data=!3m1!4b1!4m6!3m5!1s0x14ba90b7da6564c9:0xa0bdf39da3a750df!8m2!3d39.3161481!4d26.1455248!16s%2Fg%2F11fxg0j296?entry=ttu&g_ep=EgoyMDI1MDYzMC4wIKXMDSoASAFQAw%3D%3D', '_blank');
   };
 
@@ -54,8 +54,7 @@ const ProductShowcase = () => {
           {products.map((product) => (
             <Card 
               key={product.id} 
-              className="overflow-hidden hover:shadow-xl transition-all duration-300 border-blue-100 group cursor-pointer"
-              onClick={handleProductClick}
+              className="overflow-hidden hover:shadow-xl transition-all duration-300 border-blue-100 group"
             >
               <div className="aspect-square overflow-hidden">
                 <img 
@@ -83,7 +82,7 @@ const ProductShowcase = () => {
           </p>
           <button 
             className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors shadow-lg hover:shadow-xl"
-            onClick={handleProductClick}
+            onClick={handleDirectionsClick}
           >
             Get Directions to Stratos Market
           </button>
