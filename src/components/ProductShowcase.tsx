@@ -7,28 +7,28 @@ const ProductShowcase = () => {
       id: 1,
       name: "Fresh Mediterranean Produce",
       description: "Farm-fresh Mediterranean fruits and vegetables from local Anaxos growers and Greek farmers",
-      image: "/images/ouzo.webp",
+      image: "/images/olives.webp",
       category: "Local Mediterranean Produce"
     },
     {
       id: 2,
       name: "Greek Island Artisan Crafts",
       description: "Handmade Anaxos souvenirs, traditional Aegean artwork, and authentic Greek memorabilia",
-      image: "https://images.unsplash.com/photo-1452960962994-acf4fd70b632?w=400&h=300&fit=crop",
+      image: "/images/herbs.webp",
       category: "Greek Souvenirs"
     },
     {
       id: 3,
       name: "Traditional Greek Specialties",
       description: "Authentic Greek delicacies including local ouzo, olive oil, and regional Greek products",
-      image: "https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?w=400&h=300&fit=crop",
+      image: "/images/ouzo.webp",
       category: "Greek Specialties"
     },
     {
       id: 4,
       name: "Greek Honey & Preserves",
       description: "Natural Mediterranean honey and homemade preserves from local Greek producers and beekeepers",
-      image: "https://images.unsplash.com/photo-1498936178812-4b2e558d2937?w=400&h=300&fit=crop",
+      image: "/images/honey.webp",
       category: "Natural Greek Products"
     }
   ];
