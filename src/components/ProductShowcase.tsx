@@ -7,7 +7,7 @@ const ProductShowcase = () => {
       id: 1,
       name: "Fresh Mediterranean Produce",
       description: "Farm-fresh Mediterranean fruits and vegetables from local Anaxos growers and Greek farmers",
-      image: "https://drive.google.com/file/d/1K6f4qVHKISekqEzOnpjK8irKWnUK6ax6/view?usp=sharing",
+      image: "https://drive.google.com/uc?export=view&id=1K6f4qVHKISekqEzOnpjK8irKWnUK6ax6",
       category: "Local Mediterranean Produce"
     },
     {
