@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Store, Phone } from "lucide-react";
@@ -12,7 +11,7 @@ const ContactSection = () => {
   };
 
   const handleCallStore = () => {
-    window.open('tel:+302253041234', '_self');
+    window.open('tel:+302253092421', '_self');
   };
 
   const renderOpeningHours = () => {
@@ -52,7 +51,7 @@ const ContactSection = () => {
             Visit Stratos Market in Anaxos
           </h2>
           <p className="text-xl text-gray-600 px-4">
-            Discover authentic Greek specialties, fresh Mediterranean produce, and unique Aegean souvenirs. Located just 50 meters from beautiful Anaxos Beach in Lesvos, Greece.
+            Your trusted local market in beautiful Anaxos, Lesvos. Discover fresh Mediterranean products, authentic Greek specialties, and warm hospitality just steps from the beach.
           </p>
         </div>
 
