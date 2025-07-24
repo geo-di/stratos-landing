@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, Store } from "lucide-react";
+import { MapPin, Store, Phone } from "lucide-react";
 import { useSharedGoogleData } from "@/hooks/useSharedGoogleData";
 
 const ContactSection = () => {
@@ -9,6 +9,10 @@ const ContactSection = () => {
 
   const handleDirections = () => {
     window.open('https://www.google.com/maps/place/Stratos+Market/@39.3161481,26.1429499,17z/data=!3m1!4b1!4m6!3m5!1s0x14ba90b7da6564c9:0xa0bdf39da3a750df!8m2!3d39.3161481!4d26.1455248!16s%2Fg%2F11fxg0j296?entry=ttu&g_ep=EgoyMDI1MDYzMC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+  };
+
+  const handleCallStore = () => {
+    window.open('tel:+302253041234', '_self');
   };
 
   const renderOpeningHours = () => {
@@ -41,14 +45,14 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 via-white to-blue-50">
+    <section id="contact" className="py-20 px-6 sm:px-8 lg:px-10 bg-gradient-to-br from-blue-50 via-white to-blue-50">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 px-4">
             Visit Stratos Market in Anaxos
           </h2>
-          <p className="text-xl text-gray-600">
-            Come experience authentic Greek products and warm Mediterranean hospitality in Anaxos, Lesvos, Greece - we'd love to welcome you!
+          <p className="text-xl text-gray-600 px-4">
+            Discover authentic Greek specialties, fresh Mediterranean produce, and unique Aegean souvenirs. Located just 50 meters from beautiful Anaxos Beach in Lesvos, Greece.
           </p>
         </div>
 
@@ -56,12 +60,12 @@ const ContactSection = () => {
           <div>
             <Card className="h-full border-blue-100">
               <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Store Information - Anaxos, Lesvos, Greece</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-6 px-2">Store Information - Anaxos, Lesvos, Greece</h3>
                 
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
                     <MapPin className="h-6 w-6 text-blue-600 mt-1" />
-                    <div>
+                    <div className="px-2">
                       <h4 className="font-semibold text-gray-900">Address</h4>
                       <p className="text-gray-600">
                         Stratos Market<br />
@@ -73,7 +77,7 @@ const ContactSection = () => {
 
                   <div className="flex items-start space-x-4">
                     <Store className="h-6 w-6 text-blue-600 mt-1" />
-                    <div>
+                    <div className="px-2">
                       <h4 className="font-semibold text-gray-900">Store Hours</h4>
                       <div className="text-gray-600 space-y-1">
                         {renderOpeningHours()}
@@ -89,8 +93,13 @@ const ContactSection = () => {
                       <MapPin className="mr-2 h-5 w-5" />
                       Get Directions to Anaxos Store
                     </Button>
-                    <Button variant="outline" className="w-full border-blue-600 text-blue-600 hover:bg-blue-50 shadow-lg hover:shadow-xl transition-all duration-300">
-                      Contact Stratos Market
+                    <Button 
+                      variant="outline" 
+                      className="w-full border-blue-600 text-blue-600 hover:bg-blue-50 shadow-lg hover:shadow-xl transition-all duration-300"
+                      onClick={handleCallStore}
+                    >
+                      <Phone className="mr-2 h-5 w-5" />
+                      Call Stratos Market
                     </Button>
                   </div>
                 </div>
@@ -114,14 +123,14 @@ const ContactSection = () => {
                   />
                 </div>
                 <div className="p-6">
-                  <h4 className="font-semibold text-gray-900 mb-2">Perfectly Located Near Anaxos Beach</h4>
-                  <p className="text-gray-600 mb-4">
+                  <h4 className="font-semibold text-gray-900 mb-2 px-2">Perfectly Located Near Anaxos Beach</h4>
+                  <p className="text-gray-600 mb-4 px-2">
                     Located just 50 meters from the stunning shores of Anaxos Beach in Lesvos, Greece, Stratos Market is your ideal stop for high-quality local products, and charming Greek souvenirs. Whether you're heading to the beach or returning from a relaxing swim, our store is perfectly positioned for a convenient shopping experience.
                   </p>
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-gray-600 mb-4 px-2">
                     We offer free parking for all our customers, making it easy to shop without stress. Combine your beach day with your daily shopping in one easy trip!
                   </p>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 px-2">
                     Look for our friendly and welcoming storefront—Stratos Market is more than just a supermarket; it's a taste of Greek hospitality.
                   </p>
                 </div>
