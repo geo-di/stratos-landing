@@ -1,5 +1,5 @@
 
-import { Store, MapPin, Star } from "lucide-react";
+import { Store, MapPin, Star, Phone } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -12,8 +12,9 @@ const Footer = () => {
               <span className="text-xl font-bold">Stratos Market</span>
             </div>
             <p className="text-blue-100 mb-4">
-              Your authentic Greek market destination in Anaxos, Lesvos, Greece for fresh Mediterranean products, 
-              traditional Aegean souvenirs, and genuine Greek hospitality.
+              Your local market in Anaxos, Lesvos offering fresh Mediterranean products, 
+              traditional Greek delicacies, and authentic souvenirs. Experience genuine Greek hospitality 
+              at our family-run store.
             </p>
             <div className="flex items-center space-x-1">
               <Star className="h-4 w-4 text-yellow-400 fill-current" />
@@ -21,7 +22,7 @@ const Footer = () => {
               <Star className="h-4 w-4 text-yellow-400 fill-current" />
               <Star className="h-4 w-4 text-yellow-400 fill-current" />
               <Star className="h-4 w-4 text-yellow-400 fill-current" />
-              <span className="text-sm text-blue-100 ml-2">Trusted by Anaxos locals and tourists</span>
+              <span className="text-sm text-blue-100 ml-2">Trusted by Anaxos locals and visitors</span>
             </div>
           </div>
 
@@ -48,14 +49,17 @@ const Footer = () => {
                   <p>North Aegean Region</p>
                 </div>
               </div>
-              <p>Visit us for authentic Greek products</p>
-              <p>Email: info@stratosmarket.gr</p>
+              <div className="flex items-center space-x-2">
+                <Phone className="h-5 w-5 text-blue-300" />
+                <p>Tel: 2253092421</p>
+              </div>
+              <p>Visit us for authentic Greek products and local specialties</p>
             </div>
           </div>
         </div>
 
         <div className="border-t border-blue-700 mt-8 pt-8 text-center text-blue-100">
-          <p>&copy; 2024 Stratos Market. All rights reserved. Bringing you authentic Greek tradition from Anaxos.</p>
+          <p>&copy; 2024 Stratos Market. All rights reserved. Serving Anaxos with authentic Greek tradition.</p>
         </div>
       </div>
     </footer>
