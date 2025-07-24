@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Store } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
@@ -9,6 +9,11 @@ const Navigation = () => {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
 
+  // Scroll to top when route changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   const scrollToSection = (sectionId: string) => {
     if (isHomePage) {
       const element = document.getElementById(sectionId);
@@ -16,6 +21,7 @@ const Navigation = () => {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     } else {
+      // Navigate to home page and then scroll to section
       window.location.href = `/#${sectionId}`;
     }
     setIsMenuOpen(false);
