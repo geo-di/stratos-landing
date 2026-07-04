@@ -1,91 +1,92 @@
-
 import { Card, CardContent } from "@/components/ui/card";
 
 const ProductShowcase = () => {
   const products = [
     {
       id: 1,
-      name: "Premium Greek Olives",
-      description: "Fresh Kalamata and green olives from local Lesvos groves, perfect for Mediterranean cuisine",
+      name: "Kalamata & Green Olives",
+      description: "Cured slowly, bright with brine — from groves a short drive down the coast.",
       image: "/images/olives.webp",
-      category: "Fresh Olives & Olive Products"
+      category: "Olives · Oil",
+      tone: "bg-primary/10",
     },
     {
       id: 2,
-      name: "Mediterranean Herbs & Spices",
-      description: "Aromatic Greek herbs including oregano, thyme, and mountain tea from the hills of Lesvos",
+      name: "Wild Aegean Herbs",
+      description: "Oregano, thyme and mountain tea, cut and dried in the hills above the village.",
       image: "/images/herbs.webp",
-      category: "Greek Herbs & Spices"
+      category: "Herbs · Spices",
+      tone: "bg-accent/20",
     },
     {
       id: 3,
-      name: "Traditional Greek Ouzo",
-      description: "Authentic ouzo and traditional Greek spirits, including local Lesvos distillery selections",
+      name: "Lesvos Ouzo & Tsipouro",
+      description: "Small-batch spirits from island distillers — the taste of a long taverna evening.",
       image: "/images/ouzo.webp",
-      category: "Greek Spirits & Ouzo"
+      category: "Spirits · Wine",
+      tone: "bg-olive/15",
     },
     {
       id: 4,
-      name: "Traditional Lesvos Yogurt",
-      description: "Creamy, rich yogurt made from fresh sheep milk by local Lesvos dairy farmers using traditional methods",
+      name: "Sheep&apos;s-Milk Yoghurt",
+      description: "Thick, tangy Lesvos yoghurt from local shepherds — a spoonful of honey and you&apos;re home.",
       image: "/images/yoghurt.webp",
-      category: "Fresh Dairy & Traditional Products"
-    }
+      category: "Dairy · Fresh",
+      tone: "bg-secondary/40",
+    },
   ];
 
-  const handleDirectionsClick = () => {
-    window.open('https://www.google.com/maps/place/Stratos+Market/@39.3161481,26.1429499,17z/data=!3m1!4b1!4m6!3m5!1s0x14ba90b7da6564c9:0xa0bdf39da3a750df!8m2!3d39.3161481!4d26.1455248!16s%2Fg%2F11fxg0j296?entry=ttu&g_ep=EgoyMDI1MDYzMC4wIKXMDSoASAFQAw%3D%3D', '_blank');
-  };
-
   return (
-    <section id="products" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <section id="products" className="py-20 md:py-28 px-5 sm:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Our Authentic Greek Products
+        <div className="max-w-2xl mb-14">
+          <span className="text-xs uppercase tracking-[0.28em] text-primary font-medium">
+            The shelf · 04
+          </span>
+          <h2 className="font-display text-4xl md:text-6xl text-foreground mt-4 mb-5 text-balance leading-[1.05]">
+            Small things,
+            <span className="italic text-primary"> chosen carefully.</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Discover our carefully curated selection of fresh Mediterranean produce, unique Greek souvenirs, 
-            and local specialties that celebrate our beautiful Greek community's rich Aegean heritage.
+          <p className="text-lg text-muted-foreground text-pretty">
+            A handful of local favourites we stock year-round. Come in and we&apos;ll happily tell you the story behind each one.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {products.map((product) => (
-            <Card 
-              key={product.id} 
-              className="overflow-hidden hover:shadow-xl transition-all duration-300 border-blue-100 group"
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+          {products.map((product, i) => (
+            <Card
+              key={product.id}
+              className={`bento-card border-none group hover:-translate-y-1 transition-all duration-500 ${i % 2 === 1 ? 'lg:translate-y-6' : ''}`}
             >
-              <div className="aspect-square overflow-hidden">
-                <img 
-                  src={product.image} 
-                  alt={`${product.name} - Available at Stratos Market in Anaxos, Lesvos, Greece`}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+              <div className={`aspect-[4/5] overflow-hidden ${product.tone}`}>
+                <img
+                  src={product.image}
+                  alt={`${product.name} at Stratos Market, Anaxos`}
+                  className="w-full h-full object-cover group-hover:scale-[1.06] transition-transform duration-[900ms] ease-out"
                 />
               </div>
               <CardContent className="p-6">
-                <span className="text-sm text-blue-600 font-medium">{product.category}</span>
-                <h3 className="text-lg font-semibold text-gray-900 mt-2 mb-2">
-                  {product.name}
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  {product.description}
-                </p>
+                <span className="text-[11px] uppercase tracking-[0.24em] text-primary font-medium">
+                  {product.category}
+                </span>
+                <h3 className="font-display text-2xl text-foreground mt-2 mb-2 leading-snug"
+                    dangerouslySetInnerHTML={{ __html: product.name }} />
+                <p className="text-sm text-muted-foreground leading-relaxed"
+                   dangerouslySetInnerHTML={{ __html: product.description }} />
               </CardContent>
             </Card>
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <p className="text-lg text-gray-600 mb-6">
-            Want to see our full selection of Greek products? Visit us in our Anaxos store!
-          </p>
-          <button 
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors shadow-lg hover:shadow-xl"
-            onClick={handleDirectionsClick}
-          >
-            Get Directions to Stratos Market
-          </button>
+        <div className="mt-16 rounded-3xl border border-border/60 bg-muted/40 px-8 py-10 md:px-12 md:py-14 flex flex-col md:flex-row items-start md:items-center gap-6 justify-between">
+          <div className="max-w-xl">
+            <p className="font-display text-2xl md:text-3xl text-foreground leading-snug text-balance">
+              The full shelf is best seen in person — coffee&apos;s on us.
+            </p>
+            <p className="text-muted-foreground mt-2 text-sm">
+              We&apos;re open every day. Stop by after the beach, or before the ferry.
+            </p>
+          </div>
         </div>
       </div>
     </section>

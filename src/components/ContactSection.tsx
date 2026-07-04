@@ -1,140 +1,139 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, Store, Phone } from "lucide-react";
+import { MapPin, Clock, Phone } from "lucide-react";
 import { useSharedGoogleData } from "@/hooks/useSharedGoogleData";
 
 const ContactSection = () => {
   const { openingHours, loading, error } = useSharedGoogleData('ChIJyWRl2reQuhQR31Cno53zvaA');
 
-  const handleDirections = () => {
-    window.open('https://www.google.com/maps/place/Stratos+Market/@39.3161481,26.1429499,17z/data=!3m1!4b1!4m6!3m5!1s0x14ba90b7da6564c9:0xa0bdf39da3a750df!8m2!3d39.3161481!4d26.1455248!16s%2Fg%2F11fxg0j296?entry=ttu&g_ep=EgoyMDI1MDYzMC4wIKXMDSoASAFQAw%3D%3D', '_blank');
-  };
+  const handleDirections = () =>
+    window.open('https://www.google.com/maps/place/Stratos+Market/@39.3161481,26.1429499,17z/data=!3m1!4b1!4m6!3m5!1s0x14ba90b7da6564c9:0xa0bdf39da3a750df!8m2!3d39.3161481!4d26.1455248!16s%2Fg%2F11fxg0j296', '_blank');
 
-  const handleCallStore = () => {
-    window.open('tel:+302253092421', '_self');
-  };
+  const handleCallStore = () => window.open('tel:+302253092421', '_self');
 
   const renderOpeningHours = () => {
-    if (loading) {
-      return <p className="text-gray-500">Loading hours...</p>;
-    }
-
+    if (loading) return <p className="text-muted-foreground text-sm">Loading hours…</p>;
     if (error || !openingHours?.weekday_text) {
-      // Fallback to hardcoded hours if API fails
+      const fallback = [
+        ['Monday', '8:00 – 21:30'],
+        ['Tuesday', '8:00 – 21:30'],
+        ['Wednesday', '8:00 – 21:30'],
+        ['Thursday', '8:00 – 21:30'],
+        ['Friday', '8:00 – 21:30'],
+        ['Saturday', '8:00 – 22:00'],
+        ['Sunday', '9:00 – 20:00'],
+      ];
       return (
-        <>
-          <p>Monday: 8:00 AM - 9:30 PM</p>
-          <p>Tuesday: 8:00 AM - 9:30 PM</p>
-          <p>Wednesday: 8:00 AM - 9:30 PM</p>
-          <p>Thursday: 8:00 AM - 9:30 PM</p>
-          <p>Friday: 8:00 AM - 9:30 PM</p>
-          <p>Saturday: 8:00 AM - 10:00 PM</p>
-          <p>Sunday: 9:00 AM - 8:00 PM</p>
-        </>
+        <ul className="space-y-1.5 text-sm">
+          {fallback.map(([d, h]) => (
+            <li key={d} className="flex justify-between gap-4">
+              <span className="text-muted-foreground">{d}</span>
+              <span className="text-foreground font-medium">{h}</span>
+            </li>
+          ))}
+        </ul>
       );
     }
-
     return (
-      <>
-        {openingHours.weekday_text.map((dayHours, index) => (
-          <p key={index}>{dayHours}</p>
-        ))}
-      </>
+      <ul className="space-y-1.5 text-sm">
+        {openingHours.weekday_text.map((dayHours, i) => {
+          const [day, ...rest] = dayHours.split(':');
+          return (
+            <li key={i} className="flex justify-between gap-4">
+              <span className="text-muted-foreground">{day}</span>
+              <span className="text-foreground font-medium">{rest.join(':').trim()}</span>
+            </li>
+          );
+        })}
+      </ul>
     );
   };
 
   return (
-    <section id="contact" className="py-20 px-6 sm:px-8 lg:px-10 bg-gradient-to-br from-blue-50 via-white to-blue-50">
+    <section id="contact" className="py-20 md:py-28 px-5 sm:px-8 bg-gradient-earth">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 px-4">
-            Visit Stratos Market in Anaxos
+        <div className="max-w-2xl mb-14">
+          <span className="text-xs uppercase tracking-[0.28em] text-primary font-medium">
+            Find us · Anaxos
+          </span>
+          <h2 className="font-display text-4xl md:text-6xl text-foreground mt-4 mb-5 leading-[1.05] text-balance">
+            Fifty steps
+            <span className="italic text-primary"> from the sea.</span>
           </h2>
-          <p className="text-xl text-gray-600 px-4">
-            Your trusted local market in beautiful Anaxos, Lesvos. Discover fresh Mediterranean products, authentic Greek specialties, and warm hospitality just steps from the beach.
+          <p className="text-lg text-muted-foreground text-pretty">
+            The door&apos;s open every day. Come by wet from the beach, we don&apos;t mind.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div>
-            <Card className="h-full border-blue-100">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6 px-2">Store Information - Anaxos, Lesvos, Greece</h3>
-                
-                <div className="space-y-6">
-                  <div className="flex items-start space-x-4">
-                    <MapPin className="h-6 w-6 text-blue-600 mt-1" />
-                    <div className="px-2">
-                      <h4 className="font-semibold text-gray-900">Address</h4>
-                      <p className="text-gray-600">
-                        Stratos Market<br />
-                        Anaxos, Lesvos, Greece<br />
-                        North Aegean Region
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <Store className="h-6 w-6 text-blue-600 mt-1" />
-                    <div className="px-2">
-                      <h4 className="font-semibold text-gray-900">Store Hours</h4>
-                      <div className="text-gray-600 space-y-1">
-                        {renderOpeningHours()}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    <Button 
-                      className="w-full bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300"
-                      onClick={handleDirections}
-                    >
-                      <MapPin className="mr-2 h-5 w-5" />
-                      Get Directions to Anaxos Store
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      className="w-full border-blue-600 text-blue-600 hover:bg-blue-50 shadow-lg hover:shadow-xl transition-all duration-300"
-                      onClick={handleCallStore}
-                    >
-                      <Phone className="mr-2 h-5 w-5" />
-                      Call Stratos Market
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-5">
+          {/* Address */}
+          <div className="bento-card lg:col-span-4 p-8">
+            <MapPin className="h-6 w-6 text-primary mb-4" />
+            <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-2">Address</div>
+            <p className="font-display text-2xl text-foreground leading-snug">
+              Stratos Market<br />
+              Anaxos, Lesvos<br />
+              North Aegean, Greece
+            </p>
           </div>
 
-          <div>
-            <Card className="h-full border-blue-100">
-              <CardContent className="p-0">
-                <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3098.8621234567!2d26.1429499!3d39.3161481!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14ba90b7da6564c9%3A0xa0bdf39da3a750df!2sStratos%20Market!5e0!3m2!1sen!2s!4v1641234567890!5m2!1sen!2s"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    className="rounded-lg"
-                  />
-                </div>
-                <div className="p-6">
-                  <h4 className="font-semibold text-gray-900 mb-2 px-2">Perfectly Located Near Anaxos Beach</h4>
-                  <p className="text-gray-600 mb-4 px-2">
-                    Located just 50 meters from the stunning shores of Anaxos Beach in Lesvos, Greece, Stratos Market is your ideal stop for high-quality local products, and charming Greek souvenirs. Whether you're heading to the beach or returning from a relaxing swim, our store is perfectly positioned for a convenient shopping experience.
-                  </p>
-                  <p className="text-gray-600 mb-4 px-2">
-                    We offer free parking for all our customers, making it easy to shop without stress. Combine your beach day with your daily shopping in one easy trip!
-                  </p>
-                  <p className="text-gray-600 px-2">
-                    Look for our friendly and welcoming storefront—Stratos Market is more than just a supermarket; it's a taste of Greek hospitality.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+          {/* Hours */}
+          <div className="bento-card lg:col-span-4 p-8">
+            <Clock className="h-6 w-6 text-primary mb-4" />
+            <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-4">Opening Hours</div>
+            {renderOpeningHours()}
+          </div>
+
+          {/* CTAs */}
+          <div className="bento-card lg:col-span-4 p-8 bg-primary text-primary-foreground grain flex flex-col justify-between gap-6">
+            <div>
+              <div className="text-xs uppercase tracking-[0.22em] opacity-80 mb-3">Say hello</div>
+              <p className="font-display text-3xl leading-tight">
+                Pop in, or give us a ring.
+              </p>
+            </div>
+            <div className="flex flex-col gap-2">
+              <Button
+                onClick={handleDirections}
+                className="w-full rounded-full bg-background text-foreground hover:bg-background/90"
+              >
+                <MapPin className="mr-2 h-4 w-4" />
+                Open in Maps
+              </Button>
+              <Button
+                onClick={handleCallStore}
+                variant="outline"
+                className="w-full rounded-full border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"
+              >
+                <Phone className="mr-2 h-4 w-4" />
+                +30 22530 92421
+              </Button>
+            </div>
+          </div>
+
+          {/* Map */}
+          <div className="bento-card lg:col-span-8 lg:row-span-2 overflow-hidden min-h-[360px]">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3098.8621234567!2d26.1429499!3d39.3161481!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14ba90b7da6564c9%3A0xa0bdf39da3a750df!2sStratos%20Market!5e0!3m2!1sen!2s!4v1641234567890!5m2!1sen!2s"
+              width="100%"
+              height="100%"
+              style={{ border: 0, minHeight: 360 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="grayscale-[15%]"
+              title="Stratos Market on the map"
+            />
+          </div>
+
+          {/* Notes */}
+          <div className="bento-card lg:col-span-4 p-8 bg-olive text-olive-foreground">
+            <div className="text-xs uppercase tracking-[0.22em] opacity-80 mb-3">A note before you come</div>
+            <p className="font-display text-2xl leading-snug mb-4">
+              Fifty metres from the sand, free parking at the door.
+            </p>
+            <p className="text-sm opacity-90">
+              Perfect for a stop between the ferry and the beach — or the beach and the taverna.
+            </p>
           </div>
         </div>
       </div>

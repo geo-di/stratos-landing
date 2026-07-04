@@ -1,95 +1,94 @@
-
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, Loader2 } from "lucide-react";
+import { Star, Loader2, Quote } from "lucide-react";
 import { useSharedGoogleData } from "@/hooks/useSharedGoogleData";
 
 const ReviewsSection = () => {
   const { reviews, rating, totalReviews, loading, error } = useSharedGoogleData('ChIJyWRl2reQuhQR31Cno53zvaA');
 
-  const renderStars = (rating: number) => {
-    return [...Array(5)].map((_, i) => (
+  const renderStars = (r: number) =>
+    [...Array(5)].map((_, i) => (
       <Star
         key={i}
-        className={`h-4 w-4 ${i < rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
+        className={`h-3.5 w-3.5 ${i < r ? 'text-primary fill-current' : 'text-muted-foreground/30'}`}
       />
     ));
-  };
-
-  const formatDate = (timestamp: number) => {
-    const date = new Date(timestamp * 1000);
-    const now = new Date();
-    const diffTime = Math.abs(now.getTime() - date.getTime());
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
-    if (diffDays === 1) return '1 day ago';
-    if (diffDays < 30) return `${diffDays} days ago`;
-    if (diffDays < 60) return '1 month ago';
-    return `${Math.floor(diffDays / 30)} months ago`;
-  };
 
   return (
-    <section id="reviews" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <section id="reviews" className="py-20 md:py-28 px-5 sm:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            What Our Customers Say
+        <div className="max-w-2xl mb-14">
+          <span className="text-xs uppercase tracking-[0.28em] text-primary font-medium">
+            Kind words · Guests
+          </span>
+          <h2 className="font-display text-4xl md:text-6xl text-foreground mt-4 mb-5 leading-[1.05] text-balance">
+            Told better
+            <span className="italic text-primary"> by our guests.</span>
           </h2>
-          <p className="text-xl text-gray-600">
-            Real reviews from Google Maps - hear from our happy customers!
+          <p className="text-lg text-muted-foreground text-pretty">
+            A few notes left on Google by people who wandered in for a bottle of water and stayed for the yoghurt.
           </p>
         </div>
 
         {loading ? (
-          <div className="flex justify-center items-center py-12">
-            <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
-            <span className="ml-2 text-gray-600">Loading reviews...</span>
+          <div className="flex items-center gap-3 py-16 text-muted-foreground">
+            <Loader2 className="h-5 w-5 animate-spin text-primary" />
+            Gathering the latest kind words…
           </div>
         ) : error || reviews.length === 0 ? (
-          <div className="text-center py-12 max-w-xl mx-auto">
-            <p className="text-gray-700 text-lg mb-2">Reviews are on their way.</p>
-            <p className="text-gray-500 text-sm">
-              We're still gathering kind words from our guests — check back soon, or come visit us in Anaxos and share your own story.
+          <div className="bento-card p-10 md:p-14 max-w-2xl bg-muted/40 border-none">
+            <Quote className="h-8 w-8 text-primary mb-4" />
+            <p className="font-display text-2xl md:text-3xl text-foreground leading-snug text-balance">
+              The guestbook is quiet for a moment.
+            </p>
+            <p className="mt-4 text-muted-foreground text-pretty">
+              We&apos;re still gathering kind words from our visitors — check back soon, or come by the shop in Anaxos and leave your own story on the shelf.
             </p>
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
               {reviews.slice(0, 8).map((review, index) => (
-                <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
-                  <CardContent className="p-6">
-                    <div className="flex items-center mb-4">
-                      <div className="flex space-x-1 mr-2">
-                        {renderStars(review.rating)}
-                      </div>
-                      <span className="text-sm text-gray-500">
-                        {review.relative_time_description || formatDate(review.time)}
-                      </span>
-                    </div>
-                    <p className="text-gray-600 mb-4 text-sm">
-                      "{review.text}"
+                <Card
+                  key={index}
+                  className={`bento-card border-none p-6 flex flex-col ${index % 3 === 1 ? 'lg:translate-y-6' : ''}`}
+                >
+                  <CardContent className="p-0 flex-1 flex flex-col">
+                    <Quote className="h-5 w-5 text-primary/60 mb-3" />
+                    <p className="font-display text-lg md:text-xl text-foreground leading-snug mb-6 text-pretty flex-1">
+                      &ldquo;{review.text}&rdquo;
                     </p>
-                    <div className="font-medium text-gray-900">
-                      {review.author_name}
+                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/60">
+                      <div>
+                        <div className="text-sm font-medium text-foreground">{review.author_name}</div>
+                        <div className="text-xs text-muted-foreground mt-0.5">
+                          {review.relative_time_description}
+                        </div>
+                      </div>
+                      <div className="flex gap-0.5">{renderStars(review.rating)}</div>
                     </div>
                   </CardContent>
                 </Card>
               ))}
             </div>
-            <div className="text-center mt-12">
-              <p className="text-gray-700 text-base mb-2">
-                Based on <strong>{totalReviews ?? 'N/A'}</strong> verified Google reviews
-              </p>
-              <div className="flex items-center justify-center space-x-2">
-                <div className="flex space-x-1" aria-label={`Average rating: ${rating ?? 'N/A'} out of 5`}>
-                  {renderStars(Math.round(rating ?? 0))}
+
+            <div className="mt-14 rounded-3xl bg-primary text-primary-foreground p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-6 justify-between grain">
+              <div>
+                <div className="text-xs uppercase tracking-[0.28em] opacity-80">Google Reviews</div>
+                <div className="font-display text-3xl md:text-4xl mt-2 leading-tight">
+                  {rating ? `${rating.toFixed(1)} out of 5` : 'Loved by our guests'}
                 </div>
-                <span className="text-lg font-semibold text-gray-900">
-                  {rating ? `${rating.toFixed(1)} out of 5 stars` : 'Rating not available'}
-                </span>
+                <p className="text-sm opacity-90 mt-1">
+                  Based on {totalReviews ?? '—'} verified reviews.
+                </p>
               </div>
-              <p className="text-gray-600 text-sm mt-2">
-                Read what real customers are saying about us on Google
-              </p>
+              <div className="flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className={`h-6 w-6 ${i < Math.round(rating ?? 0) ? 'fill-current' : 'opacity-40'}`}
+                  />
+                ))}
+              </div>
             </div>
           </>
         )}
