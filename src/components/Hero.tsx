@@ -1,64 +1,89 @@
-
 import { Button } from "@/components/ui/button";
-import { MapPin, Store, Home, Car } from "lucide-react";
+import { MapPin, Sparkles, Wheat, Waves, Sun } from "lucide-react";
 
 const Hero = () => {
   const handleVisitStore = () => {
-    window.open('https://www.google.com/maps/place/Stratos+Market/@39.3161481,26.1429499,17z/data=!3m1!4b1!4m6!3m5!1s0x14ba90b7da6564c9:0xa0bdf39da3a750df!8m2!3d39.3161481!4d26.1455248!16s%2Fg%2F11fxg0j296?entry=ttu&g_ep=EgoyMDI1MDYzMC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+    window.open('https://www.google.com/maps/place/Stratos+Market/@39.3161481,26.1429499,17z/data=!3m1!4b1!4m6!3m5!1s0x14ba90b7da6564c9:0xa0bdf39da3a750df!8m2!3d39.3161481!4d26.1455248!16s%2Fg%2F11fxg0j296', '_blank');
   };
 
   return (
-    <section id="home" className="relative py-20 px-6 sm:px-8 lg:px-10">
+    <section id="home" className="relative pt-10 pb-16 md:pt-16 md:pb-24 px-5 sm:px-8">
+      <div className="absolute inset-0 bg-gradient-earth -z-10" />
       <div className="max-w-7xl mx-auto">
-        <div className="text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 px-4">
-            Welcome to
-            <span className="text-blue-600 block">Stratos Market</span>
-          </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto px-4">
-            Your trusted local market in Anaxos, Lesvos, Greece. Discover authentic Greek specialties, 
-            fresh Mediterranean produce, and unique Aegean souvenirs. Experience genuine Greek hospitality in the heart of Anaxos.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
-            <Button 
-              size="lg" 
-              className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-64"
-              onClick={handleVisitStore}
-            >
-              <MapPin className="mr-2 h-5 w-5" />
-              Visit Our Store
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="border-blue-600 text-blue-600 hover:bg-blue-50 text-lg px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-64"
-              onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Explore Greek Products
-            </Button>
+        {/* Eyebrow */}
+        <div className="flex items-center justify-center gap-2 mb-6">
+          <span className="h-px w-8 bg-primary/40" />
+          <span className="text-xs uppercase tracking-[0.28em] text-primary font-medium">
+            Anaxos · Lesvos · Est. 1990s
+          </span>
+          <span className="h-px w-8 bg-primary/40" />
+        </div>
+
+        <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-center text-foreground text-balance leading-[0.95] mb-6">
+          A little market
+          <br />
+          <span className="italic text-primary">by the Aegean.</span>
+        </h1>
+
+        <p className="text-lg md:text-xl text-muted-foreground text-center max-w-2xl mx-auto mb-10 text-pretty px-4">
+          Thirty summers of golden olive oil, sheep&apos;s-milk yoghurt, sun-dried herbs and
+          quiet Greek hospitality — fifty steps from the shore.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-16 px-4">
+          <Button
+            size="lg"
+            onClick={handleVisitStore}
+            className="w-full sm:w-64 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-elevated text-base"
+          >
+            <MapPin className="mr-2 h-4 w-4" />
+            Find us on the map
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
+            className="w-full sm:w-64 rounded-full border-foreground/20 bg-background/60 backdrop-blur hover:bg-background text-foreground text-base"
+          >
+            See what&apos;s on the shelf
+          </Button>
+        </div>
+
+        {/* Bento */}
+        <div className="grid grid-cols-6 md:grid-cols-12 gap-3 md:gap-4 auto-rows-[minmax(120px,auto)]">
+          <div className="bento-card col-span-6 md:col-span-5 md:row-span-2 p-8 bg-gradient-warm text-primary-foreground grain">
+            <Wheat className="h-8 w-8 mb-6 opacity-90" />
+            <p className="font-display text-3xl md:text-4xl leading-tight mb-3 text-balance">
+              &ldquo;Everything on our shelves has a name and a hillside.&rdquo;
+            </p>
+            <p className="text-sm opacity-85">— Stratos, since the &apos;90s</p>
           </div>
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
-            <div className="text-center group">
-              <div className="bg-gradient-to-br from-blue-100 to-blue-200 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300">
-                <Store className="h-10 w-10 text-blue-600" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 px-2">Local Lesvos Products</h3>
-              <p className="text-gray-600 px-2">Authentic Lesvos specialties, fresh local produce, and traditional Greek delicacies from our island</p>
+
+          <div className="bento-card col-span-3 md:col-span-4 p-6">
+            <Sun className="h-6 w-6 text-primary mb-3" />
+            <div className="font-display text-4xl md:text-5xl text-foreground">30+</div>
+            <div className="text-sm text-muted-foreground mt-1">summers in Anaxos</div>
+          </div>
+
+          <div className="bento-card col-span-3 md:col-span-3 p-6 bg-accent/15">
+            <Waves className="h-6 w-6 text-olive mb-3" />
+            <div className="font-display text-2xl md:text-3xl text-foreground leading-tight">50m</div>
+            <div className="text-sm text-muted-foreground mt-1">from the beach</div>
+          </div>
+
+          <div className="bento-card col-span-6 md:col-span-4 p-6">
+            <div className="flex items-center gap-2 mb-2">
+              <Sparkles className="h-4 w-4 text-primary" />
+              <span className="text-xs uppercase tracking-widest text-muted-foreground">On the shelf today</span>
             </div>
-            <div className="text-center group">
-              <div className="bg-gradient-to-br from-white to-blue-50 border-2 border-blue-200 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300">
-                <Home className="h-10 w-10 text-blue-600" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 px-2">Aegean Island Souvenirs</h3>
-              <p className="text-gray-600 px-2">Handcrafted items, traditional Greek gifts, and authentic Anaxos memorabilia</p>
-            </div>
-            <div className="text-center group">
-              <div className="bg-gradient-to-br from-blue-100 to-blue-200 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300">
-                <Car className="h-10 w-10 text-blue-600" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 px-2">Free Parking Available</h3>
-              <p className="text-gray-600 px-2">Offering free parking for our customers, making your shopping experience convenient and stress-free</p>
-            </div>
+            <p className="font-display text-xl text-foreground leading-snug">
+              Ladotyri PDO, sheep&apos;s yoghurt, Kalamata olives, Stratos&apos; own olive oil.
+            </p>
+          </div>
+
+          <div className="bento-card col-span-6 md:col-span-3 p-6 bg-olive text-olive-foreground">
+            <div className="text-xs uppercase tracking-widest opacity-80 mb-2">Parking</div>
+            <p className="font-display text-2xl leading-tight">Free, right at the door.</p>
           </div>
         </div>
       </div>
