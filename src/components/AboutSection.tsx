@@ -37,9 +37,9 @@ const AboutSection = () => {
           </div>
 
           {/* Stat tiles */}
-          <div className="lg:col-span-4 bento-card p-8 bg-primary text-primary-foreground grain">
-            <div className="font-display text-6xl md:text-7xl leading-none">30+</div>
-            <div className="mt-3 text-sm opacity-90">Summers on the same street</div>
+          <div className="lg:col-span-4 bento-card p-8 bg-gradient-warm text-primary-foreground grain">
+            <div className="font-display text-6xl md:text-7xl leading-none drop-shadow-sm">30+</div>
+            <div className="mt-3 text-sm opacity-95 drop-shadow-sm">Summers on the same street</div>
           </div>
 
           <div className="lg:col-span-3 bento-card p-8">
