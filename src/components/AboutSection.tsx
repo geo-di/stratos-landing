@@ -1,51 +1,50 @@
-
 const AboutSection = () => {
   return (
-    <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 via-white to-blue-50">
+    <section id="about" className="py-20 md:py-28 px-5 sm:px-8 bg-gradient-earth">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              About Stratos Market
-            </h2>
-            <div className="space-y-4 text-gray-600">
-              <p className="text-lg">
-                For over three decades, Stratos Market has been the heart of Anaxos, serving both 
-                locals and visitors with authentic Greek products and genuine hospitality. What started 
-                as a young entrepreneur's dream in the 1990s has grown into a beloved family business 
-                that embodies the true spirit of Greek tradition.
-              </p>
-              <p>
-                Founded by Stratos in his twenties, our family-run supermarket in Anaxos, Lesvos 
-                has become an essential destination for anyone seeking genuine Greek flavors and 
-                handcrafted local souvenirs. We take pride in offering everything from daily 
-                essentials to specialty items that capture the authentic taste of the Aegean islands.
-              </p>
-              <p>
-                Our shelves are filled with carefully selected local treasures: golden Lesvos honey, 
-                creamy traditional feta cheese, the famous Lesvos PDO Ladotyri cheese, fresh Greek 
-                yogurt, and premium olive oil pressed from Stratos's own olive groves. We also offer 
-                an extensive selection of Greek wines, authentic ouzo, traditional tsipouro, and 
-                classic retsina - perfect for taking home a taste of Greece.
-              </p>
-            </div>
-            <div className="mt-8 grid grid-cols-2 gap-6">
-              <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-white rounded-lg shadow-sm">
-                <div className="text-2xl font-bold text-blue-600">30+</div>
-                <div className="text-gray-600">Years Serving Anaxos</div>
-              </div>
-              <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-white rounded-lg shadow-sm">
-                <div className="text-2xl font-bold text-blue-600">Family</div>
-                <div className="text-gray-600">Owned & Operated</div>
-              </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10">
+          {/* Image tile */}
+          <div className="lg:col-span-5 lg:row-span-2">
+            <div className="bento-card h-full min-h-[420px] overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=900&h=1200&fit=crop"
+                alt="Anaxos coastline, Lesvos"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
-          <div className="lg:order-first">
-            <img 
-              src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=600&h=400&fit=crop" 
-              alt="Beautiful Anaxos landscape with traditional Greek architecture and Mediterranean scenery"
-              className="rounded-lg shadow-xl w-full hover:scale-105 transition-transform duration-300"
-            />
+
+          {/* Story tile */}
+          <div className="lg:col-span-7 bento-card p-8 md:p-12">
+            <span className="text-xs uppercase tracking-[0.28em] text-primary font-medium">
+              Our Story · Since the 1990s
+            </span>
+            <h2 className="font-display text-4xl md:text-5xl text-foreground mt-4 mb-6 leading-[1.05] text-balance">
+              A family shop that grew
+              <span className="italic text-primary"> alongside the village.</span>
+            </h2>
+            <div className="space-y-4 text-muted-foreground text-[15px] md:text-base leading-relaxed text-pretty">
+              <p>
+                In his twenties, Stratos opened a small corner shop in Anaxos with a single idea: stock what he&apos;d serve at his own table. Three decades on, the shop is still family-run, still on the same street, still choosing the same suppliers.
+              </p>
+              <p>
+                What has changed is the quiet reputation — visitors come back summer after summer for the golden Lesvos honey, the creamy sheep&apos;s-milk yoghurt, the PDO Ladotyri and the olive oil pressed from the family&apos;s own trees.
+              </p>
+              <p>
+                Wine from the mainland, ouzo and tsipouro from island distilleries, retsina for the long lunches — a taste of Greece to carry home.
+              </p>
+            </div>
+          </div>
+
+          {/* Stat tiles */}
+          <div className="lg:col-span-4 bento-card p-8 bg-primary text-primary-foreground grain">
+            <div className="font-display text-6xl md:text-7xl leading-none">30+</div>
+            <div className="mt-3 text-sm opacity-90">Summers on the same street</div>
+          </div>
+
+          <div className="lg:col-span-3 bento-card p-8">
+            <div className="font-display text-4xl text-foreground leading-tight">Family</div>
+            <div className="mt-2 text-sm text-muted-foreground">owned & tended, every day</div>
           </div>
         </div>
       </div>
