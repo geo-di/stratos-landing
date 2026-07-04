@@ -84,7 +84,7 @@ const ProductShowcase = () => {
               The full shelf is best seen in person — coffee&apos;s on us.
             </p>
             <p className="text-muted-foreground mt-2 text-sm">
-              We&apos;re open every day. Stop by after the beach, or before the ferry.
+              We&apos;re open every day. Stop by after the beach, or before the village walk.
             </p>
           </div>
         </div>

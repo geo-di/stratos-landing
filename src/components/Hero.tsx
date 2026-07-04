@@ -81,7 +81,7 @@ const Hero = () => {
             </p>
           </div>
 
-          <div className="bento-card col-span-6 md:col-span-3 p-6 bg-olive text-olive-foreground">
+          <div className="bento-card col-span-6 md:col-span-3 p-6 !bg-olive text-olive-foreground">
             <div className="text-xs uppercase tracking-widest opacity-80 mb-2">Parking</div>
             <p className="font-display text-2xl leading-tight">Free, right at the door.</p>
           </div>
