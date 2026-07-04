@@ -84,7 +84,7 @@ const ContactSection = () => {
           </div>
 
           {/* CTAs */}
-          <div className="bento-card lg:col-span-4 p-8 bg-primary text-primary-foreground grain flex flex-col justify-between gap-6">
+          <div className="bento-card lg:col-span-4 p-8 !bg-primary text-primary-foreground grain flex flex-col justify-between gap-6">
             <div>
               <div className="text-xs uppercase tracking-[0.22em] opacity-80 mb-3">Say hello</div>
               <p className="font-display text-3xl leading-tight">
@@ -126,7 +126,7 @@ const ContactSection = () => {
           </div>
 
           {/* Notes */}
-          <div className="bento-card lg:col-span-4 p-8 bg-olive text-olive-foreground">
+          <div className="bento-card lg:col-span-4 p-8 !bg-olive text-olive-foreground">
             <div className="text-xs uppercase tracking-[0.22em] opacity-80 mb-3">A note before you come</div>
             <p className="font-display text-2xl leading-snug mb-4">
               Fifty metres from the sand, free parking at the door.
