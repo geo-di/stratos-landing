@@ -1,65 +1,59 @@
-
-import { Store, MapPin, Star, Phone } from "lucide-react";
+import { MapPin, Phone, Sun } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <Store className="h-8 w-8 text-blue-300" />
-              <span className="text-xl font-bold">Stratos Market</span>
+    <footer className="bg-foreground text-background py-16 px-5 sm:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
+          <div className="md:col-span-5">
+            <div className="flex items-center gap-3 mb-5">
+              <span className="h-10 w-10 rounded-2xl bg-primary flex items-center justify-center">
+                <span className="font-display text-xl text-primary-foreground leading-none">S</span>
+              </span>
+              <span className="font-display text-3xl">Stratos Market</span>
             </div>
-            <p className="text-blue-100 mb-4">
-              Your local market in Anaxos, Lesvos offering fresh Mediterranean products, 
-              traditional Greek delicacies, and authentic souvenirs. Experience genuine Greek hospitality 
-              at our family-run store.
+            <p className="text-background/70 max-w-md leading-relaxed">
+              A family shop in Anaxos, Lesvos — three decades of small, careful things chosen from island growers, shepherds and distillers.
             </p>
-            <div className="flex items-center space-x-1">
-              <Star className="h-4 w-4 text-yellow-400 fill-current" />
-              <Star className="h-4 w-4 text-yellow-400 fill-current" />
-              <Star className="h-4 w-4 text-yellow-400 fill-current" />
-              <Star className="h-4 w-4 text-yellow-400 fill-current" />
-              <Star className="h-4 w-4 text-yellow-400 fill-current" />
-              <span className="text-sm text-blue-100 ml-2">Trusted by Anaxos locals and visitors</span>
+            <div className="flex items-center gap-2 mt-6 text-sm text-background/60">
+              <Sun className="h-4 w-4 text-primary" />
+              Open every day of the season.
             </div>
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2 text-blue-100">
-              <li><a href="#home" className="hover:text-blue-300 transition-colors">Home</a></li>
-              <li><a href="#products" className="hover:text-blue-300 transition-colors">Greek Products</a></li>
-              <li><a href="#about" className="hover:text-blue-300 transition-colors">About Us</a></li>
-              <li><a href="#reviews" className="hover:text-blue-300 transition-colors">Customer Reviews</a></li>
-              <li><a href="#contact" className="hover:text-blue-300 transition-colors">Contact & Location</a></li>
-              <li><a href="/gallery" className="hover:text-blue-300 transition-colors">Photo Gallery</a></li>
+          <div className="md:col-span-3">
+            <h3 className="text-xs uppercase tracking-[0.28em] text-background/50 mb-4">Wander</h3>
+            <ul className="space-y-2.5 text-background/80">
+              <li><a href="#home" className="hover:text-primary transition-colors">Home</a></li>
+              <li><a href="#products" className="hover:text-primary transition-colors">Provisions</a></li>
+              <li><a href="#about" className="hover:text-primary transition-colors">Our Story</a></li>
+              <li><a href="#reviews" className="hover:text-primary transition-colors">Guest Notes</a></li>
+              <li><a href="#contact" className="hover:text-primary transition-colors">Find Us</a></li>
+              <li><a href="/gallery" className="hover:text-primary transition-colors">Gallery</a></li>
             </ul>
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
-            <div className="space-y-2 text-blue-100">
-              <div className="flex items-start space-x-2">
-                <MapPin className="h-5 w-5 text-blue-300 mt-0.5" />
+          <div className="md:col-span-4">
+            <h3 className="text-xs uppercase tracking-[0.28em] text-background/50 mb-4">Come Say Hello</h3>
+            <div className="space-y-3 text-background/80">
+              <div className="flex items-start gap-3">
+                <MapPin className="h-5 w-5 text-primary mt-0.5 shrink-0" />
                 <div>
                   <p>Stratos Market</p>
-                  <p>Anaxos, Lesvos, Greece</p>
-                  <p>North Aegean Region</p>
+                  <p className="text-background/60 text-sm">Anaxos, Lesvos · North Aegean, Greece</p>
                 </div>
               </div>
-              <div className="flex items-center space-x-2">
-                <Phone className="h-5 w-5 text-blue-300" />
-                <p>Tel: 2253092421</p>
-              </div>
-              <p>Visit us for authentic Greek products and local specialties</p>
+              <a href="tel:+302253092421" className="flex items-center gap-3 hover:text-primary transition-colors">
+                <Phone className="h-5 w-5 text-primary shrink-0" />
+                +30 22530 92421
+              </a>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-blue-700 mt-8 pt-8 text-center text-blue-100">
-          <p>&copy; 2024 Stratos Market. All rights reserved. Serving Anaxos with authentic Greek tradition.</p>
+        <div className="border-t border-background/10 mt-14 pt-8 flex flex-col md:flex-row justify-between gap-3 text-sm text-background/50">
+          <p>© {new Date().getFullYear()} Stratos Market · Anaxos, Lesvos.</p>
+          <p className="italic">Made slowly, like everything on the shelf.</p>
         </div>
       </div>
     </footer>
