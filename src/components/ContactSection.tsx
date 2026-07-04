@@ -132,7 +132,7 @@ const ContactSection = () => {
               Fifty metres from the sand, free parking at the door.
             </p>
             <p className="text-sm opacity-90">
-              Perfect for a stop between the ferry and the beach — or the beach and the taverna.
+              Perfect for a stop between the beach and the village — or the beach and the taverna.
             </p>
           </div>
         </div>
