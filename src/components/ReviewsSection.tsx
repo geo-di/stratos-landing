@@ -44,13 +44,12 @@ const ReviewsSection = () => {
             <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
             <span className="ml-2 text-gray-600">Loading reviews...</span>
           </div>
-        ) : error ? (
-          <div className="text-center py-12">
-            <p className="text-red-600 mb-4">Error loading reviews: {error}</p>
-          </div>
-        ) : reviews.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-gray-600">Error loading reviews.</p>
+        ) : error || reviews.length === 0 ? (
+          <div className="text-center py-12 max-w-xl mx-auto">
+            <p className="text-gray-700 text-lg mb-2">Reviews are on their way.</p>
+            <p className="text-gray-500 text-sm">
+              We're still gathering kind words from our guests — check back soon, or come visit us in Anaxos and share your own story.
+            </p>
           </div>
         ) : (
           <>
