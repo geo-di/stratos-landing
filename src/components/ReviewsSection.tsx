@@ -34,8 +34,8 @@ const ReviewsSection = () => {
       />
     ));
 
-
   return (
+
     <section id="reviews" className="py-20 md:py-28 px-5 sm:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="max-w-2xl mb-14">
