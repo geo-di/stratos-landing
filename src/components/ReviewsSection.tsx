@@ -1,9 +1,30 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Star, Loader2, Quote } from "lucide-react";
 import { useSharedGoogleData } from "@/hooks/useSharedGoogleData";
+import { useState } from "react";
+
+const MAX_REVIEW_LENGTH = 160;
+
+const truncateReview = (text: string, maxLength: number) => {
+  if (text.length <= maxLength) return { excerpt: text, isTruncated: false };
+  const excerpt = text.slice(0, maxLength).trim() + "…";
+  return { excerpt, isTruncated: true };
+};
 
 const ReviewsSection = () => {
+
   const { reviews, rating, totalReviews, loading, error } = useSharedGoogleData('ChIJyWRl2reQuhQR31Cno53zvaA');
+
+  const [expanded, setExpanded] = useState<Set<number>>(new Set());
+
+  const toggleExpanded = (index: number) => {
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      if (next.has(index)) next.delete(index);
+      else next.add(index);
+      return next;
+    });
+  };
 
   const renderStars = (r: number) =>
     [...Array(5)].map((_, i) => (
@@ -14,6 +35,7 @@ const ReviewsSection = () => {
     ));
 
   return (
+
     <section id="reviews" className="py-20 md:py-28 px-5 sm:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="max-w-2xl mb-14">
@@ -54,9 +76,19 @@ const ReviewsSection = () => {
                 >
                   <CardContent className="p-0 flex-1 flex flex-col">
                     <Quote className="h-5 w-5 text-primary/60 mb-3" />
-                    <p className="font-display text-lg md:text-xl text-foreground leading-snug mb-6 text-pretty flex-1">
-                      &ldquo;{review.text}&rdquo;
+                    <p className="font-display text-lg md:text-xl text-foreground leading-snug mb-3 text-pretty flex-1">
+                      &ldquo;{expanded.has(index) ? review.text : truncateReview(review.text, MAX_REVIEW_LENGTH).excerpt}&rdquo;
                     </p>
+                    {truncateReview(review.text, MAX_REVIEW_LENGTH).isTruncated && (
+                      <button
+                        type="button"
+                        onClick={() => toggleExpanded(index)}
+                        className="self-start text-sm font-medium text-primary hover:text-primary/80 transition-colors mb-4"
+                      >
+                        {expanded.has(index) ? "Show less" : "Read more"}
+                      </button>
+                    )}
+
                     <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/60">
                       <div>
                         <div className="text-sm font-medium text-foreground">{review.author_name}</div>
