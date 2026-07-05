@@ -11,8 +11,8 @@ const truncateReview = (text: string, maxLength: number) => {
   return { excerpt, isTruncated: true };
 };
 
-
 const ReviewsSection = () => {
+
   const { reviews, rating, totalReviews, loading, error } = useSharedGoogleData('ChIJyWRl2reQuhQR31Cno53zvaA');
 
   const [expanded, setExpanded] = useState<Set<number>>(new Set());
