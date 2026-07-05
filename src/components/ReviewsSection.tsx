@@ -27,13 +27,13 @@ const ReviewsSection = () => {
   };
 
   const renderStars = (r: number) =>
-
     [...Array(5)].map((_, i) => (
       <Star
         key={i}
         className={`h-3.5 w-3.5 ${i < r ? 'text-primary fill-current' : 'text-muted-foreground/30'}`}
       />
     ));
+
 
   return (
     <section id="reviews" className="py-20 md:py-28 px-5 sm:px-8 bg-background">
