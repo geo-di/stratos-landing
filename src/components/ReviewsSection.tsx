@@ -76,9 +76,19 @@ const ReviewsSection = () => {
                 >
                   <CardContent className="p-0 flex-1 flex flex-col">
                     <Quote className="h-5 w-5 text-primary/60 mb-3" />
-                    <p className="font-display text-lg md:text-xl text-foreground leading-snug mb-6 text-pretty flex-1">
-                      &ldquo;{review.text}&rdquo;
+                    <p className="font-display text-lg md:text-xl text-foreground leading-snug mb-3 text-pretty flex-1">
+                      &ldquo;{expanded.has(index) ? review.text : truncateReview(review.text, MAX_REVIEW_LENGTH).excerpt}&rdquo;
                     </p>
+                    {truncateReview(review.text, MAX_REVIEW_LENGTH).isTruncated && (
+                      <button
+                        type="button"
+                        onClick={() => toggleExpanded(index)}
+                        className="self-start text-sm font-medium text-primary hover:text-primary/80 transition-colors mb-4"
+                      >
+                        {expanded.has(index) ? "Show less" : "Read more"}
+                      </button>
+                    )}
+
                     <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/60">
                       <div>
                         <div className="text-sm font-medium text-foreground">{review.author_name}</div>
