@@ -9,10 +9,35 @@ const DESTINATION = "Stratos Market, Anaxos, Lesvos, Greece";
 const ContactSection = () => {
   const { openingHours, loading, error } = useSharedGoogleData('ChIJyWRl2reQuhQR31Cno53zvaA');
 
+  const [origin, setOrigin] = useState("");
+
+  const openDirections = (from?: string) => {
+    const base = "https://www.google.com/maps/dir/?api=1";
+    const url = from
+      ? `${base}&origin=${encodeURIComponent(from)}&destination=${encodeURIComponent(DESTINATION)}`
+      : `${base}&destination=${encodeURIComponent(DESTINATION)}`;
+    window.open(url, "_blank");
+  };
+
   const handleDirections = () =>
     window.open('https://www.google.com/maps/place/Stratos+Market/@39.3161481,26.1429499,17z/data=!3m1!4b1!4m6!3m5!1s0x14ba90b7da6564c9:0xa0bdf39da3a750df!8m2!3d39.3161481!4d26.1455248!16s%2Fg%2F11fxg0j296', '_blank');
 
-  const handleCallStore = () => window.open('tel:+302253092421', '_self');
+  const handleUseMyLocation = () => {
+    if (!navigator.geolocation) {
+      openDirections();
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      (pos) => openDirections(`${pos.coords.latitude},${pos.coords.longitude}`),
+      () => openDirections(),
+      { enableHighAccuracy: true, timeout: 8000 }
+    );
+  };
+
+  const handleOriginSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    openDirections(origin.trim() || undefined);
+  };
 
   const renderOpeningHours = () => {
     if (loading) return <p className="text-muted-foreground text-sm">Loading hours…</p>;
