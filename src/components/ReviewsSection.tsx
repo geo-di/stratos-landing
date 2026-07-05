@@ -1,6 +1,16 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Star, Loader2, Quote } from "lucide-react";
 import { useSharedGoogleData } from "@/hooks/useSharedGoogleData";
+import { useState } from "react";
+
+const MAX_REVIEW_LENGTH = 160;
+
+const truncateReview = (text: string, maxLength: number) => {
+  if (text.length <= maxLength) return { excerpt: text, isTruncated: false };
+  const excerpt = text.slice(0, maxLength).trim() + "…";
+  return { excerpt, isTruncated: true };
+};
+
 
 const ReviewsSection = () => {
   const { reviews, rating, totalReviews, loading, error } = useSharedGoogleData('ChIJyWRl2reQuhQR31Cno53zvaA');
