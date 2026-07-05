@@ -39,6 +39,8 @@ const ContactSection = () => {
     openDirections(origin.trim() || undefined);
   };
 
+  const handleCallStore = () => window.open('tel:+302253092421', '_self');
+
   const renderOpeningHours = () => {
     if (loading) return <p className="text-muted-foreground text-sm">Loading hours…</p>;
     if (error || !openingHours?.weekday_text) {
