@@ -77,7 +77,7 @@ const Hero = () => {
               <span className="text-xs uppercase tracking-widest text-muted-foreground">On the shelf today</span>
             </div>
             <p className="font-display text-xl text-foreground leading-snug">
-              Ladotyri PDO, sheep&apos;s yoghurt, Kalamata olives, Stratos&apos; own olive oil.
+              Ladotyri PDO, sheep&apos;s yoghurt, Kalamata olives, local olive oil from Lesvos.
             </p>
           </div>
 
