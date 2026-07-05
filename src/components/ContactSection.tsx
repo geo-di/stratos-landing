@@ -11,12 +11,22 @@ const ContactSection = () => {
 
   const [origin, setOrigin] = useState("");
 
+  const openExternal = (url: string) => {
+    const a = document.createElement("a");
+    a.href = url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  };
+
   const openDirections = (from?: string) => {
     const base = "https://www.google.com/maps/dir/?api=1";
     const url = from
       ? `${base}&origin=${encodeURIComponent(from)}&destination=${encodeURIComponent(DESTINATION)}`
       : `${base}&destination=${encodeURIComponent(DESTINATION)}`;
-    window.open(url, "_blank");
+    openExternal(url);
   };
 
   const handleDirections = () =>
