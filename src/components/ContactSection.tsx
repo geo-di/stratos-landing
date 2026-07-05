@@ -11,16 +11,26 @@ const ContactSection = () => {
 
   const [origin, setOrigin] = useState("");
 
+  const openExternal = (url: string) => {
+    const a = document.createElement("a");
+    a.href = url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  };
+
   const openDirections = (from?: string) => {
     const base = "https://www.google.com/maps/dir/?api=1";
     const url = from
       ? `${base}&origin=${encodeURIComponent(from)}&destination=${encodeURIComponent(DESTINATION)}`
       : `${base}&destination=${encodeURIComponent(DESTINATION)}`;
-    window.open(url, "_blank");
+    openExternal(url);
   };
 
   const handleDirections = () =>
-    window.open('https://www.google.com/maps/place/Stratos+Market/@39.3161481,26.1429499,17z/data=!3m1!4b1!4m6!3m5!1s0x14ba90b7da6564c9:0xa0bdf39da3a750df!8m2!3d39.3161481!4d26.1455248!16s%2Fg%2F11fxg0j296', '_blank');
+    openExternal('https://www.google.com/maps/place/Stratos+Market/@39.3161481,26.1429499,17z/data=!3m1!4b1!4m6!3m5!1s0x14ba90b7da6564c9:0xa0bdf39da3a750df!8m2!3d39.3161481!4d26.1455248!16s%2Fg%2F11fxg0j296');
 
   const handleUseMyLocation = () => {
     if (!navigator.geolocation) {
