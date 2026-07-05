@@ -166,6 +166,64 @@ const ContactSection = () => {
               Perfect for a stop between the beach and the village — or the beach and the taverna.
             </p>
           </div>
+
+          {/* Directions */}
+          <div className="bento-card lg:col-span-12 p-8 md:p-10">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-center">
+              <div className="md:col-span-5">
+                <Navigation className="h-6 w-6 text-primary mb-3" />
+                <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-2">
+                  Get directions
+                </div>
+                <p className="font-display text-3xl md:text-4xl text-foreground leading-tight text-balance">
+                  From wherever you are on the island — <span className="italic text-primary">we&apos;ll be here.</span>
+                </p>
+              </div>
+              <form onSubmit={handleOriginSubmit} className="md:col-span-7 flex flex-col gap-3">
+                <label htmlFor="origin" className="text-xs uppercase tracking-[0.22em] text-muted-foreground">
+                  Starting point
+                </label>
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <Input
+                    id="origin"
+                    value={origin}
+                    onChange={(e) => setOrigin(e.target.value)}
+                    placeholder="e.g. Mytilene Airport, Molyvos, your hotel…"
+                    className="h-12 rounded-full px-5 bg-background border-border/60"
+                  />
+                  <Button
+                    type="submit"
+                    className="h-12 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground px-6"
+                  >
+                    <Navigation className="mr-2 h-4 w-4" />
+                    Directions
+                  </Button>
+                </div>
+                <div className="flex flex-wrap gap-2 pt-1">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleUseMyLocation}
+                    className="rounded-full border-foreground/15 bg-background/60 backdrop-blur"
+                  >
+                    <Locate className="mr-2 h-4 w-4" />
+                    Use my location
+                  </Button>
+                  {['Mytilene Airport', 'Molyvos', 'Petra', 'Skala Eressos'].map((place) => (
+                    <Button
+                      key={place}
+                      type="button"
+                      variant="outline"
+                      onClick={() => openDirections(place + ', Lesvos, Greece')}
+                      className="rounded-full border-foreground/15 bg-background/60 backdrop-blur"
+                    >
+                      {place}
+                    </Button>
+                  ))}
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </section>
