@@ -15,7 +15,19 @@ const truncateReview = (text: string, maxLength: number) => {
 const ReviewsSection = () => {
   const { reviews, rating, totalReviews, loading, error } = useSharedGoogleData('ChIJyWRl2reQuhQR31Cno53zvaA');
 
+  const [expanded, setExpanded] = useState<Set<number>>(new Set());
+
+  const toggleExpanded = (index: number) => {
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      if (next.has(index)) next.delete(index);
+      else next.add(index);
+      return next;
+    });
+  };
+
   const renderStars = (r: number) =>
+
     [...Array(5)].map((_, i) => (
       <Star
         key={i}
