@@ -1,6 +1,10 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { MapPin, Clock, Phone } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { MapPin, Clock, Phone, Navigation, Locate } from "lucide-react";
 import { useSharedGoogleData } from "@/hooks/useSharedGoogleData";
+
+const DESTINATION = "Stratos Market, Anaxos, Lesvos, Greece";
 
 const ContactSection = () => {
   const { openingHours, loading, error } = useSharedGoogleData('ChIJyWRl2reQuhQR31Cno53zvaA');
