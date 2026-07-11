@@ -3,34 +3,22 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MapPin, Clock, Phone, Navigation, Locate } from "lucide-react";
 import { useSharedGoogleData } from "@/hooks/useSharedGoogleData";
-
-const DESTINATION = "Stratos Market, Anaxos, Lesvos, Greece";
+import { STORE_ADDRESS, STORE_MAPS_URL, STORE_PHONE_DISPLAY, STORE_PHONE_TEL, STORE_PLACE_ID } from "@/config/store";
 
 const ContactSection = () => {
-  const { openingHours, loading, error } = useSharedGoogleData('ChIJyWRl2reQuhQR31Cno53zvaA');
+  const { openingHours, loading, error } = useSharedGoogleData(STORE_PLACE_ID);
 
   const [origin, setOrigin] = useState("");
-
-  const openExternal = (url: string) => {
-    const a = document.createElement("a");
-    a.href = url;
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  };
 
   const openDirections = (from?: string) => {
     const base = "https://www.google.com/maps/dir/?api=1";
     const url = from
-      ? `${base}&origin=${encodeURIComponent(from)}&destination=${encodeURIComponent(DESTINATION)}`
-      : `${base}&destination=${encodeURIComponent(DESTINATION)}`;
-    openExternal(url);
+      ? `${base}&origin=${encodeURIComponent(from)}&destination=${encodeURIComponent(STORE_ADDRESS)}`
+      : `${base}&destination=${encodeURIComponent(STORE_ADDRESS)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
-  const handleDirections = () =>
-    openExternal('https://www.google.com/maps/place/Stratos+Market/@39.3161481,26.1429499,17z/data=!3m1!4b1!4m6!3m5!1s0x14ba90b7da6564c9:0xa0bdf39da3a750df!8m2!3d39.3161481!4d26.1455248!16s%2Fg%2F11fxg0j296');
+  const handleDirections = () => window.open(STORE_MAPS_URL, '_blank', 'noopener,noreferrer');
 
   const handleUseMyLocation = () => {
     if (!navigator.geolocation) {
@@ -49,7 +37,7 @@ const ContactSection = () => {
     openDirections(origin.trim() || undefined);
   };
 
-  const handleCallStore = () => window.open('tel:+302253092421', '_self');
+  const handleCallStore = () => window.open(`tel:${STORE_PHONE_TEL}`, '_self');
 
   const renderOpeningHours = () => {
     if (loading) return <p className="text-muted-foreground text-sm">Loading hours…</p>;
@@ -93,15 +81,11 @@ const ContactSection = () => {
     <section id="contact" className="py-20 md:py-28 px-5 sm:px-8 bg-gradient-earth">
       <div className="max-w-7xl mx-auto">
         <div className="max-w-2xl mb-14">
-          <span className="text-xs uppercase tracking-[0.28em] text-primary font-medium">
-            Find us · Anaxos
-          </span>
-          <h2 className="font-display text-4xl md:text-6xl text-foreground mt-4 mb-5 leading-[1.05] text-balance">
-            Fifty steps
-            <span className="italic text-primary"> from the sea.</span>
+          <h2 className="font-display text-3xl md:text-4xl text-foreground mb-4 leading-[1.1] text-balance">
+            Find us in Anaxos
           </h2>
           <p className="text-lg text-muted-foreground text-pretty">
-            The door&apos;s open every day. Come by wet from the beach, we don&apos;t mind.
+            Fifty metres from the sea. The door&apos;s open every day, wet feet welcome.
           </p>
         </div>
 
@@ -146,7 +130,7 @@ const ContactSection = () => {
                 className="w-full rounded-full border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"
               >
                 <Phone className="mr-2 h-4 w-4" />
-                +30 22530 92421
+                {STORE_PHONE_DISPLAY}
               </Button>
             </div>
           </div>
@@ -168,12 +152,12 @@ const ContactSection = () => {
 
           {/* Notes */}
           <div className="bento-card lg:col-span-4 p-8 !bg-olive text-olive-foreground">
-            <div className="text-xs uppercase tracking-[0.22em] opacity-80 mb-3">A note before you come</div>
+            <div className="text-xs uppercase tracking-[0.22em] opacity-80 mb-3">Before you come</div>
             <p className="font-display text-2xl leading-snug mb-4">
-              Fifty metres from the sand, free parking at the door.
+              Free parking right at the door.
             </p>
             <p className="text-sm opacity-90">
-              Perfect for a stop between the beach and the village — or the beach and the taverna.
+              Good for a stop on the way between the beach and the village.
             </p>
           </div>
 
@@ -186,7 +170,7 @@ const ContactSection = () => {
                   Get directions
                 </div>
                 <p className="font-display text-3xl md:text-4xl text-foreground leading-tight text-balance">
-                  From wherever you are on the island — <span className="italic text-primary">we&apos;ll be here.</span>
+                  Coming from somewhere else on the island? Get directions from here.
                 </p>
               </div>
               <form onSubmit={handleOriginSubmit} className="md:col-span-7 flex flex-col gap-3">

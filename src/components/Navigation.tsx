@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import { STORE_MAPS_URL } from "@/config/store";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,7 +24,7 @@ const Navigation = () => {
   };
 
   const handleVisitStore = () => {
-    window.open('https://www.google.com/maps/place/Stratos+Market/@39.3161481,26.1429499,17z/data=!3m1!4b1!4m6!3m5!1s0x14ba90b7da6564c9:0xa0bdf39da3a750df!8m2!3d39.3161481!4d26.1455248!16s%2Fg%2F11fxg0j296', '_blank');
+    window.open(STORE_MAPS_URL, '_blank', 'noopener,noreferrer');
   };
 
   const links = [
@@ -39,10 +40,7 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="flex justify-between items-center h-20">
           <Link to="/" className="flex items-center gap-3 group">
-            <span className="h-9 w-9 rounded-2xl bg-gradient-warm flex items-center justify-center shadow-soft">
-              <span className="font-display text-xl text-primary-foreground leading-none">S</span>
-            </span>
-            <span className="font-display text-2xl text-foreground tracking-tight">Stratos</span>
+            <span className="font-display text-2xl text-foreground tracking-tight">Stratos Market</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-1">

@@ -24,15 +24,11 @@ const Gallery = () => {
         </Link>
 
         <div className="max-w-2xl mb-14">
-          <span className="text-xs uppercase tracking-[0.28em] text-primary font-medium">
-            Album · Anaxos
-          </span>
-          <h1 className="font-display text-5xl md:text-7xl text-foreground mt-4 mb-5 leading-[1.02] text-balance">
-            A summer,
-            <span className="italic text-primary"> in pictures.</span>
+          <h1 className="font-display text-4xl md:text-6xl text-foreground mb-5 leading-[1.05] text-balance">
+            Gallery
           </h1>
           <p className="text-lg text-muted-foreground text-pretty">
-            The shop, the shelf, the shoreline. Small moments from our corner of Lesvos.
+            Photos of the shop and the shelf in Anaxos.
           </p>
 
           {isLoading && (

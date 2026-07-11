@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Star, Loader2, Quote } from "lucide-react";
 import { useSharedGoogleData } from "@/hooks/useSharedGoogleData";
 import { useState } from "react";
+import { STORE_PLACE_ID } from "@/config/store";
 
 const MAX_REVIEW_LENGTH = 160;
 
@@ -12,8 +13,7 @@ const truncateReview = (text: string, maxLength: number) => {
 };
 
 const ReviewsSection = () => {
-
-  const { reviews, rating, totalReviews, loading, error } = useSharedGoogleData('ChIJyWRl2reQuhQR31Cno53zvaA');
+  const { reviews, rating, totalReviews, loading, error } = useSharedGoogleData(STORE_PLACE_ID);
 
   const [expanded, setExpanded] = useState<Set<number>>(new Set());
 
@@ -39,15 +39,11 @@ const ReviewsSection = () => {
     <section id="reviews" className="py-20 md:py-28 px-5 sm:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="max-w-2xl mb-14">
-          <span className="text-xs uppercase tracking-[0.28em] text-primary font-medium">
-            Kind words · Guests
-          </span>
-          <h2 className="font-display text-4xl md:text-6xl text-foreground mt-4 mb-5 leading-[1.05] text-balance">
-            Told better
-            <span className="italic text-primary"> by our guests.</span>
+          <h2 className="font-display text-3xl md:text-4xl text-foreground mb-4 leading-[1.1] text-balance">
+            What people say
           </h2>
           <p className="text-lg text-muted-foreground text-pretty">
-            A few notes left on Google by people who wandered in for a bottle of water and stayed for the yoghurt.
+            A few notes left on Google by people who stopped in.
           </p>
         </div>
 

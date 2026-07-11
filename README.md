@@ -29,7 +29,18 @@ The gallery and reviews sections call two Vercel serverless functions in `/api`,
 - `GOOGLE_DRIVE_API_KEY` - used by `api/fetch-drive-images.ts` to list images from a public Google Drive folder.
 - `GOOGLE_PLACES_API_KEY` - used by `api/google-reviews.ts` to fetch Google reviews and opening hours.
 
-Copy `.env.example` to `.env` and fill in the values for local development. When developing locally, run `vercel dev` (via the Vercel CLI) instead of `vite dev` if you need the `/api` routes to work, since plain `vite dev` does not execute serverless functions.
+Copy `.env.example` to `.env` and fill in the values for local development.
+
+**Important:** `npm run dev` (plain Vite) does not execute anything under `/api` — the gallery and reviews calls will fail on `localhost` with that command, since Vite only serves the frontend. To test the `/api` routes locally, use the Vercel CLI instead:
+
+```sh
+npm i -g vercel      # one-time install
+vercel login         # one-time auth (opens a browser)
+vercel link          # one-time: link this folder to the Vercel project
+npm run dev:vercel   # runs `vercel dev`, serving both the frontend and /api routes
+```
+
+`vercel dev` reads `GOOGLE_DRIVE_API_KEY` / `GOOGLE_PLACES_API_KEY` from your local `.env` automatically. Once linked, plain `npm run dev` still works for UI-only changes, but switch to `npm run dev:vercel` whenever you need real Drive images or reviews data locally.
 
 ## What technologies are used for this project?
 

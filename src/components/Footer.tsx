@@ -1,4 +1,5 @@
 import { MapPin, Phone, Sun } from "lucide-react";
+import { STORE_PHONE_DISPLAY, STORE_PHONE_TEL } from "@/config/store";
 
 const Footer = () => {
   return (
@@ -7,9 +8,6 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           <div className="md:col-span-5">
             <div className="flex items-center gap-3 mb-5">
-              <span className="h-10 w-10 rounded-2xl bg-primary flex items-center justify-center">
-                <span className="font-display text-xl text-primary-foreground leading-none">S</span>
-              </span>
               <span className="font-display text-3xl">Stratos Market</span>
             </div>
             <p className="text-background/70 max-w-md leading-relaxed">
@@ -43,9 +41,9 @@ const Footer = () => {
                   <p className="text-background/60 text-sm">Anaxos, Lesvos · North Aegean, Greece</p>
                 </div>
               </div>
-              <a href="tel:+302253092421" className="flex items-center gap-3 hover:text-primary transition-colors">
+              <a href={`tel:${STORE_PHONE_TEL}`} className="flex items-center gap-3 hover:text-primary transition-colors">
                 <Phone className="h-5 w-5 text-primary shrink-0" />
-                +30 22530 92421
+                {STORE_PHONE_DISPLAY}
               </a>
             </div>
           </div>
@@ -53,7 +51,7 @@ const Footer = () => {
 
         <div className="border-t border-background/10 mt-14 pt-8 flex flex-col md:flex-row justify-between gap-3 text-sm text-background/50">
           <p>© {new Date().getFullYear()} Stratos Market · Anaxos, Lesvos.</p>
-          <p className="italic">Made slowly, like everything on the shelf.</p>
+          <p>Family run since the 1990s.</p>
         </div>
       </div>
     </footer>

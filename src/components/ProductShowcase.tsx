@@ -40,15 +40,11 @@ const ProductShowcase = () => {
     <section id="products" className="py-20 md:py-28 px-5 sm:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="max-w-2xl mb-14">
-          <span className="text-xs uppercase tracking-[0.28em] text-primary font-medium">
-            The shelf · 04
-          </span>
-          <h2 className="font-display text-4xl md:text-6xl text-foreground mt-4 mb-5 text-balance leading-[1.05]">
-            Small things,
-            <span className="italic text-primary"> chosen carefully.</span>
+          <h2 className="font-display text-3xl md:text-4xl text-foreground mb-4 text-balance leading-[1.1]">
+            What we stock
           </h2>
           <p className="text-lg text-muted-foreground text-pretty">
-            A handful of local favourites we stock year-round. Come in and we&apos;ll happily tell you the story behind each one.
+            A handful of local favourites we carry year-round. Ask us and we&apos;ll tell you where each one comes from.
           </p>
         </div>
 
