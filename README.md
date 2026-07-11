@@ -1,29 +1,15 @@
-# Welcome to your Lovable project
+# Stratos Market Lesvos
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/9aa3d3a8-c052-44fe-a725-425c8ea4362a
+A Vite + React + TypeScript site for Stratos Market in Lesvos, Greece, styled with shadcn-ui and Tailwind CSS.
 
-## How can I edit this code?
+## Getting started
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/9aa3d3a8-c052-44fe-a725-425c8ea4362a) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Requires Node.js & npm - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
+# Step 1: Clone the repository.
 git clone <YOUR_GIT_URL>
 
 # Step 2: Navigate to the project directory.
@@ -36,19 +22,14 @@ npm i
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Environment variables
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+The gallery and reviews sections call two Vercel serverless functions in `/api`, which need these environment variables (never exposed to the browser):
 
-**Use GitHub Codespaces**
+- `GOOGLE_DRIVE_API_KEY` - used by `api/fetch-drive-images.ts` to list images from a public Google Drive folder.
+- `GOOGLE_PLACES_API_KEY` - used by `api/google-reviews.ts` to fetch Google reviews and opening hours.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Copy `.env.example` to `.env` and fill in the values for local development. When developing locally, run `vercel dev` (via the Vercel CLI) instead of `vite dev` if you need the `/api` routes to work, since plain `vite dev` does not execute serverless functions.
 
 ## What technologies are used for this project?
 
@@ -59,15 +40,8 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
+- Vercel Serverless Functions
 
-## How can I deploy this project?
+## Deployment
 
-Simply open [Lovable](https://lovable.dev/projects/9aa3d3a8-c052-44fe-a725-425c8ea4362a) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project is deployed on [Vercel](https://vercel.com), building from the `main` branch. Set `GOOGLE_DRIVE_API_KEY` and `GOOGLE_PLACES_API_KEY` in the Vercel project's Environment Variables settings.

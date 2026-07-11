@@ -1,6 +1,5 @@
 
 import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
 
 interface GoogleReview {
   author_name: string;
@@ -63,12 +62,16 @@ export const useSharedGoogleData = (placeId: string): UseSharedGoogleDataReturn 
     const fetchData = async () => {
       try {
         console.log('Making single API call for Google data...');
-        
-        const { data: result, error } = await supabase.functions.invoke('google-reviews', {
-          body: { placeId }
+
+        const response = await fetch('/api/google-reviews', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ placeId }),
         });
 
-        if (error) throw error;
+        const result = await response.json();
+
+        if (!response.ok) throw new Error(result?.error || 'Failed to fetch Google data');
 
         const newData: UseSharedGoogleDataReturn = {
           reviews: result?.reviews || [],

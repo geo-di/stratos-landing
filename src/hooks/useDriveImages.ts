@@ -1,6 +1,5 @@
 
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
 
 export interface DriveImage {
   id: number;
@@ -18,13 +17,17 @@ export const useDriveImages = (folderId: string) => {
         return [];
       }
 
-      const { data, error } = await supabase.functions.invoke('fetch-drive-images', {
-        body: { folderId }
+      const response = await fetch('/api/fetch-drive-images', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ folderId }),
       });
 
-      if (error) {
-        console.error('Error fetching drive images:', error);
-        throw error;
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error('Error fetching drive images:', data?.error);
+        throw new Error(data?.error || 'Failed to fetch drive images');
       }
 
       return data.images || [];
