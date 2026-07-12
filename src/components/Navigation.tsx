@@ -40,6 +40,7 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="flex justify-between items-center h-20">
           <Link to="/" className="flex items-center gap-3 group">
+            <img src="/lesvos-logo.svg" alt="Lesvos island" className="h-6 w-auto" />
             <span className="font-display text-2xl text-foreground tracking-tight">Stratos Market</span>
           </Link>
 
