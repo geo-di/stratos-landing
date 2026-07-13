@@ -1,21 +1,14 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
-declare global {
-  interface Window {
-    gtag?: (...args: unknown[]) => void;
-  }
-}
+import { getConsent, initAnalytics, trackPageView } from "@/lib/analytics";
 
 const AnalyticsTracker = () => {
   const location = useLocation();
 
   useEffect(() => {
-    window.gtag?.("event", "page_view", {
-      page_path: location.pathname + location.search,
-      page_location: window.location.href,
-      page_title: document.title,
-    });
+    if (getConsent() !== "granted") return;
+    initAnalytics();
+    trackPageView(location.pathname + location.search);
   }, [location]);
 
   return null;

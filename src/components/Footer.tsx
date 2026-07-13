@@ -1,5 +1,7 @@
 import { MapPin, Phone, Sun } from "lucide-react";
+import { Link } from "react-router-dom";
 import { STORE_PHONE_DISPLAY, STORE_PHONE_TEL } from "@/config/store";
+import { openConsentBanner } from "@/lib/analytics";
 
 const Footer = () => {
   return (
@@ -51,6 +53,20 @@ const Footer = () => {
 
         <div className="border-t border-background/10 mt-14 pt-8 flex flex-col md:flex-row justify-between gap-3 text-sm text-background/50">
           <p>© {new Date().getFullYear()} Stratos Market · Anaxos, Lesvos.</p>
+          <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
+            <p>Cookies are used only for anonymous visit statistics.</p>
+            <div className="flex items-center gap-4">
+              <Link to="/privacy" className="hover:text-primary transition-colors underline underline-offset-4">
+                Privacy &amp; Cookies
+              </Link>
+              <button
+                onClick={openConsentBanner}
+                className="hover:text-primary transition-colors underline underline-offset-4"
+              >
+                Cookie settings
+              </button>
+            </div>
+          </div>
           <p>Family run since the 1990s.</p>
         </div>
       </div>
