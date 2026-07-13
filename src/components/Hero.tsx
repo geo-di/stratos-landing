@@ -47,11 +47,11 @@ const Hero = () => {
           </div>
 
           <div className="lg:col-span-6">
-            <div className="rounded-3xl overflow-hidden border border-border/60 shadow-soft aspect-[4/3] bg-muted flex items-center justify-center">
+            <div className="rounded-3xl overflow-hidden border border-border/60 shadow-soft aspect-[4/3]">
               <img
-                src="/placeholder.svg"
-                alt="Placeholder — replace with a real photo of the shop"
-                className="w-1/3 h-1/3 object-contain opacity-60"
+                src="/images/shop.webp"
+                alt="Stratos Market, Anaxos"
+                className="w-full h-full object-cover"
               />
             </div>
           </div>
