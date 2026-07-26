@@ -60,7 +60,7 @@ const Hero = () => {
         <img
           src="/images/shop.webp"
           alt="Stratos Market, Anaxos"
-          className="w-full h-full object-cover block"
+          className="w-full h-full object-cover object-[center_20%] block"
         />
       </div>
 
