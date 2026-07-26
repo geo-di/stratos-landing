@@ -1,88 +1,97 @@
-import { Card, CardContent } from "@/components/ui/card";
-
 const ProductShowcase = () => {
-  const products = [
-    {
-      id: 1,
-      name: "Kalamata & Green Olives",
-      description: "Cured slowly, bright with brine — from groves a short drive down the coast.",
-      image: "/images/olives.webp",
-      category: "Olives · Oil",
-      tone: "bg-primary/10",
-    },
-    {
-      id: 2,
-      name: "Wild Aegean Herbs",
-      description: "Oregano, thyme and mountain tea, cut and dried in the hills above the village.",
-      image: "/images/herbs.webp",
-      category: "Herbs · Spices",
-      tone: "bg-accent/20",
-    },
-    {
-      id: 3,
-      name: "Lesvos Ouzo & Tsipouro",
-      description: "Small-batch spirits from island distillers — the taste of a long taverna evening.",
-      image: "/images/ouzo.webp",
-      category: "Spirits · Wine",
-      tone: "bg-olive/15",
-    },
-    {
-      id: 4,
-      name: "Sheep&apos;s-Milk Yoghurt",
-      description: "Thick, tangy Lesvos yoghurt from local shepherds — a spoonful of honey and you&apos;re home.",
-      image: "/images/yoghurt.webp",
-      category: "Dairy · Fresh",
-      tone: "bg-secondary/40",
-    },
-  ];
-
   return (
-    <section id="products" className="py-20 md:py-28 px-5 sm:px-8 bg-background">
+    <section id="products" className="py-16 md:py-24 px-5 sm:px-10 bg-background">
       <div className="max-w-7xl mx-auto">
-        <div className="max-w-2xl mb-14">
-          <h2 className="font-display text-3xl md:text-4xl text-foreground mb-4 text-balance leading-[1.1]">
-            What we stock
+        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-6 mb-10 md:mb-12">
+          <h2 className="font-display text-[clamp(2.5rem,6vw,64px)] text-foreground m-0">
+            What we<br />stock
           </h2>
-          <p className="text-lg text-muted-foreground text-pretty">
-            A handful of local favourites we carry year-round. Ask us and we&apos;ll tell you where each one comes from.
+          <p className="text-[17px] text-muted-foreground max-w-[420px] leading-relaxed lg:mb-2 text-pretty">
+            A handful of local favourites we carry year-round. Ask us and we&apos;ll tell you where
+            each one comes from.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
-          {products.map((product, i) => (
-            <Card
-              key={product.id}
-              className={`bento-card border-none group hover:-translate-y-1 transition-all duration-500 ${i % 2 === 1 ? 'lg:translate-y-6' : ''}`}
-            >
-              <div className={`aspect-[4/5] overflow-hidden ${product.tone}`}>
-                <img
-                  src={product.image}
-                  alt={`${product.name} at Stratos Market, Anaxos`}
-                  className="w-full h-full object-cover group-hover:scale-[1.06] transition-transform duration-[900ms] ease-out"
-                />
-              </div>
-              <CardContent className="p-6">
-                <span className="text-[11px] uppercase tracking-[0.24em] text-primary font-medium">
-                  {product.category}
-                </span>
-                <h3 className="font-display text-2xl text-foreground mt-2 mb-2 leading-snug"
-                    dangerouslySetInnerHTML={{ __html: product.name }} />
-                <p className="text-sm text-muted-foreground leading-relaxed"
-                   dangerouslySetInnerHTML={{ __html: product.description }} />
-              </CardContent>
-            </Card>
-          ))}
+        {/* Featured row */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5">
+          <article className="bento-card lg:col-span-2 flex flex-col">
+            <div className="h-[260px] md:h-[380px] overflow-hidden">
+              <img
+                src="/images/olives.webp"
+                alt="Kalamata and green olives at Stratos Market, Anaxos"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-6 md:p-8">
+              <span className="eyebrow text-primary">Olives · Oil · Our signature</span>
+              <h3 className="font-display text-3xl md:text-[40px] text-foreground mt-1.5 mb-2 leading-none">
+                Kalamata &amp; Green Olives
+              </h3>
+              <p className="text-[15px] text-muted-foreground leading-relaxed max-w-[480px]">
+                Cured slowly, bright with brine — from groves a short drive down the coast.
+              </p>
+            </div>
+          </article>
+
+          <article className="bento-card flex flex-col">
+            <div className="flex-1 min-h-[220px] md:min-h-[280px] overflow-hidden">
+              <img
+                src="/images/herbs.webp"
+                alt="Wild Aegean herbs at Stratos Market, Anaxos"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-6">
+              <span className="eyebrow text-ultramarine">Herbs · Spices</span>
+              <h3 className="font-display text-[30px] text-foreground mt-1.5 mb-2 leading-none">
+                Wild Aegean Herbs
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Oregano, thyme and mountain tea, dried in the hills above the village.
+              </p>
+            </div>
+          </article>
         </div>
 
-        <div className="mt-16 rounded-3xl border border-border/60 bg-muted/40 px-8 py-10 md:px-12 md:py-14 flex flex-col md:flex-row items-start md:items-center gap-6 justify-between">
-          <div className="max-w-xl">
-            <p className="font-display text-2xl md:text-3xl text-foreground leading-snug text-balance">
-              The full shelf is best seen in person — coffee&apos;s on us.
-            </p>
-            <p className="text-muted-foreground mt-2 text-sm">
-              We&apos;re open every day. Stop by after the beach, or before the village walk.
-            </p>
-          </div>
+        {/* Secondary row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <article className="bento-card flex flex-col sm:flex-row">
+            <div className="h-40 sm:h-auto sm:w-[170px] shrink-0 overflow-hidden">
+              <img
+                src="/images/ouzo.webp"
+                alt="Lesvos ouzo and tsipouro at Stratos Market, Anaxos"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-6">
+              <span className="eyebrow text-primary">Spirits · Wine</span>
+              <h3 className="font-display text-[26px] text-foreground mt-1.5 mb-2 leading-none">
+                Lesvos Ouzo &amp; Tsipouro
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Small-batch spirits from island distillers.
+              </p>
+            </div>
+          </article>
+
+          <article className="bento-card flex flex-col sm:flex-row">
+            <div className="h-40 sm:h-auto sm:w-[170px] shrink-0 overflow-hidden">
+              <img
+                src="/images/yoghurt.webp"
+                alt="Sheep's-milk yoghurt at Stratos Market, Anaxos"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-6">
+              <span className="eyebrow text-ultramarine">Dairy · Fresh</span>
+              <h3 className="font-display text-[26px] text-foreground mt-1.5 mb-2 leading-none">
+                Sheep&apos;s-Milk Yoghurt
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Thick and tangy, from local shepherds.
+              </p>
+            </div>
+          </article>
         </div>
       </div>
     </section>

@@ -19,7 +19,7 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				display: ['"DM Serif Display"', 'Georgia', 'serif'],
+				display: ['"Big Shoulders Display"', '"Fira Sans Condensed"', 'system-ui', 'sans-serif'],
 				sans: ['"Fira Sans"', 'system-ui', 'sans-serif'],
 			},
 			colors: {
@@ -31,7 +31,7 @@ export default {
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))',
-					glow: 'hsl(var(--primary-glow))'
+					deep: 'hsl(var(--primary-deep))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -49,10 +49,11 @@ export default {
 					DEFAULT: 'hsl(var(--accent))',
 					foreground: 'hsl(var(--accent-foreground))'
 				},
-				olive: {
-					DEFAULT: 'hsl(var(--olive))',
-					foreground: 'hsl(var(--olive-foreground))'
+				ultramarine: {
+					DEFAULT: 'hsl(var(--ultramarine))',
+					foreground: 'hsl(var(--ultramarine-foreground))'
 				},
+				subtle: 'hsl(var(--subtle))',
 				popover: {
 					DEFAULT: 'hsl(var(--popover))',
 					foreground: 'hsl(var(--popover-foreground))'
@@ -73,9 +74,7 @@ export default {
 				}
 			},
 			backgroundImage: {
-				'gradient-warm': 'var(--gradient-warm)',
 				'gradient-earth': 'var(--gradient-earth)',
-				'gradient-olive': 'var(--gradient-olive)',
 			},
 			boxShadow: {
 				soft: 'var(--shadow-soft)',

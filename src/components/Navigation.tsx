@@ -36,40 +36,42 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/60">
-      <div className="max-w-7xl mx-auto px-5 sm:px-8">
-        <div className="flex justify-between items-center h-20">
-          <Link to="/" className="flex items-center gap-3 group">
-            <img src="/lesvos-logo.svg" alt="Lesvos island" className="h-6 w-auto" />
-            <span className="font-display text-2xl text-foreground tracking-tight">Stratos Market</span>
+    <nav className="sticky top-0 z-50 bg-background/85 backdrop-blur-xl border-b border-border">
+      <div className="max-w-7xl mx-auto px-5 sm:px-10">
+        <div className="flex justify-between items-center h-[76px]">
+          <Link to="/" className="flex items-center gap-3">
+            <img src="/lesvos-logo-optionb.svg" alt="Lesvos island" className="h-[26px] w-auto" />
+            <span className="font-display text-2xl sm:text-[26px] text-primary leading-none">
+              Stratos Market
+            </span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-0.5">
             {links.map((l) => (
               <button
                 key={l.id}
                 onClick={() => scrollToSection(l.id)}
-                className="px-4 py-2 rounded-full text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                className="px-3.5 py-2 text-[13px] font-semibold text-muted-foreground hover:text-primary transition-colors"
               >
                 {l.label}
               </button>
             ))}
             <Link
               to="/gallery"
-              className="px-4 py-2 rounded-full text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              className="px-3.5 py-2 text-[13px] font-semibold text-muted-foreground hover:text-primary transition-colors"
             >
               Gallery
             </Link>
             <Button
               onClick={handleVisitStore}
-              className="ml-3 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-soft px-5"
+              className="ml-2.5 h-auto rounded-full bg-primary hover:bg-primary-deep text-primary-foreground text-[13px] font-bold px-[22px] py-[11px]"
             >
               Come Visit
             </Button>
           </div>
 
           <button
-            className="md:hidden text-foreground p-2 rounded-full hover:bg-muted"
+            className="lg:hidden text-foreground p-2 rounded-full hover:bg-muted"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Menu"
           >
@@ -78,27 +80,27 @@ const Navigation = () => {
         </div>
 
         {isMenuOpen && (
-          <div className="md:hidden pb-4 pt-2 border-t border-border/60">
+          <div className="lg:hidden pb-4 pt-2 border-t border-border">
             <div className="flex flex-col gap-1">
               {links.map((l) => (
                 <button
                   key={l.id}
                   onClick={() => scrollToSection(l.id)}
-                  className="text-left px-4 py-3 rounded-2xl text-foreground hover:bg-muted transition-colors"
+                  className="text-left px-4 py-3 rounded-2xl text-sm font-semibold text-foreground hover:bg-muted transition-colors"
                 >
                   {l.label}
                 </button>
               ))}
               <Link
                 to="/gallery"
-                className="text-left px-4 py-3 rounded-2xl text-foreground hover:bg-muted transition-colors"
+                className="text-left px-4 py-3 rounded-2xl text-sm font-semibold text-foreground hover:bg-muted transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Gallery
               </Link>
               <Button
                 onClick={handleVisitStore}
-                className="mt-2 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                className="mt-2 rounded-full bg-primary hover:bg-primary-deep text-primary-foreground font-bold"
               >
                 Come Visit
               </Button>
