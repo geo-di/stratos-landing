@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AnalyticsTracker from "./components/AnalyticsTracker";
+import CanonicalTag from "./components/CanonicalTag";
 import CookieConsent from "./components/CookieConsent";
 import Index from "./pages/Index";
 import Gallery from "./pages/Gallery";
@@ -20,6 +21,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AnalyticsTracker />
+        <CanonicalTag />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/gallery" element={<Gallery />} />
