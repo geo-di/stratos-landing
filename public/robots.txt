@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://stratosmarket.com/sitemap.xml
+Sitemap: https://www.stratosmarket.com/sitemap.xml

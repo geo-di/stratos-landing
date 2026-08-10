@@ -59,7 +59,14 @@ const Hero = () => {
       <div className="w-full h-[280px] md:h-[420px] lg:h-[520px] overflow-hidden">
         <img
           src="/images/shop.webp"
-          alt="Stratos Market, Anaxos"
+          alt="The shopfront of Stratos Market in Anaxos, Lesvos"
+          width={1600}
+          height={1198}
+          // Lowercase via spread: React 18 doesn't know the camelCase `fetchPriority`
+          // prop and drops it with a warning, but passes unknown lowercase
+          // attributes straight through to the DOM.
+          {...{ fetchpriority: "high" }}
+          decoding="async"
           className="w-full h-full object-cover object-[center_20%] block"
         />
       </div>

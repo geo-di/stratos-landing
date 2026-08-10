@@ -10,9 +10,14 @@ import {
 } from "@/lib/analytics";
 
 const CookieConsent = () => {
-  const [visible, setVisible] = useState(() => getConsent() === null);
+  // Starts hidden and is revealed in the effect below: reading localStorage during
+  // render would throw while prerendering, and would mismatch on hydration even
+  // if it didn't, since the server has no way to know this visitor's choice.
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    if (getConsent() === null) setVisible(true);
+
     const reopen = () => setVisible(true);
     window.addEventListener(OPEN_CONSENT_EVENT, reopen);
     return () => window.removeEventListener(OPEN_CONSENT_EVENT, reopen);

@@ -11,7 +11,9 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 // Keep in sync with SITE_URL in src/config/site.ts.
-const SITE_URL = "https://stratosmarket.com";
+// www, not apex — the apex 308-redirects here, and a sitemap of redirects is
+// a wasted crawl.
+const SITE_URL = "https://www.stratosmarket.com";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const OUTPUT = resolve(ROOT, "public/sitemap.xml");

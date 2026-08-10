@@ -19,6 +19,10 @@ const ProductShowcase = () => {
               <img
                 src="/images/olives.webp"
                 alt="Kalamata and green olives at Stratos Market, Anaxos"
+                width={1600}
+                height={1600}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -38,6 +42,10 @@ const ProductShowcase = () => {
               <img
                 src="/images/herbs.webp"
                 alt="Wild Aegean herbs at Stratos Market, Anaxos"
+                width={1600}
+                height={1600}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -60,6 +68,10 @@ const ProductShowcase = () => {
               <img
                 src="/images/ouzo.webp"
                 alt="Lesvos ouzo and tsipouro at Stratos Market, Anaxos"
+                width={1600}
+                height={1600}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -79,6 +91,10 @@ const ProductShowcase = () => {
               <img
                 src="/images/yoghurt.webp"
                 alt="Sheep's-milk yoghurt at Stratos Market, Anaxos"
+                width={1600}
+                height={1600}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
             </div>
