@@ -22,11 +22,60 @@ export const STORE_LONGITUDE = 26.1455248;
  * ContactSection — that component prefers live hours from the Places API, but
  * structured data has to be static, so this is the published baseline.
  */
-const OPENING_HOURS = [
+export const OPENING_HOURS = [
   { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:00", closes: "21:30" },
   { days: ["Saturday"], opens: "08:00", closes: "22:00" },
   { days: ["Sunday"], opens: "09:00", closes: "20:00" },
 ];
+
+export const WEEKDAYS = [
+  "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
+] as const;
+
+/** "08:00" → "8:00", matching how hours read on the shop door. */
+const displayTime = (hhmm: string) => hhmm.replace(/^0/, "");
+
+const hoursFor = (day: string) => OPENING_HOURS.find((h) => h.days.includes(day))!;
+
+/** One row per weekday, Monday first, for the hours table. */
+export const HOURS_BY_DAY = WEEKDAYS.map((day) => {
+  const { opens, closes } = hoursFor(day);
+  return { day, hours: `${displayTime(opens)} – ${displayTime(closes)}` };
+});
+
+/** Weekday name and "HH:MM" as the shop sees them, whatever the visitor's timezone. */
+export const athensNow = (now: Date = new Date()) => {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/Athens",
+    weekday: "long",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(now);
+  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? "";
+  return { day: get("weekday"), time: `${get("hour")}:${get("minute")}` };
+};
+
+export type OpenStatus = { isOpen: boolean; label: string };
+
+/**
+ * Open/closed against the published hours. Reads the clock, so call it only
+ * after mount — never during render, or prerendered HTML won't match hydration.
+ */
+export const getOpenStatus = (now: Date = new Date()): OpenStatus => {
+  const { day, time } = athensNow(now);
+  const today = hoursFor(day);
+  if (!today) return { isOpen: false, label: "See opening hours" };
+
+  if (time >= today.opens && time < today.closes) {
+    return { isOpen: true, label: `Open now · until ${displayTime(today.closes)}` };
+  }
+  if (time < today.opens) {
+    return { isOpen: false, label: `Closed · opens ${displayTime(today.opens)}` };
+  }
+  const tomorrow = WEEKDAYS[(WEEKDAYS.indexOf(day as (typeof WEEKDAYS)[number]) + 1) % 7];
+  return { isOpen: false, label: `Closed · opens tomorrow ${displayTime(hoursFor(tomorrow).opens)}` };
+};
 
 /**
  * LocalBusiness markup for the homepage, injected into the prerendered HTML by

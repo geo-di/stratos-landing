@@ -9,6 +9,11 @@ export default {
 		"./src/**/*.{ts,tsx}",
 	],
 	prefix: "",
+	// Gate every hover: style behind (hover: hover), so taps on touch screens
+	// don't leave elements stuck in their hover state.
+	future: {
+		hoverOnlyWhenSupported: true,
+	},
 	theme: {
 		container: {
 			center: true,
@@ -19,7 +24,8 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				display: ['"Big Shoulders Display"', '"Fira Sans Condensed"', 'system-ui', 'sans-serif'],
+				// Big Shoulders has no Greek: the loaded Fira Sans catches it before system-ui
+				display: ['"Big Shoulders Display"', '"Fira Sans"', 'system-ui', 'sans-serif'],
 				sans: ['"Fira Sans"', 'system-ui', 'sans-serif'],
 			},
 			colors: {
@@ -75,6 +81,11 @@ export default {
 			},
 			backgroundImage: {
 				'gradient-earth': 'var(--gradient-earth)',
+			},
+			transitionTimingFunction: {
+				out: 'var(--ease-out)',
+				'in-out': 'var(--ease-in-out)',
+				drawer: 'var(--ease-drawer)',
 			},
 			boxShadow: {
 				soft: 'var(--shadow-soft)',

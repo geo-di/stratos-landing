@@ -9,7 +9,10 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           <div className="md:col-span-5">
-            <span className="font-display text-[34px] text-background leading-none">Stratos Market</span>
+            <div className="flex items-center gap-3">
+              <img src="/lesvos-logo-optionb.svg" alt="" aria-hidden="true" className="h-8 w-auto brightness-0 invert opacity-90" />
+              <span className="font-display text-[34px] text-background leading-none">Stratos Market</span>
+            </div>
             <p className="text-background/70 max-w-[380px] leading-[1.7] mt-4">
               A family shop in Anaxos, Lesvos — three decades of small, careful things from island
               growers, shepherds and distillers.
@@ -24,11 +27,11 @@ const Footer = () => {
               Wander
             </h3>
             <ul className="flex flex-col gap-2.5 text-[15px] text-background/80">
-              <li><a href="#home" className="hover:text-accent transition-colors">Home</a></li>
-              <li><a href="#products" className="hover:text-accent transition-colors">Provisions</a></li>
-              <li><a href="#about" className="hover:text-accent transition-colors">Our Story</a></li>
-              <li><a href="#reviews" className="hover:text-accent transition-colors">Guest Notes</a></li>
-              <li><a href="#contact" className="hover:text-accent transition-colors">Find Us</a></li>
+              <li><a href="/#home" className="hover:text-accent transition-colors">Home</a></li>
+              <li><a href="/#products" className="hover:text-accent transition-colors">Provisions</a></li>
+              <li><a href="/#about" className="hover:text-accent transition-colors">Our Story</a></li>
+              <li><a href="/#reviews" className="hover:text-accent transition-colors">Guest Notes</a></li>
+              <li><a href="/#contact" className="hover:text-accent transition-colors">Find Us</a></li>
               <li><Link to="/gallery" className="hover:text-accent transition-colors">Gallery</Link></li>
             </ul>
           </div>
@@ -53,11 +56,13 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-background/10 mt-14 pt-8 flex flex-col md:flex-row justify-between gap-3 text-sm text-background/50">
-          <p>© {new Date().getFullYear()} Stratos Market · Anaxos, Lesvos.</p>
-          <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
-            <p>Cookies are used only for anonymous visit statistics.</p>
-            <div className="flex items-center gap-4">
+        <div className="border-t border-background/10 mt-14 pt-8 flex flex-col md:flex-row md:items-start justify-between gap-6 text-sm text-background/50">
+          <p>
+            © {new Date().getFullYear()} Stratos Market · Anaxos, Lesvos
+            <span className="hidden sm:inline"> · Family run since the 1990s</span>
+          </p>
+          <div className="flex flex-col md:items-end gap-1.5">
+            <div className="flex items-center gap-5">
               <Link to="/privacy" className="hover:text-accent transition-colors underline underline-offset-4">
                 Privacy &amp; Cookies
               </Link>
@@ -68,8 +73,8 @@ const Footer = () => {
                 Cookie settings
               </button>
             </div>
+            <p className="text-xs text-background/40">Cookies are used only for anonymous visit statistics.</p>
           </div>
-          <p>Family run since the 1990s.</p>
         </div>
       </div>
     </footer>

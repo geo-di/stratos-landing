@@ -1,7 +1,3 @@
-
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, Star, Store, Home } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import ProductShowcase from "@/components/ProductShowcase";
@@ -14,11 +10,13 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      <Hero />
-      <ProductShowcase />
-      <AboutSection />
-      <ReviewsSection />
-      <ContactSection />
+      <main>
+        <Hero />
+        <ProductShowcase />
+        <AboutSection />
+        <ReviewsSection />
+        <ContactSection />
+      </main>
       <Footer />
     </div>
   );

@@ -54,7 +54,7 @@ const Gallery = () => {
                         <img
                           src={image.src}
                           alt={image.alt}
-                          className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-[900ms] ease-out"
+                          className="w-full h-full object-cover group-hover:scale-[1.03] [transition:transform_400ms_ease]"
                           loading="lazy"
                           referrerPolicy="no-referrer"
                           onError={(e) => {

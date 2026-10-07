@@ -49,6 +49,11 @@
 
     --radius: 1.25rem;
 
+    /* Motion — strong custom curves; the built-in CSS easings are too weak */
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
     --gradient-earth: linear-gradient(165deg, hsl(38 48% 95%) 0%, hsl(43 33% 92%) 100%);
 
     --shadow-soft: 0 8px 30px -12px hsl(4 56% 25% / 0.16);
@@ -98,19 +103,46 @@
     @apply border-border;
   }
 
+  /* Keeps anchored headings clear of the 76px sticky nav */
+  html {
+    scroll-padding-top: 88px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: 'Fira Sans', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 
+  ::selection {
+    background: hsl(var(--accent) / 0.55);
+    color: hsl(var(--foreground));
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
   /* Display type is condensed signage — uppercase, tight leading */
   h1, h2, h3, h4, .font-display {
-    font-family: 'Big Shoulders Display', 'Fira Sans Condensed', system-ui, sans-serif;
+    /* Big Shoulders has no Greek; Fira Sans (loaded, Greek subsets included)
+       catches it before the system font would */
+    font-family: 'Big Shoulders Display', 'Fira Sans', system-ui, sans-serif;
     font-weight: 800;
     text-transform: uppercase;
     line-height: 0.95;
     letter-spacing: 0.005em;
+  }
+
+  /* Tracking is size-specific: large display tightens, small display stays open */
+  h1, h2 {
+    letter-spacing: -0.01em;
   }
 }
 
@@ -127,14 +159,466 @@
     @apply relative rounded-[20px] border border-border bg-card overflow-hidden;
   }
 
+  /* Numbered wayfinding label above section headings: "01 — Provisions" */
+  .section-index {
+    @apply flex items-center gap-3 text-[12px] font-bold uppercase tracking-[0.24em] mb-5;
+    font-variant-numeric: tabular-nums;
+  }
+  .section-index::after {
+    content: "";
+    @apply h-px w-10 bg-current opacity-40;
+  }
+
+  /* Reveal once on scroll. Only hidden once main.tsx has put `js` on <html>,
+     so the prerendered page is fully visible without JavaScript. RevealObserver
+     sets data-visible the first time each element enters the viewport. */
+  .js [data-reveal] {
+    transition-property: opacity, transform, box-shadow;
+    transition-duration: 500ms, 500ms, 400ms;
+    transition-timing-function: var(--ease-out), var(--ease-out), ease;
+    transition-delay: var(--reveal-delay, 0ms), var(--reveal-delay, 0ms), 0ms;
+  }
+  .js [data-reveal]:not([data-visible]) {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  .marquee-track {
+    @apply flex w-max;
+    animation: marquee 38s linear infinite;
+  }
+  .marquee-static {
+    display: none;
+  }
+
+  /* Hero entrance — first load only (the rare tier, so slightly longer than
+     UI motion). Cards are dealt onto the table, the message fades in, the
+     stamp lands, then the postmark. Keyframes with only a `from` settle onto
+     each element's own transform; `backwards` hands that transform back once
+     the animation ends. */
+  .fade-up {
+    animation: fade-up 500ms var(--ease-out) both;
+    animation-delay: var(--d, 0ms);
+  }
+  .card-front {
+    transform: rotate(-1.5deg);
+    animation: card-front 800ms var(--ease-out) backwards;
+  }
+  .card-back {
+    transform: rotate(1deg);
+    animation: card-back 800ms var(--ease-out) 120ms backwards;
+  }
+  @media (min-width: 1024px) {
+    .card-front { transform: rotate(-3deg); }
+    .card-back { transform: rotate(1.5deg); }
+  }
+  .stamp-drop {
+    animation: stamp-drop 450ms var(--ease-out) 650ms backwards;
+  }
+  .postmark-in {
+    animation: fade-only 400ms ease 950ms backwards;
+  }
+
+  /* Perforated stamp edge */
+  .stamp-paper {
+    -webkit-mask: radial-gradient(circle 3.5px at 50% 50%, transparent 96%, #000) -5px -5px / 10px 10px;
+    mask: radial-gradient(circle 3.5px at 50% 50%, transparent 96%, #000) -5px -5px / 10px 10px;
+  }
+
+  /* Consent card: enters from the bottom edge and leaves the same way */
+  .consent-card {
+    transition: opacity 400ms ease, transform 400ms ease;
+  }
+  @starting-style {
+    .consent-card {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+  }
+  .consent-card[data-leaving] {
+    opacity: 0;
+    transform: translateY(100%);
+    transition-duration: 250ms;
+  }
+
+
+  /* Provisions pinboard: kraft board, push pins, prints that swing about
+     the pin — transform-origin sits at the pin, not the centre */
+  .pinboard {
+    background: hsl(30 32% 70%);
+    box-shadow: inset 0 2px 14px hsl(28 40% 30% / 0.28);
+  }
+  .pinned {
+    transform: rotate(var(--tilt, 0deg));
+    transform-origin: 50% 10px;
+    transition: transform 450ms var(--ease-in-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .pinned:hover {
+      transform: rotate(calc(var(--tilt, 0deg) * -0.6));
+    }
+  }
+  .pin {
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    z-index: 2;
+    width: 18px;
+    height: 18px;
+    margin-left: -9px;
+    border-radius: 999px;
+    background: radial-gradient(circle at 35% 30%, hsl(4 80% 72%), hsl(var(--primary)) 45%, hsl(var(--primary-deep)) 100%);
+    box-shadow: 2px 4px 5px hsl(28 40% 20% / 0.45);
+  }
+  /* Ruled index card with a red margin line; 32px rule = the text's line-height */
+  .index-card {
+    background-color: hsl(var(--card));
+    background-image:
+      linear-gradient(90deg, transparent 38px, hsl(4 70% 60% / 0.55) 38px, hsl(4 70% 60% / 0.55) 39px, transparent 39px),
+      repeating-linear-gradient(180deg, transparent 0 31px, hsl(212 60% 70% / 0.45) 31px 32px);
+    background-position: 0 0, 0 36px;
+    padding-left: 52px;
+  }
+
+  /* ---- Our story: the notebook ---------------------------------------- */
+
+  /* Letter page: ruled cream paper; rules land under each 32px line */
+  .letter-paper {
+    background: hsl(var(--card));
+  }
+  .letter-body {
+    background-image: repeating-linear-gradient(180deg, transparent 0 31px, hsl(212 60% 70% / 0.35) 31px 32px);
+  }
+
+  /* Ledger page: buff paper, blue rules, a red double rule down the date column */
+  .ledger {
+    background: hsl(42 45% 93%);
+  }
+  .ledger-head {
+    background: hsl(42 42% 89%);
+    border-bottom: 2px solid hsl(var(--primary) / 0.55);
+  }
+  .ledger-row {
+    border-bottom: 1px solid hsl(212 60% 70% / 0.45);
+  }
+  /* The date column's red double rule — only where there is a column */
+  @media (min-width: 640px) {
+    .ledger-head > span:first-child,
+    .ledger-row > span:first-child {
+      box-shadow: inset -1px 0 0 hsl(4 70% 60% / 0.55), inset -4px 0 0 hsl(42 45% 93%), inset -5px 0 0 hsl(4 70% 60% / 0.55);
+    }
+  }
+  .ledger-total {
+    border-top: 4px double hsl(var(--primary) / 0.7);
+  }
+  /* Unused lines below the entries: the rules carry on, and so does the date
+     column's double rule (its position comes from --date-col) */
+  .ledger-blank {
+    min-height: 56px;
+    background-image:
+      linear-gradient(90deg,
+        transparent calc(var(--date-col) - 5px),
+        hsl(4 70% 60% / 0.55) calc(var(--date-col) - 5px) calc(var(--date-col) - 4px),
+        transparent calc(var(--date-col) - 4px) calc(var(--date-col) - 1px),
+        hsl(4 70% 60% / 0.55) calc(var(--date-col) - 1px) var(--date-col),
+        transparent var(--date-col)),
+      repeating-linear-gradient(180deg, transparent 0 55px, hsl(212 60% 70% / 0.45) 55px 56px);
+  }
+
+  /* Rubber stamps: inked double border, askew. They land on reveal — from
+     slightly large down to their resting tilt */
+  .rubber-stamp {
+    display: inline-block;
+    padding: 10px 16px 9px;
+    border-radius: 8px;
+    color: hsl(var(--primary) / 0.85);
+    box-shadow:
+      inset 0 0 0 3px hsl(var(--primary) / 0.8),
+      inset 0 0 0 5px hsl(42 45% 93%),
+      inset 0 0 0 6px hsl(var(--primary) / 0.6);
+    transform: rotate(var(--tilt, 0deg));
+  }
+  /* A stamp is a press: fast in, like press feedback, not a slow fade */
+  .js .rubber-stamp[data-reveal] {
+    transition-duration: 220ms, 220ms, 0ms;
+  }
+  .js .rubber-stamp[data-reveal]:not([data-visible]) {
+    transform: rotate(var(--tilt, 0deg)) scale(1.2);
+  }
+
+  /* Pages. No filters or overflow:hidden on the book or leaf — either would
+     flatten the 3D — so each page carries its own corners and shadows. */
+  .book-leaf {
+    position: relative;
+    z-index: 2; /* the leaf passes over the right page while it turns */
+  }
+  /* Stacked: two separate sheets, each with its own corners and shadow */
+  .book-page--left,
+  .book-page--right {
+    border-radius: 6px;
+    box-shadow: var(--shadow-elevated);
+  }
+
+  /* Cloth cover. Open by default (no JS, reduced motion): turned away, and
+     its back face hidden. Stacked pages: a side-bound notebook, hinged on its
+     left edge — a cover the width of a phone turns gently, where one the
+     height of the whole letter (a top hinge) swings far out at the reader. */
+  .book-cover {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 6px;
+    background: hsl(var(--primary));
+    box-shadow: inset 0 0 0 1px hsl(var(--primary-deep));
+    backface-visibility: hidden;
+    transform-origin: 0 50%;
+    transform: rotateY(-180deg);
+  }
+  /* Elastic band: deep red with a soft sheen and its own shadow, so it reads
+     as something lying on the cover — not a gap showing the blue behind */
+  .book-strap {
+    right: 2rem;
+    background: linear-gradient(90deg,
+      hsl(var(--primary-deep)) 0%,
+      hsl(3 52% 42%) 40%,
+      hsl(var(--primary-deep)) 100%);
+    box-shadow:
+      -2px 0 4px hsl(3 60% 18% / 0.35),
+      2px 0 4px hsl(3 60% 18% / 0.35),
+      inset 1px 0 0 hsl(0 0% 100% / 0.12);
+  }
+
+  /* Spread layout: the left page is the back of the cover. The leaf turns
+     about the spine (its right edge); the cover face is pre-flipped so it
+     reads the right way round while the leaf lies closed over the right page. */
+  @media (min-width: 1024px) {
+    .book {
+      perspective: 2600px;
+    }
+    .book-leaf {
+      transform-style: preserve-3d;
+      transform-origin: 100% 50%;
+    }
+    .book-page--left {
+      border-radius: 6px 0 0 6px;
+      backface-visibility: hidden;
+      box-shadow: inset -26px 0 24px -22px hsl(28 40% 20% / 0.22), var(--shadow-elevated);
+    }
+    .book-page--right {
+      border-radius: 0 6px 6px 0;
+      box-shadow: inset 26px 0 24px -22px hsl(28 40% 20% / 0.22), var(--shadow-elevated);
+    }
+    .book-cover {
+      border-radius: 0 6px 6px 0; /* after both flips its own left edge sits at the spine */
+      box-shadow: inset 0 0 0 1px hsl(var(--primary-deep)), var(--shadow-elevated);
+      transform-origin: 50% 50%;
+      transform: rotateY(180deg);
+    }
+  }
+
+  /* The opening — only with JS (so it can be revealed) and only when motion
+     is welcome. Rare tier (once per visit), on-screen movement: strong
+     ease-in-out, slow enough to read as a book. */
+  @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+    .book-wrap {
+      --book-delay: 1500ms; /* entries and stamps wait for the pages to open */
+    }
+    .js .book-wrap .book,
+    .js .book-wrap .book-leaf {
+      transition: transform 1200ms var(--ease-in-out) 400ms;
+    }
+    /* Closed: the leaf lies over the right page and the book slides left by a
+       quarter, so the closed cover sits centred */
+    .js .book-wrap:not([data-visible]) .book {
+      transform: translateX(-25%);
+    }
+    .js .book-wrap:not([data-visible]) .book-leaf {
+      transform: rotateY(180deg);
+    }
+  }
+  @media (max-width: 1023px) and (prefers-reduced-motion: no-preference) {
+    .book-leaf {
+      perspective: 2200px;
+    }
+    .js .book-wrap .book-cover {
+      transition: transform 900ms var(--ease-in-out) 300ms;
+    }
+    /* Closed: the cover lies on the first page and swings open to the left,
+       vanishing as it passes edge-on */
+    .js .book-wrap:not([data-visible]) .book-cover {
+      transform: rotateY(0deg);
+    }
+    /* A closed notebook shows nothing but its cover: the second sheet slides
+       in beneath once the cover is open */
+    .js .book-wrap .book-page--right {
+      transition: opacity 400ms ease 950ms, transform 600ms var(--ease-out) 950ms;
+    }
+    .js .book-wrap:not([data-visible]) .book-page--right {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+  }
+  /* Ledger writing inks in left to right — clip-path, the sanctioned fourth
+     animatable property — while the ruled lines stay printed on the page */
+  .js .ink[data-reveal] {
+    display: inline-block;
+    transition-property: clip-path, opacity;
+    transition-duration: 700ms, 250ms;
+    transition-timing-function: var(--ease-out), ease;
+  }
+  .js .ink[data-reveal]:not([data-visible]),
+  .js .book-wrap:not([data-visible]) .ink[data-reveal] {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+    transform: none;
+  }
+
+  /* Opened (set by AboutSection on transitionend): drop the 3D context */
+  .book-wrap[data-open] .book,
+  .book-wrap[data-open] .book-leaf {
+    perspective: none;
+    transform-style: flat;
+  }
+  .book-wrap[data-open] .book-cover {
+    display: none;
+  }
+
+  /* Entries and stamps that scrolled in before the book opened stay hidden
+     until it does, then play their own delays */
+  .js .book-wrap:not([data-visible]) [data-reveal] {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .js .book-wrap:not([data-visible]) .rubber-stamp[data-reveal] {
+    transform: rotate(var(--tilt, 0deg)) scale(1.2);
+  }
+
+  /* Find us flip sign: settles with a damped swing about its nail the first
+     time it scrolls in. Once per visit (it rides the reveal), so the delight
+     tier; it simply hangs still under reduced motion. */
+  .sign-swing {
+    transform-origin: 50% -44px;
+    transform: rotate(-1deg);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .js [data-reveal][data-visible] .sign-swing {
+      animation: sign-swing 1500ms ease-in-out both;
+    }
+  }
+
+  /* Translucent nav layer (content scrolls beneath it). A soft scroll-edge
+     fade replaces the hard divider once there is content underneath. */
+  .nav-material {
+    background: hsl(var(--background) / 0.72);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+  }
+  .nav-material::after {
+    content: "";
+    position: absolute;
+    inset: 100% 0 auto 0;
+    height: 14px;
+    pointer-events: none;
+    background: linear-gradient(to bottom, hsl(60 7% 12% / 0.07), transparent);
+    opacity: 0;
+    transition: opacity 200ms ease;
+  }
+  .nav-material[data-scrolled]::after {
+    opacity: 1;
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    .nav-material {
+      background: hsl(var(--background));
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+  }
+
   .grain::before {
     content: "";
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background-image: radial-gradient(hsl(60 7% 12% / 0.06) 1px, transparent 1px);
+    /* Plain translucent dots, no blend mode: blending forces an isolated
+       compositing layer, which is costly inside the 3D notebook cover */
+    background-image: radial-gradient(hsl(60 7% 12% / 0.025) 1px, transparent 1px);
     background-size: 3px 3px;
-    mix-blend-mode: multiply;
-    opacity: 0.35;
   }
+
+  /* Last in the layer, so these win over every motion rule above at equal
+     specificity. */
+  /* Reduced motion: gentler, never broken — fades stay, movement goes */
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] {
+      transition: opacity 200ms ease;
+    }
+    .js [data-reveal]:not([data-visible]) {
+      transform: none;
+    }
+    .pinned { transition: none; }
+    .js .rubber-stamp[data-reveal]:not([data-visible]),
+    .js .book-wrap:not([data-visible]) .rubber-stamp[data-reveal] {
+      transform: rotate(var(--tilt, 0deg));
+    }
+    .js .book-wrap:not([data-visible]) [data-reveal] {
+      transform: none;
+    }
+    .js .ink[data-reveal] {
+      transition: opacity 200ms ease;
+    }
+    .js .ink[data-reveal]:not([data-visible]),
+    .js .book-wrap:not([data-visible]) .ink[data-reveal] {
+      clip-path: none;
+    }
+    .marquee-track { display: none; }
+    .marquee-static { display: flex; }
+    .fade-up,
+    .card-front,
+    .card-back,
+    .stamp-drop {
+      animation: fade-only 300ms ease both;
+    }
+    .consent-card,
+    .consent-card[data-leaving] {
+      transform: none;
+      transition: opacity 200ms ease;
+    }
+  }
+}
+
+/* Track holds the list twice, so shifting by half loops seamlessly */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-only {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes card-front {
+  from { opacity: 0; transform: translateY(24px) rotate(-8deg); }
+}
+
+@keyframes card-back {
+  from { opacity: 0; transform: translateY(32px) rotate(5deg); }
+}
+
+@keyframes sign-swing {
+  0%   { transform: rotate(6deg); }
+  26%  { transform: rotate(-3.5deg); }
+  50%  { transform: rotate(1.8deg); }
+  72%  { transform: rotate(-1.8deg); }
+  88%  { transform: rotate(-0.6deg); }
+  100% { transform: rotate(-1deg); }
+}
+
+@keyframes stamp-drop {
+  from { opacity: 0; transform: scale(1.25) rotate(14deg); }
 }

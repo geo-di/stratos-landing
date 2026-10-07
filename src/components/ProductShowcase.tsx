@@ -1,113 +1,140 @@
+import type { CSSProperties } from "react";
+
+/** Inline stagger for [data-reveal] */
+const revealDelay = (i: number) => ({ "--reveal-delay": `${i * 60}ms` }) as CSSProperties;
+
+const PRODUCTS = [
+  {
+    key: "olives",
+    name: "Kalamata & Green Olives",
+    tag: "Olives · Oil · Our signature",
+    blurb: "Cured slowly, bright with brine — from groves a short drive down the coast.",
+    src: "/images/olives.webp",
+    alt: "Kalamata and green olives at Stratos Market, Anaxos",
+    tilt: "-3deg",
+  },
+  {
+    key: "herbs",
+    name: "Wild Aegean Herbs",
+    tag: "Herbs · Spices",
+    blurb: "Oregano, thyme and mountain tea, dried in the hills above the village.",
+    src: "/images/herbs.webp",
+    alt: "Wild Aegean herbs at Stratos Market, Anaxos",
+    tilt: "2deg",
+  },
+  {
+    key: "ouzo",
+    name: "Lesvos Ouzo & Tsipouro",
+    tag: "Spirits · Wine",
+    blurb: "Small-batch spirits from island distillers.",
+    src: "/images/ouzo.webp",
+    alt: "Lesvos ouzo and tsipouro at Stratos Market, Anaxos",
+    tilt: "-1.5deg",
+  },
+  {
+    key: "yoghurt",
+    name: "Sheep's-Milk Yoghurt",
+    tag: "Dairy · Fresh",
+    blurb: "Thick and tangy, from local shepherds.",
+    src: "/images/yoghurt.webp",
+    alt: "Sheep's-milk yoghurt at Stratos Market, Anaxos",
+    tilt: "3deg",
+  },
+];
+
+/**
+ * The rest of the range. Every item is sourced: the board painted on the
+ * shopfront (bread, milk, fruit & veg, feta, honey, olive oil, drinks,
+ * souvenirs, beach accessories, cards & stamps) or the shop's story copy
+ * (PDO Ladotyri, wine & retsina).
+ */
+const ALSO_ON_THE_SHELF = [
+  "Fresh bread",
+  "Fresh milk",
+  "Fruit & vegetables",
+  "Feta cheese",
+  "Lesvos honey",
+  "Olive oil",
+  "PDO Ladotyri",
+  "Wine & retsina",
+  "Drinks",
+  "Souvenirs",
+  "Beach accessories",
+  "Cards & stamps",
+];
+
+/**
+ * A kraft pinboard: prints hang from push pins and swing about the pin on
+ * hover; the rest of the range is written on a lined index card beside them.
+ */
 const ProductShowcase = () => {
   return (
     <section id="products" className="py-16 md:py-24 px-5 sm:px-10 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-6 mb-10 md:mb-12">
-          <h2 className="font-display text-[clamp(2.5rem,6vw,64px)] text-foreground m-0">
-            What we<br />stock
-          </h2>
-          <p className="text-[17px] text-muted-foreground max-w-[420px] leading-relaxed lg:mb-2 text-pretty">
+          <div>
+            <div className="section-index text-ultramarine">01 — Provisions</div>
+            <h2 className="font-display text-[clamp(2.5rem,6vw,64px)] text-foreground m-0">
+              What we<br />stock
+            </h2>
+          </div>
+          <p className="text-[17px] text-muted-foreground max-w-[420px] leading-relaxed lg:mb-2 text-pretty m-0">
             A handful of local favourites we carry year-round. Ask us and we&apos;ll tell you where
             each one comes from.
           </p>
         </div>
 
-        {/* Featured row */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5">
-          <article className="bento-card lg:col-span-2 flex flex-col">
-            <div className="h-[260px] md:h-[380px] overflow-hidden">
-              <img
-                src="/images/olives.webp"
-                alt="Kalamata and green olives at Stratos Market, Anaxos"
-                width={1600}
-                height={1600}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="p-6 md:p-8">
-              <span className="eyebrow text-primary">Olives · Oil · Our signature</span>
-              <h3 className="font-display text-3xl md:text-[40px] text-foreground mt-1.5 mb-2 leading-none">
-                Kalamata &amp; Green Olives
-              </h3>
-              <p className="text-[15px] text-muted-foreground leading-relaxed max-w-[480px]">
-                Cured slowly, bright with brine — from groves a short drive down the coast.
-              </p>
-            </div>
-          </article>
+        <div className="pinboard grain relative rounded-[28px] p-6 sm:p-8 lg:p-12">
+          <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+            <ul className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-x-6 lg:gap-x-8 gap-y-12 m-0 p-0 list-none">
+              {PRODUCTS.map((p, i) => (
+                <li key={p.key} data-reveal style={revealDelay(i)} className={i % 2 === 1 ? "sm:mt-10" : ""}>
+                  <figure
+                    className="pinned relative m-0 rounded-[3px] bg-card p-3 pb-4 shadow-elevated"
+                    style={{ "--tilt": p.tilt } as CSSProperties}
+                  >
+                    <span className="pin" aria-hidden="true" />
+                    <div className="aspect-[4/3] overflow-hidden rounded-[2px]">
+                      <img
+                        src={p.src}
+                        alt={p.alt}
+                        width={1600}
+                        height={1600}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <figcaption className="px-1 pt-3.5">
+                      <span className="eyebrow text-primary">{p.tag}</span>
+                      <h3 className="font-display font-bold italic normal-case text-[24px] leading-none text-ultramarine mt-1.5 mb-1.5">
+                        {p.name}
+                      </h3>
+                      <p className="text-[13px] text-muted-foreground leading-relaxed m-0">{p.blurb}</p>
+                    </figcaption>
+                  </figure>
+                </li>
+              ))}
+            </ul>
 
-          <article className="bento-card flex flex-col">
-            <div className="flex-1 min-h-[220px] md:min-h-[280px] overflow-hidden">
-              <img
-                src="/images/herbs.webp"
-                alt="Wild Aegean herbs at Stratos Market, Anaxos"
-                width={1600}
-                height={1600}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover"
-              />
+            {/* Lined index card */}
+            <div data-reveal style={revealDelay(4)} className="lg:col-span-4">
+              <div
+                className="pinned index-card relative rounded-[3px] shadow-elevated pr-6 pt-9 pb-6"
+                style={{ "--tilt": "1.5deg" } as CSSProperties}
+              >
+                <span className="pin" aria-hidden="true" />
+                <h3 className="font-display font-black text-[26px] leading-[32px] text-primary m-0">
+                  Also on the shelf
+                </h3>
+                <ul className="m-0 p-0 list-none font-display font-bold italic normal-case text-[21px] leading-[32px] text-ultramarine columns-2 lg:columns-1 gap-6">
+                  {ALSO_ON_THE_SHELF.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
-            <div className="p-6">
-              <span className="eyebrow text-ultramarine">Herbs · Spices</span>
-              <h3 className="font-display text-[30px] text-foreground mt-1.5 mb-2 leading-none">
-                Wild Aegean Herbs
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Oregano, thyme and mountain tea, dried in the hills above the village.
-              </p>
-            </div>
-          </article>
-        </div>
-
-        {/* Secondary row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <article className="bento-card flex flex-col sm:flex-row">
-            <div className="h-40 sm:h-auto sm:w-[170px] shrink-0 overflow-hidden">
-              <img
-                src="/images/ouzo.webp"
-                alt="Lesvos ouzo and tsipouro at Stratos Market, Anaxos"
-                width={1600}
-                height={1600}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="p-6">
-              <span className="eyebrow text-primary">Spirits · Wine</span>
-              <h3 className="font-display text-[26px] text-foreground mt-1.5 mb-2 leading-none">
-                Lesvos Ouzo &amp; Tsipouro
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Small-batch spirits from island distillers.
-              </p>
-            </div>
-          </article>
-
-          <article className="bento-card flex flex-col sm:flex-row">
-            <div className="h-40 sm:h-auto sm:w-[170px] shrink-0 overflow-hidden">
-              <img
-                src="/images/yoghurt.webp"
-                alt="Sheep's-milk yoghurt at Stratos Market, Anaxos"
-                width={1600}
-                height={1600}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="p-6">
-              <span className="eyebrow text-ultramarine">Dairy · Fresh</span>
-              <h3 className="font-display text-[26px] text-foreground mt-1.5 mb-2 leading-none">
-                Sheep&apos;s-Milk Yoghurt
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Thick and tangy, from local shepherds.
-              </p>
-            </div>
-          </article>
+          </div>
         </div>
       </div>
     </section>
