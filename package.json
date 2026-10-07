@@ -12,6 +12,7 @@
     "optimize-images": "node scripts/optimize-images.mjs",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
+    "test": "node --test --test-reporter=spec",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { athensNow, getOpenStatus, STORE_PLACE_ID, type OpenStatus } from "@/config/store";
+import { athensNow, resolveOpenStatus, STORE_PLACE_ID, type OpenStatus } from "@/config/store";
 import { useSharedGoogleData } from "@/hooks/useSharedGoogleData";
 
 /**
@@ -7,8 +7,9 @@ import { useSharedGoogleData } from "@/hooks/useSharedGoogleData";
  *
  * Both start null and resolve in an effect: the clock differs between build
  * time and visit time, so reading it during render would break hydration.
- * Google's live `open_now` wins when available (it knows about holidays);
- * the published hours fill in the label.
+ * The status comes from Google's real weekly periods (the published table if
+ * Google has none) and is recomputed every minute, so the label flips at the
+ * actual opening and closing times while the page is open.
  */
 export const useOpenStatus = () => {
   const { openingHours } = useSharedGoogleData(STORE_PLACE_ID);
@@ -17,19 +18,14 @@ export const useOpenStatus = () => {
 
   useEffect(() => {
     const update = () => {
-      const fromHours = getOpenStatus();
-      const live = openingHours?.open_now;
-      setStatus(
-        live === undefined || live === fromHours.isOpen
-          ? fromHours
-          : { isOpen: live, label: live ? "Open now" : "Closed now" }
-      );
-      setToday(athensNow().day);
+      const now = new Date();
+      setStatus(resolveOpenStatus(now, openingHours));
+      setToday(athensNow(now).day);
     };
     update();
     const id = window.setInterval(update, 60_000);
     return () => window.clearInterval(id);
-  }, [openingHours?.open_now]);
+  }, [openingHours]);
 
   return { status, today };
 };
