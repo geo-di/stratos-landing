@@ -12,7 +12,8 @@ export interface GoogleReview {
 export interface OpeningHours {
   open_now: boolean;
   periods: Array<{
-    close: { day: number; time: string };
+    // Google omits `close` for a 24-hour listing
+    close?: { day: number; time: string };
     open: { day: number; time: string };
   }>;
   weekday_text: string[];

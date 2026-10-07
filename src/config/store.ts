@@ -59,22 +59,75 @@ export const athensNow = (now: Date = new Date()) => {
 export type OpenStatus = { isOpen: boolean; label: string };
 
 /**
- * Open/closed against the published hours. Reads the clock, so call it only
- * after mount — never during render, or prerendered HTML won't match hydration.
+ * A Google Places opening period: day 0 = Sunday … 6 = Saturday, time "HHMM".
+ * A period with no `close` is a 24-hour listing.
  */
-export const getOpenStatus = (now: Date = new Date()): OpenStatus => {
-  const { day, time } = athensNow(now);
-  const today = hoursFor(day);
-  if (!today) return { isOpen: false, label: "See opening hours" };
+export type OpeningPeriod = { open: { day: number; time: string }; close?: { day: number; time: string } };
 
-  if (time >= today.opens && time < today.closes) {
-    return { isOpen: true, label: `Open now · until ${displayTime(today.closes)}` };
+const WEEK_MINUTES = 7 * 24 * 60;
+const minutesOf = (hhmm: string) => Number(hhmm.slice(0, 2)) * 60 + Number(hhmm.slice(2, 4));
+/** "0800" → "8:00", "2300" → "23:00" */
+const clockOf = (hhmm: string) => `${Number(hhmm.slice(0, 2))}:${hhmm.slice(2, 4)}`;
+/** Google's day numbering, 0 = Sunday */
+const GOOGLE_DAYS = ["Sunday", ...WEEKDAYS.slice(0, 6)];
+
+/** The published table as Google-style periods, so both sources share one code path. */
+const PUBLISHED_PERIODS: OpeningPeriod[] = WEEKDAYS.map((day, i) => {
+  const { opens, closes } = hoursFor(day);
+  const googleDay = (i + 1) % 7;
+  return {
+    open: { day: googleDay, time: opens.replace(":", "") },
+    close: { day: googleDay, time: closes.replace(":", "") },
+  };
+});
+
+/**
+ * Open/closed right now, with the "until …" / "opens …" line, from Google's
+ * real weekly periods when we have them and the published table otherwise.
+ *
+ * It deliberately ignores Google's `open_now`: that is a snapshot from when the
+ * API answered (and is cached for minutes), so it goes stale across opening and
+ * closing times. Recomputing from the periods every minute never does.
+ *
+ * Reads the clock via `now`, so call it only after mount — never during render,
+ * or prerendered HTML won't match hydration.
+ */
+export const resolveOpenStatus = (now: Date, hours?: { periods?: OpeningPeriod[] } | null): OpenStatus => {
+  const periods = hours?.periods?.length ? hours.periods : PUBLISHED_PERIODS;
+  if (periods.some((p) => !p.close && p.open.day === 0 && p.open.time === "0000")) {
+    return { isOpen: true, label: "Open 24 hours" };
   }
-  if (time < today.opens) {
-    return { isOpen: false, label: `Closed · opens ${displayTime(today.opens)}` };
+
+  const { day, time } = athensNow(now);
+  const today = (WEEKDAYS.indexOf(day as (typeof WEEKDAYS)[number]) + 1) % 7;
+  const nowInWeek = today * 1440 + Number(time.slice(0, 2)) * 60 + Number(time.slice(3, 5));
+
+  const spans = periods
+    .filter((p): p is Required<OpeningPeriod> => !!p.close)
+    .map((p) => {
+      const start = p.open.day * 1440 + minutesOf(p.open.time);
+      let end = p.close.day * 1440 + minutesOf(p.close.time);
+      if (end <= start) end += WEEK_MINUTES; // runs past Saturday night into Sunday
+      return { start, end, period: p };
+    });
+
+  const current = spans.find(
+    ({ start, end }) => (nowInWeek >= start && nowInWeek < end) || (nowInWeek + WEEK_MINUTES >= start && nowInWeek + WEEK_MINUTES < end)
+  );
+  if (current) {
+    const closes = current.period.close.time === "0000" ? "midnight" : clockOf(current.period.close.time);
+    return { isOpen: true, label: `Open now · until ${closes}` };
   }
-  const tomorrow = WEEKDAYS[(WEEKDAYS.indexOf(day as (typeof WEEKDAYS)[number]) + 1) % 7];
-  return { isOpen: false, label: `Closed · opens tomorrow ${displayTime(hoursFor(tomorrow).opens)}` };
+
+  // The next opening, measured forward from now around the week
+  const next = spans
+    .map((s) => ({ ...s, wait: (s.start - nowInWeek + WEEK_MINUTES) % WEEK_MINUTES }))
+    .sort((a, b) => a.wait - b.wait)[0];
+  if (!next) return { isOpen: false, label: "See opening hours" };
+
+  const daysAhead = (next.period.open.day - today + 7) % 7;
+  const when = daysAhead === 0 && next.wait < 1440 ? "" : daysAhead === 1 ? "tomorrow " : `${GOOGLE_DAYS[next.period.open.day]} `;
+  return { isOpen: false, label: `Closed · opens ${when}${clockOf(next.period.open.time)}` };
 };
 
 /**

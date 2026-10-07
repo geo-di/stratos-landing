@@ -7,9 +7,20 @@
  */
 import type { UseSharedGoogleDataReturn } from "@/hooks/useSharedGoogleData";
 
+/** One Google period on a single day: day 0 = Sunday … 6 = Saturday, "HHMM". */
+const period = (day: number, open: string, close: string, closeDay = day) => ({
+  open: { day, time: open },
+  close: { day: closeDay, time: close },
+});
+
 const ENGLISH_HOURS = {
   open_now: true,
-  periods: [],
+  // Matches the weekday_text below (and the published table)
+  periods: [
+    ...[1, 2, 3, 4, 5].map((d) => period(d, "0800", "2130")),
+    period(6, "0800", "2200"),
+    period(0, "0900", "2000"),
+  ],
   weekday_text: [
     "Monday: 8:00 AM – 9:30 PM",
     "Tuesday: 8:00 AM – 9:30 PM",
@@ -82,7 +93,12 @@ export const googleFixtures: Record<string, UseSharedGoogleDataReturn> = {
     totalReviews: 1284,
     openingHours: {
       open_now: false,
-      periods: [],
+      // Matches the Greek weekday_text: Friday open 24 hours, Sunday closed
+      periods: [
+        ...[1, 2, 3, 4].map((d) => period(d, "0800", "2130")),
+        period(5, "0000", "0000", 6),
+        period(6, "0800", "2200"),
+      ],
       weekday_text: [
         "Δευτέρα: 8:00 π.μ.–9:30 μ.μ.",
         "Τρίτη: 8:00 π.μ.–9:30 μ.μ.",
