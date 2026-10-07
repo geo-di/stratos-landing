@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 
-interface GoogleReview {
+export interface GoogleReview {
   author_name: string;
   rating: number;
   text: string;
@@ -9,7 +9,7 @@ interface GoogleReview {
   relative_time_description: string;
 }
 
-interface OpeningHours {
+export interface OpeningHours {
   open_now: boolean;
   periods: Array<{
     close: { day: number; time: string };
@@ -18,7 +18,7 @@ interface OpeningHours {
   weekday_text: string[];
 }
 
-interface UseSharedGoogleDataReturn {
+export interface UseSharedGoogleDataReturn {
   reviews: GoogleReview[];
   rating: number | null;
   totalReviews: number | null;
@@ -31,8 +31,22 @@ let sharedData: UseSharedGoogleDataReturn | null = null;
 let isLoading = false;
 let subscribers: Array<(data: UseSharedGoogleDataReturn) => void> = [];
 
+/**
+ * Dev only: `?data=demo|worst|one|empty` swaps the Places response for a
+ * fixture (src/dev/googleFixtures.ts), so the reviews and hours can be
+ * designed and stress-tested under `vite dev`, where /api isn't served.
+ * The branch is dead code in production builds, fixtures included.
+ */
+const loadDevFixture = async (): Promise<UseSharedGoogleDataReturn | null> => {
+  if (!import.meta.env.DEV) return null;
+  const name = new URLSearchParams(window.location.search).get('data');
+  if (!name) return null;
+  const { googleFixtures } = await import('../dev/googleFixtures');
+  return googleFixtures[name] ?? null;
+};
+
 export const useSharedGoogleData = (placeId: string): UseSharedGoogleDataReturn => {
-  const [data, setData] = useState<UseSharedGoogleDataReturn>(() => 
+  const [data, setData] = useState<UseSharedGoogleDataReturn>(() =>
     sharedData || {
       reviews: [],
       rating: null,
@@ -44,23 +58,33 @@ export const useSharedGoogleData = (placeId: string): UseSharedGoogleDataReturn 
   );
 
   useEffect(() => {
-    // Subscribe to updates
+    // Subscribe to updates. Every path below returns this cleanup — an early
+    // return without it left unmounted components subscribed forever.
     subscribers.push(setData);
+    const unsubscribe = () => {
+      subscribers = subscribers.filter(callback => callback !== setData);
+    };
 
-    // If we already have data, return it
+    // If we already have data, use it; if a request is in flight, wait for it
     if (sharedData && !sharedData.loading) {
-      return;
+      setData(sharedData);
+      return unsubscribe;
     }
-
-    // If already loading, don't start another request
     if (isLoading) {
-      return;
+      return unsubscribe;
     }
 
     // Start loading
     isLoading = true;
     const fetchData = async () => {
       try {
+        const fixture = await loadDevFixture();
+        if (fixture) {
+          sharedData = fixture;
+          subscribers.forEach(callback => callback(fixture));
+          return;
+        }
+
         console.log('Making single API call for Google data...');
 
         const response = await fetch('/api/google-reviews', {
@@ -83,7 +107,7 @@ export const useSharedGoogleData = (placeId: string): UseSharedGoogleDataReturn 
         };
 
         sharedData = newData;
-        
+
         // Notify all subscribers
         subscribers.forEach(callback => callback(newData));
       } catch (err) {
@@ -106,10 +130,7 @@ export const useSharedGoogleData = (placeId: string): UseSharedGoogleDataReturn 
 
     fetchData();
 
-    // Cleanup subscription
-    return () => {
-      subscribers = subscribers.filter(callback => callback !== setData);
-    };
+    return unsubscribe;
   }, [placeId]);
 
   return data;

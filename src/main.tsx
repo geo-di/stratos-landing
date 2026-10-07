@@ -13,6 +13,9 @@ import '@fontsource/fira-sans/500.css'
 import '@fontsource/fira-sans/600.css'
 import '@fontsource/fira-sans/700.css'
 
+// Lets CSS hide reveal-on-scroll content only when JS is there to reveal it.
+document.documentElement.classList.add("js");
+
 const container = document.getElementById("root")!;
 
 const app = (
