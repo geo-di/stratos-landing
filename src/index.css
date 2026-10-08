@@ -506,6 +506,40 @@
     }
   }
 
+  /* ---- Gallery: the postcard rack -------------------------------------- */
+
+  /* A card set down on the table at its own small angle. Hover straightens
+     and lifts it (on-screen movement: ease-in-out); press gives under the
+     finger, faster, as press feedback should. */
+  .postcard {
+    transform: rotate(var(--tilt, 0deg));
+    transition: transform 250ms var(--ease-in-out), box-shadow 250ms ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .postcard:hover {
+      transform: rotate(0deg) translateY(-4px);
+      box-shadow: 0 40px 70px -30px hsl(4 56% 25% / 0.35);
+    }
+  }
+  .postcard:active {
+    transform: rotate(0deg) scale(0.98);
+    transition-duration: 120ms;
+  }
+
+  /* "Better in person" card: chosen by the card's own width, not the device's.
+     Under 370px the address column squeezes the message into a sliver (a third
+     of an iPad Pro, or a 320px phone), so the stamp moves into the corner. */
+  .postcard-back {
+    container-type: inline-size;
+  }
+  .postcard-back--corner {
+    display: none;
+  }
+  @container (max-width: 369px) {
+    .postcard-back--standard { display: none; }
+    .postcard-back--corner { display: block; }
+  }
+
   /* Translucent nav layer (content scrolls beneath it). A soft scroll-edge
      fade replaces the hard divider once there is content underneath. */
   .nav-material {
@@ -556,6 +590,12 @@
       transform: none;
     }
     .pinned { transition: none; }
+    .postcard,
+    .postcard:hover,
+    .postcard:active {
+      transform: rotate(var(--tilt, 0deg));
+      transition: box-shadow 200ms ease;
+    }
     .js .rubber-stamp[data-reveal]:not([data-visible]),
     .js .book-wrap:not([data-visible]) .rubber-stamp[data-reveal] {
       transform: rotate(var(--tilt, 0deg));

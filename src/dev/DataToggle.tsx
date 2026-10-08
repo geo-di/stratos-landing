@@ -9,6 +9,9 @@ const OPTIONS = [
   { value: "worst", label: "Worst case" },
   { value: "one", label: "One" },
   { value: "empty", label: "Empty" },
+  // Gallery only; elsewhere these fall through to the real (absent) API
+  { value: "slow", label: "Slow" },
+  { value: "error", label: "Error" },
 ];
 
 const DataToggle = () => {
